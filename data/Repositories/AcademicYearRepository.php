@@ -53,5 +53,7 @@ class AcademicYearRepository extends Repository
         return Academic::orderBy('academicName')->get();
     }
 
-
+    public function activeAcademic(){
+        return Academic::where('active_year',1)->first();
+    }
 }

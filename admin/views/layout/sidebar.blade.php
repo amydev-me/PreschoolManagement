@@ -8,7 +8,7 @@
     <!-- Navbar Start -->
     <nav class="navigation">
         <ul class="list-unstyled">
-            {{--<li class="@yield('dashboard')"><a href="{{route('admin.dashboard')}}"><i class="ion-home"></i> <span class="nav-label">Dashboard</span></a></li>--}}
+            <li class="@yield('dashboard')"><a href="{{route('admin.dashboard.index')}}"><i class="ion-home"></i> <span class="nav-label">Dashboard</span></a></li>
             <li class="has-submenu @yield('setup')"><a href="#"><i class="ion-settings"></i> <span class="nav-label">Settings</span></a>
                 <ul class="list-unstyled">
                     <li class="@yield('setting')"><a href="{{route('admin.info.index')}}">Informations</a></li>
@@ -16,7 +16,7 @@
                     <li class="@yield('category')"><a href="{{route('admin.category.index')}}">Grade Category</a></li>
                     <li class="@yield('fee')"><a href="{{route('admin.feetype.index')}}">Fee Types</a></li>
                     {{--<li class="@yield('class')"><a href="{{route('admin.class.index')}}">Class</a></li>--}}
-                    {{--<li class="@yield('course')"><a href="{{route('admin.course.index')}}">Grade</a></li>--}}
+                    <li class="@yield('grade')"><a href="{{route('admin.grade.index')}}">Grade</a></li>
                     <li class="@yield('subject')"><a href="{{route('admin.subject.index')}}">Subject</a></li>
                     {{--<li class="@yield('manage')"><a href="{{route('admin.manage.index')}}">Grade Teacher Allocation</a></li>--}}
 

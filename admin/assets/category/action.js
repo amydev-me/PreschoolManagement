@@ -57,6 +57,12 @@ module.exports={
         } else {
           Notification.error('Failed.');
         }
+      }).catch(error=>{
+        if (error.response.status == 401 || error.response.status == 419) {
+          window.location.href = route.urls.login;
+        } else {
+          Notification.error('Opps!Something went wrong.');
+        }
       });
     },
   },

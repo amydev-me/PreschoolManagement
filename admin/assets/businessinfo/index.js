@@ -61,7 +61,7 @@ module.exports= {
       const config = {headers: {'Content-Type': 'multipart/form-data'}};
       axios.post(url, data, config).then(response => {
 
-        window.location.href = '/admin'
+        window.location.href = '/';
 
       }).catch(error => {
         if (error.response.status == 401 || error.response.status == 419) {

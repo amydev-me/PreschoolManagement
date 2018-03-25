@@ -6,6 +6,7 @@ let _subject='subject/';
 module.exports = {
 
   urls: {
+    login:'/',
     academic:{
       getdata:prefix+_academic+'get-data?page=',
       create:prefix+_academic+'create',

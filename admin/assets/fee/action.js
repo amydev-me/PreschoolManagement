@@ -59,7 +59,11 @@ module.exports={
           this.performAction(_url);
         }
       }).catch(error => {
-        Notification.warning('Invalid data.');
+        if (error.response.status == 401 || error.response.status == 419) {
+          window.location.href = route.urls.login;
+        } else {
+          Notification.error('Opps!Something went wrong.');
+        }
       });
     },
     performAction (url) {

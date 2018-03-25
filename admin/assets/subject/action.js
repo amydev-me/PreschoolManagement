@@ -3,10 +3,10 @@ const datepicker = resolve => require(['../core/JQueryDatePicker'], resolve);
 let create=route.urls.subject.create;
 let update=route.urls.subject.update;
 
-module.exports={
-  components:{datepicker},
-  props:['subject','isedit'],
-  template:`  <div ref="thismodel" id="mymodal" class="modal fade modal-dialog-center" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+module.exports= {
+  components: {datepicker},
+  props: ['subject', 'isedit'],
+  template: `  <div ref="thismodel" id="mymodal" class="modal fade modal-dialog-center" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -41,7 +41,7 @@ module.exports={
     clearOnHidden () {
       this.subject.id = null;
       this.subject.subjectName = null;
-      this.subject.description=null;
+      this.subject.description = null;
       this.$validator.reset();
     },
     submitdata () {
@@ -51,7 +51,11 @@ module.exports={
           this.performAction(_url);
         }
       }).catch(error => {
-        Notification.warning('Invalid data.');
+        if (error.response.status == 401 || error.response.status == 419) {
+          window.location.href = route.urls.login;
+        } else {
+          Notification.error('Opps!Something went wrong.');
+        }
       });
     },
     performAction (url) {

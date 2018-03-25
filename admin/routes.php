@@ -2,13 +2,21 @@
 
 
 Route::middleware('web')->group(function() {
-    Route::name('image.')->prefix('image')->group(function() {
+    /**
+     * Get In Grade
+     */
+    Route::name('get-academic-category')->get('get-academic-category', 'AsyncController@asyncAcademicAndCategory');
 
-//        Route::name('student')->get('student/{name}', 'StudentController@getImage');
+
+    Route::name('image.')->prefix('image')->group(function() {
         Route::name('business')->get('business/{name}', 'BusinessInfoController@getImage');
     });
-    Route::name('index')->get('/', 'AcademicController@index');
+
+    Route::name('index')->get('/', 'DashboardController@index');
     Route::name('admin.')->prefix('admin')->group(function() {
+        Route::name('dashboard.')->prefix('dashboard')->group(function () {
+            Route::name('index')->get('/', 'DashboardController@index');
+        });
         Route::name('academic-year.')->prefix('academic-year')->group(function () {
             Route::name('index')->get('/', 'AcademicController@index');
             Route::name('create')->post('create', 'AcademicController@create');
@@ -48,6 +56,10 @@ Route::middleware('web')->group(function() {
             Route::name('get-data')->get('get-data', 'FeesTypeController@getData');
             Route::name('filter-name')->get('filter-name/{name}', 'FeesTypeController@filterByName');
             Route::name('async-get')->get('async-get', 'FeesTypeController@asyncget');
+        });
+        Route::name('grade.')->prefix('grade')->group(function () {
+            Route::name('index')->get('/', 'GradeController@index');
+            Route::name('create')->post('create', 'GradeController@create');
         });
     });
 });

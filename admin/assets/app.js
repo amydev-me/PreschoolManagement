@@ -12,6 +12,7 @@ Vue.component('academicYear', resolve => require(['./academic/index'], resolve))
 Vue.component('manageCategory', resolve => require(['./category/index'], resolve));
 Vue.component('manageSubject', resolve => require(['./subject/index'], resolve));
 Vue.component('manageFee', resolve => require(['./fee/index'], resolve));
+Vue.component('manageGrade', resolve => require(['./grade/index'], resolve));
 // Vue.component('businessInfo', resolve => require(['./businessinfo/index'], resolve));
 //
 // Vue.component('allUser', resolve => require(['./user/index'], resolve));
