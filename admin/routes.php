@@ -60,6 +60,11 @@ Route::middleware('web')->group(function() {
         Route::name('grade.')->prefix('grade')->group(function () {
             Route::name('index')->get('/', 'GradeController@index');
             Route::name('create')->post('create', 'GradeController@create');
+            Route::name('update')->post('update', 'GradeController@update');
+
+            Route::name('action')->get('action', 'GradeController@detailIndex');
+            Route::name('detail')->get('detail', 'GradeController@getDetail');
+            Route::name('get-data')->get('get-data', 'GradeController@getData');
         });
     });
 });

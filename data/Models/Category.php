@@ -8,4 +8,8 @@ class Category extends Model
     protected $fillable=['categoryName'];
 
     public $timestamps=false;
+
+    public function grades(){
+        return $this->hasMany(Grade::class);
+    }
 }

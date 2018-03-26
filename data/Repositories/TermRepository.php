@@ -17,4 +17,13 @@ class TermRepository extends Repository
     {
       return Term::class;
     }
+
+    public function updaeterm($term){
+
+        $_term=Term::where('id',$term['id'])->where('grade_id',$term['grade_id']);
+
+        if ($_term) {
+            return ($_term->update($term)) ? $_term : false;
+        }
+    }
 }

@@ -22,6 +22,7 @@ class CreateTermsTable extends Migration
             $table->string('term_type', '50')->nullable();
             $table->string('term_time', '255')->nullable();
             $table->string('time_type', '50')->nullable();
+            $table->double('amount')->default(0);
             $table->foreign('grade_id')->references('id')->on('grades')->onDelete('cascade');
         });
     }
