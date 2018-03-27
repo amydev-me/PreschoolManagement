@@ -4,13 +4,20 @@ let _category='category/';
 let _fee='feetype/';
 let _subject='subject/';
 let _grade='grade/';
-
+let _user='user/';
+let _guardian='guardian/';
 module.exports = {
   urls: {
-    login: '/',
+    login: '/login',
     // grade
     get_ac: '/get-academic-category',
+    checkuser:'/checkuser/',
+    user: {
 
+      create: prefix + _user + 'create',
+      update: prefix + _user + 'update',
+      delete: prefix + _user + 'delete/',
+    },
     academic: {
       getdata: prefix + _academic + 'get-data?page=',
       create: prefix + _academic + 'create',
@@ -44,9 +51,19 @@ module.exports = {
       asyncget: prefix + _subject + 'async-get',
     },
     grade: {
-
       create: prefix + _grade + 'create',
       update: prefix + _grade + 'update',
+      remove: prefix + _grade + 'delete/',
+      getdata: prefix + _grade + 'get-data?page=',
+    },
+    guardian:{
+      indexpage:prefix+'guardian',
+      create: prefix + _guardian + 'create',
+      update: prefix + _guardian + 'update',
+      remove: prefix + _guardian + 'delete/',
+      getdata: prefix + _guardian + 'get-data?page=',
+      details:prefix+_guardian+'get-detail/',
+      detailView:prefix+_guardian+'view-detail?guardian_id=',
     }
   }
 };

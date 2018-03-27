@@ -6,7 +6,7 @@
 @section('content')
     <manage-fee inline-template>
         <div class="panel" v-cloak>
-            <delete-modal @input="performdelete"></delete-modal>
+            <delete-modal @input="successdelete" :inputid="fee_id" :inputurl="removeUrl"></delete-modal>
             <action :feetype="feetype" :isedit="isedit" @success="successdata"></action>
             <div class="panel-body">
 

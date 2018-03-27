@@ -8,6 +8,7 @@ module.exports= {
   components: {VuePagination, DeleteModal,action},
   data: function () {
     return {
+      removeUrl:_remove,
       isedit: false,
       filtertext:null,
       pagination: {
@@ -42,7 +43,11 @@ module.exports= {
       this.category.categoryName = temp.categoryName;
       this.isedit = true;
     },
-
+    successdelete () {
+      $('#deleteModal').modal('hide');
+      Notification.success('Success');
+      this.getData(_getdata);
+    },
     getData (url) {
       axios.get(url+this.pagination.current_page).then(({data}) => {
         this.pagination = data;

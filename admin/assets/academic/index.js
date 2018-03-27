@@ -1,13 +1,16 @@
-let _getdata=route.urls.academic.getdata;
-let _remove=route.urls.academic.remove;
-let _filterbyname=route.urls.academic.filter_name;
 const VuePagination = resolve => require(['../core/VuePagination'], resolve);
 const DeleteModal = resolve => require(['../core/DeleteModal'], resolve);
 const action = resolve => require(['./action'], resolve);
+
+let _getdata=route.urls.academic.getdata;
+let _remove=route.urls.academic.remove;
+let _filterbyname=route.urls.academic.filter_name;
+
 module.exports= {
   components: {VuePagination, action, DeleteModal},
   data: function () {
     return {
+      removeUrl:_remove,
       isedit: false,
       filtertext:null,
       pagination: {
@@ -42,6 +45,16 @@ module.exports= {
       this.academic_id = id;
       $('#deleteModal').modal('show');
     },
+    successdata(){
+      $('#mymodal').modal('hide');
+      this.getData(_getdata);
+    },
+    successdelete () {
+      $('#deleteModal').modal('hide');
+      Notification.success('Success');
+      this.getData(_getdata);
+    },
+
     showEditModal (academic) {
       var temp = Object.assign({}, academic);
       this.academic.id = temp.id;
@@ -65,31 +78,6 @@ module.exports= {
       });
     },
 
-    performdelete () {
-      axios.get(_remove + this.academic_id).then(response => {
-        this.getData(_getdata);
-        this.academic_id = null;
-        if (response.data.success) {
-          Notification.success('Success');
-
-        } else {
-          Notification.error('Invalid data.');
-        }
-      }).catch(error => {
-        if (error.response.status == 401 || error.response.status == 419) {
-          window.location.href = route.urls.login;
-        } else {
-          Notification.error('Error occured while deleting data.');
-        }
-      });
-      $('#deleteModal').modal('hide');
-    },
-
-    successdata(){
-      $('#mymodal').modal('hide');
-      this.getData(_getdata);
-    },
-
     searchClick () {
       if(this.filtertext==null ||this.filtertext==''){
         this.getData(_getdata);
@@ -97,7 +85,6 @@ module.exports= {
       else{
         this.getData(_filterbyname+this.filtertext+'?page=');
       }
-
     }
   },
   mounted () {

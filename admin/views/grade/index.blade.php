@@ -6,6 +6,7 @@
 @section('content')
     <grade-list inline-template>
        <div v-cloak>
+           <delete-modal @input="successdelete" :inputid="grade_id" :inputurl="removeUrl"></delete-modal>
            <div class="row">
                <div class="col-sm-12">
                    <div class="panel panel-default">
@@ -32,7 +33,7 @@
                                    <a :href="'/admin/grade/action?grade_id='+grade.id" class="btn btn-success tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit">
                                        <i class="fa fa-pencil"></i>
                                    </a>
-                                   <a href="#" class="btn btn-danger tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete">
+                                   <a @click="showDeleteModal(grade.id)" class="btn btn-danger tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete">
                                        <i class="fa fa-close"></i>
                                    </a>
                                </div>

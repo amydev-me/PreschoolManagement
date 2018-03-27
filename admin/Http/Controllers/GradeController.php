@@ -10,11 +10,13 @@ namespace Admin\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Data\Actions\Grade\CreateGrade;
+use Data\Actions\Grade\DeleteGrade;
 use Data\Actions\Grade\UpdateGrade;
 use Data\Models\Grade;
 use Data\Repositories\GradeRepository;
 use Data\Repositories\TermRepository;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Validator;
 
 class GradeController extends Controller
 {
@@ -53,9 +55,19 @@ class GradeController extends Controller
 
     public function update(Request $request)
     {
-
         $action = new UpdateGrade($this->repository, $this->termRepo, $request->all());
         $result = $action->invoke();
+        return response()->json(['success' => $result]);
+    }
+
+    public function delete($id)
+    {
+        $_req = ['id' => $id];
+        $action = new DeleteGrade($this->repository, $_req);
+        $result = $action->invoke();
+        if ($result instanceof Validator) {
+            return response()->json([$result->errors()], 422);
+        }
         return response()->json(['success' => $result]);
     }
 
@@ -72,7 +84,7 @@ class GradeController extends Controller
     }
 
     public function getData(){
-        $grade=Grade::with('terms')->get();
+        $grade=Grade::with('terms')->paginate(20);
         return response()->json($grade);
     }
 }

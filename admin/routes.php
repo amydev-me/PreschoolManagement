@@ -2,21 +2,37 @@
 
 
 Route::middleware('web')->group(function() {
+
+    Route::name('login')->get('login', 'AuthController@index');
+    Route::name('admin.')->prefix('admin')->group(function() {
+        Route::name('logout')->get('logout', 'AuthController@logout');
+        Route::name('login-post')->post('login-post', 'AuthController@login');
+    });
     /**
      * Get In Grade
      */
     Route::name('get-academic-category')->get('get-academic-category', 'AsyncController@asyncAcademicAndCategory');
+
+    //Use in UserJS
+    Route::name('checkuser')->get('checkuser/{q}', 'UserController@check_username');
 
 
     Route::name('image.')->prefix('image')->group(function() {
         Route::name('business')->get('business/{name}', 'BusinessInfoController@getImage');
     });
 
-    Route::name('index')->get('/', 'DashboardController@index');
-    Route::name('admin.')->prefix('admin')->group(function() {
-        Route::name('dashboard.')->prefix('dashboard')->group(function () {
-            Route::name('index')->get('/', 'DashboardController@index');
+    Route::name('index')->get('/', 'DashboardController@index')->middleware('admin.auth');
+    Route::name('admin.')->prefix('admin')->middleware('admin.auth')->group(function() {
+
+
+        Route::name('user.')->prefix('user')->group(function () {
+            Route::name('index')->get('/', 'UserController@index');
+            Route::name('create')->post('create', 'UserController@create');
+            Route::name('update')->post('update', 'UserController@update');
+            Route::name('delete')->get('delete/{id}', 'UserController@delete');
+            Route::name('getuser')->get('getuser/{type}', 'UserController@getUserByRole');
         });
+
         Route::name('academic-year.')->prefix('academic-year')->group(function () {
             Route::name('index')->get('/', 'AcademicController@index');
             Route::name('create')->post('create', 'AcademicController@create');
@@ -61,10 +77,19 @@ Route::middleware('web')->group(function() {
             Route::name('index')->get('/', 'GradeController@index');
             Route::name('create')->post('create', 'GradeController@create');
             Route::name('update')->post('update', 'GradeController@update');
-
+            Route::name('delete')->get('delete/{id}', 'GradeController@delete');
             Route::name('action')->get('action', 'GradeController@detailIndex');
             Route::name('detail')->get('detail', 'GradeController@getDetail');
             Route::name('get-data')->get('get-data', 'GradeController@getData');
+        });
+        Route::name('guardian.')->prefix('guardian')->group(function () {
+            Route::name('index')->get('/', 'GuardianController@index');
+            Route::name('create')->post('create', 'GuardianController@create');
+            Route::name('update')->post('update', 'GuardianController@update');
+            Route::name('get-data')->get('get-data', 'GuardianController@getData');
+            Route::name('view-detail')->get('view-detail', 'GuardianController@detailIndex');
+            Route::name('get-detail')->get('get-detail/{id}', 'GuardianController@getDetail');
+            Route::name('async-get')->get('async-get/{q}', 'GuardianController@asyncget');
         });
     });
 });

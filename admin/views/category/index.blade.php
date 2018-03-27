@@ -6,7 +6,7 @@
 @section('content')
     <manage-category inline-template>
         <div class="panel" v-cloak>
-            <delete-modal @input="performdelete"></delete-modal>
+            <delete-modal @input="successdelete" :inputid="category_id" :inputurl="removeUrl"></delete-modal>
             <action :category="category" :isedit="isedit" @success="successdata"></action>
             <div class="panel-body">
 

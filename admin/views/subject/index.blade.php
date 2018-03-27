@@ -6,7 +6,7 @@
 @section('content')
     <manage-subject inline-template>
         <div class="panel" v-cloak>
-            <delete-modal @input="performdelete"></delete-modal>
+            <delete-modal @input="successdelete" :inputid="subject_id" :inputurl="removeUrl"></delete-modal>
             <action :subject="subject" :isedit="isedit" @success="successdata"></action>
             <div class="panel-body">
                 <div class="row">

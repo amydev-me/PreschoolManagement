@@ -1,13 +1,16 @@
-let _getdata=route.urls.subject.getdata;
-let _remove=route.urls.subject.remove;
-let _filterbyname=route.urls.subject.filter_name;
 const VuePagination = resolve => require(['../core/VuePagination'], resolve);
 const DeleteModal = resolve => require(['../core/DeleteModal'], resolve);
 const action = resolve => require(['./action'], resolve);
+
+let _getdata=route.urls.subject.getdata;
+let _remove=route.urls.subject.remove;
+let _filterbyname=route.urls.subject.filter_name;
+
 module.exports= {
   components: {VuePagination, DeleteModal,action},
   data: function () {
     return {
+      removeUrl:_remove,
       isedit: false,
       filtertext:null,
       pagination: {
@@ -44,7 +47,15 @@ module.exports= {
       this.subject.description = temp.description;
       this.isedit = true;
     },
-
+    successdata(){
+      $('#mymodal').modal('hide');
+      this.getData(_getdata);
+    },
+    successdelete () {
+      $('#deleteModal').modal('hide');
+      Notification.success('Success');
+      this.getData(_getdata);
+    },
     getData (url) {
       axios.get(url+this.pagination.current_page).then(({data}) => {
         this.pagination = data;
@@ -57,31 +68,6 @@ module.exports= {
         }
       });
     },
-
-    performdelete () {
-      axios.get(_remove + this.subject_id).then(response => {
-        this.getData(_getdata);
-        this.subject_id = null;
-        if (response.data.success) {
-          Notification.success('Success');
-        } else {
-          Notification.error('Invalid data.');
-        }
-      }).catch(error => {
-        if (error.response.status == 401 || error.response.status == 419) {
-          window.location.href = route.urls.login;
-        } else {
-          Notification.error('Error occured while deleting data.');
-        }
-      });
-      $('#deleteModal').modal('hide');
-    },
-
-    successdata(){
-      $('#mymodal').modal('hide');
-      this.getData(_getdata);
-    },
-
     searchClick () {
       if(this.filtertext==null ||this.filtertext==''){
         this.getData(_getdata);
