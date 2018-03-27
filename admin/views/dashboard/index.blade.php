@@ -8,7 +8,7 @@
 
         <div class="ex-page-content animated flipInX text-center">
 
-            <h2 class="font-light">Sorry,this feature is not available right now!</h2><br>
+            <h2 class="font-light">Sorry,this feature isn't available right now!</h2><br>
 
 
 
