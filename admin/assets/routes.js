@@ -6,6 +6,7 @@ let _subject='subject/';
 let _grade='grade/';
 let _user='user/';
 let _guardian='guardian/';
+let _student='student/';
 module.exports = {
   urls: {
     login: '/login',
@@ -55,6 +56,7 @@ module.exports = {
       update: prefix + _grade + 'update',
       remove: prefix + _grade + 'delete/',
       getdata: prefix + _grade + 'get-data?page=',
+      getgrade:prefix+_grade+'get-grade'
     },
     guardian:{
       indexpage:prefix+'guardian',
@@ -64,6 +66,10 @@ module.exports = {
       getdata: prefix + _guardian + 'get-data?page=',
       details:prefix+_guardian+'get-detail/',
       detailView:prefix+_guardian+'view-detail?guardian_id=',
+      asyncget:prefix+_guardian+'async-get/'
+    },
+    student:{
+      create: prefix + _student + 'create',
     }
   }
 };

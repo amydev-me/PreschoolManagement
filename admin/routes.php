@@ -19,6 +19,7 @@ Route::middleware('web')->group(function() {
 
     Route::name('image.')->prefix('image')->group(function() {
         Route::name('business')->get('business/{name}', 'BusinessInfoController@getImage');
+        Route::name('student')->get('student/{name}', 'StudentController@getImage');
     });
 
     Route::name('index')->get('/', 'DashboardController@index')->middleware('admin.auth');
@@ -81,6 +82,7 @@ Route::middleware('web')->group(function() {
             Route::name('action')->get('action', 'GradeController@detailIndex');
             Route::name('detail')->get('detail', 'GradeController@getDetail');
             Route::name('get-data')->get('get-data', 'GradeController@getData');
+            Route::name('get-grade')->get('get-grade', 'GradeController@getGradeByAC');
         });
         Route::name('guardian.')->prefix('guardian')->group(function () {
             Route::name('index')->get('/', 'GuardianController@index');
@@ -90,6 +92,14 @@ Route::middleware('web')->group(function() {
             Route::name('view-detail')->get('view-detail', 'GuardianController@detailIndex');
             Route::name('get-detail')->get('get-detail/{id}', 'GuardianController@getDetail');
             Route::name('async-get')->get('async-get/{q}', 'GuardianController@asyncget');
+        });
+        Route::name('student.')->prefix('student')->group(function () {
+            Route::name('index')->get('/', 'StudentController@index');
+            Route::name('create')->get('create', 'StudentController@createIndex');
+            Route::name('create')->post('create', 'StudentController@create');
+
+            Route::name('get-by-academic')->get('get-by-academic', 'StudentController@getStudentByActiveAcademic');
+            Route::name('filter')->get('filter/{param}/{academic_id}', 'StudentController@filterStudent');
         });
     });
 });

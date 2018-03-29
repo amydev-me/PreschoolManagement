@@ -36,8 +36,8 @@ Vue.component('detailGuardian', resolve => require(['./guardian/detail'], resolv
 
 // Vue.component('detailGuardian', resolve => require(['./guardian/detail'], resolve));
 
-// Vue.component('allStudent', resolve => require(['./student/index'], resolve));
-// Vue.component('createStudent', resolve => require(['./student/create'], resolve));
+Vue.component('allStudent', resolve => require(['./student/index'], resolve));
+Vue.component('createStudent', resolve => require(['./student/create'], resolve));
 // Vue.component('detailStudent', resolve => require(['./student/detail'], resolve));
 
 // Vue.component('allPayment', resolve => require(['./payment/index'], resolve));

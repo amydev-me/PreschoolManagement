@@ -3,7 +3,7 @@
 namespace Data\FileSystem\student_files;
 
 
-use App\FileSystem\AbstractFileSystem;
+use Data\FileSystem\AbstractFileSystem;
 
 class StudentFile extends AbstractFileSystem
 {

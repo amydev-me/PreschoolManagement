@@ -87,4 +87,9 @@ class GradeController extends Controller
         $grade=Grade::with('terms')->paginate(20);
         return response()->json($grade);
     }
+
+    public function getGradeByAC(Request $request){
+        $grades= Grade::where('academic_id',$request->academic_id)->where('category_id',$request->category_id)->get();
+        return response()->json($grades);
+    }
 }

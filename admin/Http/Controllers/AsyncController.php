@@ -26,14 +26,27 @@ class AsyncController extends Controller
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function asyncAcademicAndCategory()
-    {
+    private function getActiveAcademic(){
         $action = new ActiveAcademic($this->academicRepository);
-        $active_academic = $action->invoke();
+        $active_academic= $action->invoke();
+        return $active_academic;
+    }
+    private function getAcademics(){
         $academicAction = new AcademicAsyncGet($this->academicRepository);
         $academics = $academicAction->invoke();
+        return $academics;
+    }
+    private function getCategories(){
         $categoryAction = new CategoryAsyncGet($this->categoryRepository);
         $categories = $categoryAction->invoke();
+        return $categories;
+    }
+
+    public function asyncAcademicAndCategory()
+    {
+        $active_academic = $this->getActiveAcademic();
+        $academics = $this->getAcademics();
+        $categories = $this->getCategories();
         return response()->json(['academics' => $academics, 'categories' => $categories, 'active' => $active_academic]);
     }
 }

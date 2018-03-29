@@ -24,7 +24,7 @@
             </li>
 
             {{--<li class="@yield('teacher')"><a href="{{route('admin.teacher.index')}}"><i class="ion-person-stalker"></i> <span class="nav-label">Teachers</span></a></li>--}}
-            {{--<li class="@yield('student')"><a href="{{route('admin.student.index')}}"><i class="fa fa-graduation-cap"></i> <span class="nav-label">Students</span></a></li>--}}
+            <li class="@yield('student')"><a href="{{route('admin.student.index')}}"><i class="fa fa-graduation-cap"></i> <span class="nav-label">Students</span></a></li>
             <li class="@yield('guardian')"><a href="{{route('admin.guardian.index')}}"><i class="ion-person-stalker"></i> <span class="nav-label">Guardians</span></a></li>
             {{--<li class="@yield('payment')"><a href="{{route('admin.payment.index')}}"><i class="fa   fa-newspaper-o"></i> <span class="nav-label">Invoice</span></a></li>--}}
             {{--<li class="@yield('attendance')"><a href="{{route('admin.student.attendance.index')}}"><i class="fa  fa-outdent"></i> <span class="nav-label">Attendance</span></a></li>--}}

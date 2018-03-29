@@ -18,4 +18,9 @@ class GradeRepository extends Repository
     {
         return Grade::class;
     }
+
+    public function getGradeByAcademicYear($academic_id, $category_id)
+    {
+        Grade::where('academic_id', $academic_id)->where('category_id', $category_id)->get();
+    }
 }
