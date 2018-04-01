@@ -17,7 +17,7 @@ class CreateStudentTermTable extends Migration
             $table->unsignedInteger('student_id');
             $table->unsignedInteger('term_id');
             $table->primary(['student_id', 'term_id']);
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('RESTRICT');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->foreign('term_id')->references('id')->on('terms')->onDelete('RESTRICT');
         });
     }

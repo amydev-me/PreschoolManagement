@@ -1,4 +1,5 @@
 <div class="tab-pane" id="personal_detail">
+
     <form class="form-horizontal  animated bounceInRight"  @submit.prevent="validateData('personal_detail_form')" data-vv-scope="personal_detail_form">
 
         <div class="form-group">
@@ -105,32 +106,34 @@
             </div>
         </div>
 
-        {{--<div class="form-group">--}}
-            {{--<label class="col-sm-2 control-label" for="guardian">Guardian</label>--}}
-            {{--<div class="col-sm-10">--}}
-                {{--<div class="row">--}}
-                    {{--<div class="col-sm-11">--}}
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="guardian">Guardian</label>
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-sm-11">
 
-                        {{--<multiselect--}}
-                                {{--label="fullName"--}}
-                                {{--open-direction="bottom"--}}
-                                {{--placeholder="Type to search guardian"--}}
-                                {{--v-validate="'required'"--}}
-                                {{--v-model="selected_guardian"--}}
-                                {{--data-vv-name="guardian_id"--}}
-                                {{--:options="guardians"--}}
-                                {{--:multiple="false"--}}
-                                {{--:searchable="true"--}}
-                                {{--:internal-search="false"--}}
-                                {{--@search-change="asyncFindGuardian"></multiselect>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-sm-1 m-t-5">--}}
-                        {{--<button style="height: 35px;" data-toggle="modal" data-target="#guardian-modal" type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div  v-show="errors.has('personal_detail_form.guardian')"><span class="error">The guardian field is required.</span></div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
+                        <multiselect
+                                label="fullName"
+                                open-direction="bottom"
+                                placeholder="Type to search guardian"
+                                v-validate="'required'"
+                                v-model="selected_guardian"
+                                data-vv-name="guardian"
+                                data-vv-scope="personal_detail_form"
+
+                                :options="guardians"
+                                :multiple="false"
+                                :searchable="true"
+
+                                @search-change="asyncFindGuardian"></multiselect>
+                    </div>
+                    <div class="col-sm-1 m-t-5">
+                        <button style="height: 35px;" data-toggle="modal" data-target="#guardian-modal" type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                    </div>
+                </div>
+                <div  v-show="errors.has('personal_detail_form.guardian')"><span class="error">The guardian field is required.</span></div>
+            </div>
+        </div>
         <div class="form-group ">
             <label class="control-label col-sm-2" for="email">Profile:</label>
             <div class="col-sm-10 ">
@@ -151,7 +154,7 @@
             </div>
         </div>
         <div class="text-right">
-            <button id="previous_account"  class="btn btn-primary" type="button" @click="personal_back_click">Previous</button>
+            <button class="btn btn-primary" type="button" @click="personal_back_click">Previous</button>
             <button type="submit" class="btn btn-primary" type="button">Next</button>
         </div>
     </form>

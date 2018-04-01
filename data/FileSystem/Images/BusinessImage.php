@@ -16,6 +16,6 @@ class BusinessImage extends AbstractFileSystem
     public function __construct($file)
     {
         parent::__construct($file);
-        $this->path = 'images/business';
+        $this->path = 'images\business';
     }
 }

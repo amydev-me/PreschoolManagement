@@ -10,6 +10,7 @@ let _student='student/';
 module.exports = {
   urls: {
     login: '/login',
+    student_image:'/image/student/',
     // grade
     get_ac: '/get-academic-category',
     checkuser:'/checkuser/',
@@ -69,7 +70,10 @@ module.exports = {
       asyncget:prefix+_guardian+'async-get/'
     },
     student:{
+      indexpage:prefix+'student',
       create: prefix + _student + 'create',
+      update: prefix + _student + 'update',
+      remove: prefix + _student + 'delete/',
     }
   }
 };

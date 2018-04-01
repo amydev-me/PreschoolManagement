@@ -15,6 +15,7 @@ use Data\Actions\Guardian\CreateGuardian;
 use Data\Actions\Guardian\GetGuardianDetail;
 use Data\Actions\Guardian\GetGuardians;
 use Data\Actions\Guardian\UpdateGuardian;
+use Data\Models\Guardian;
 use Data\Repositories\GuardianRepository;
 use Data\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -110,6 +111,7 @@ class GuardianController extends Controller
 
     public function asyncget($q){
         $_req=['fullName'=>$q];
+       
         $action = new AsyncGuardian($this->repository,$_req);
         $result = $action->invoke();
         return response()->json($result);

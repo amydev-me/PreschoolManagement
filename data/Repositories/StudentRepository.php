@@ -31,4 +31,8 @@ class StudentRepository extends Repository
             return $model->delete();
         }
     }
+
+    public function getStudentDetail($student_id){
+      return  Student::with('guardian','terms')->where('id',$student_id)->first();
+    }
 }

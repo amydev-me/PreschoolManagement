@@ -29,6 +29,6 @@ class GuardianRepository extends Repository
 
     public function asyncGetData($fullname)
     {
-        return Guardian::where('fullName',$fullname.'%')->orderBy('fullName')->take(10)->get();
+        return Guardian::where('fullName','LIKE',$fullname.'%')->select('id','fullName','email')->orderBy('fullName')->take(10)->get();
     }
 }

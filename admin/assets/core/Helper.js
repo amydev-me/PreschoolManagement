@@ -8,7 +8,7 @@ module.exports={
     return date.getDate();
   },
   loginPage() {
-       return '/';
+       return '/login';
      },
 
   getUrlParameter(name, url) {

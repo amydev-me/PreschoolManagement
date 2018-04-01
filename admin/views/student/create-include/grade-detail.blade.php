@@ -59,7 +59,7 @@
                                 Term#1
                             </label>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" v-show="firstchecked">
                             <div class="col-sm-offset-2 col-sm-9">
                                 <div class="radio">
                                     <label class="cr-styled" for="ffull">
@@ -89,7 +89,7 @@
                                   Term#2
                               </label>
                           </div>
-                          <div class="form-group">
+                          <div class="form-group" v-show="secondchecked">
                               <div class="col-sm-offset-2 col-sm-9">
                                   <div class="radio">
                                       <label class="cr-styled" for="sfull">

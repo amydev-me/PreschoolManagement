@@ -19,6 +19,7 @@ module.exports= {
     }
   },
   methods: {
+
     validateData (scope) {
       this.$validator.validateAll(scope).then(successsValidate => {
         if (successsValidate) {

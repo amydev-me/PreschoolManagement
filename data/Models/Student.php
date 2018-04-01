@@ -21,4 +21,15 @@ class Student extends Model
         return $this->belongsToMany(Term::class);
     }
 
+    public function scopeGetByCategory($query,$category_id){
+        return $query->whereHas('terms.grade',function($q) use($category_id){
+            $q->where('category_id',$category_id);
+        });
+    }
+
+    public function scopeGetByGrade($query,$grade_id){
+        return $query->whereHas('terms',function($q) use($grade_id){
+            $q->where('grade_id',$grade_id);
+        });
+    }
 }

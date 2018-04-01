@@ -1,11 +1,13 @@
+const CreateGuardian = resolve => require(['../guardian/action'], resolve);
+const Datepicker = resolve => require(['../core/JQueryDatePicker'], resolve);
 let _create=route.urls.student.create;
 let _asyncguardian=route.urls.guardian.asyncget;
 let _getgrade=route.urls.grade.getgrade;
 let checkinguser=route.urls.checkuser;
 let getac=route.urls.get_ac;
-const Datepicker = resolve => require(['../core/JQueryDatePicker'], resolve);
+let indexpage=route.urls.student.indexpage;
 module.exports= {
-  components: {Datepicker},
+  components: {Datepicker,CreateGuardian},
   data: function () {
     return {
       countries: [],
@@ -14,9 +16,10 @@ module.exports= {
       categories: [],
       selected_category: null,
       guardians: [],
+      selected_guardian: null,
       grades: [],
       selected_grade: null,
-      selected_guardian: null,
+
       student: {
         id: null,
         username: null,
@@ -50,6 +53,7 @@ module.exports= {
     }
   },
   methods: {
+
     personal_back_click () {
       $('#student_form a[href="#account_detail"]').tab('show');
     },
@@ -78,6 +82,13 @@ module.exports= {
     },
     formatDate (date) {
       return Helper.formatDate(date);
+    },
+    asyncFindGuardian (query) {
+      if (query == '') {return;}
+      if (query == undefined) {return;}
+      axios.get(_asyncguardian + query).then(response => {
+        this.guardians = response.data;
+      });
     },
     getasyncdata () {
       axios.get(getac).then(({data}) => {
@@ -123,12 +134,12 @@ module.exports= {
       });
     },
     performAction () {
-      console.log('fuck you');
+
       let data = new FormData();
 
       data.set('academic_id', this.selected_academic.id);
       data.set('category_id', this.selected_category.id);
-      // data.set('guardian_id', this.selected_guardian.id);
+      data.set('guardian_id', this.selected_guardian.id);
       data.set('grade_id', this.selected_grade.id);
       data.set('username', this.student.username);
       data.set('password', this.student.password);
@@ -148,15 +159,15 @@ module.exports= {
       data.set('meal_preferences', this.student.meal_preferences);
       data.set('allergies', this.student.allergies);
       data.append('history', this.student.history);
-      data.append('firstterm',this.firstchecked);
-      data.append('secondterm',this.secondchecked);
-      if(this.firstchecked){
-        data.append('fterm_type',this.first_term.term);
-        data.append('ftime_type',this.first_term.t_time);
+      data.append('firstterm', this.firstchecked);
+      data.append('secondterm', this.secondchecked);
+      if (this.firstchecked) {
+        data.append('fterm_type', this.first_term.term);
+        data.append('ftime_type', this.first_term.t_time);
       }
-      if(this.secondchecked){
-        data.append('sterm_type',this.second_term.term);
-        data.append('stime_type',this.second_term.t_time);
+      if (this.secondchecked) {
+        data.append('sterm_type', this.second_term.term);
+        data.append('stime_type', this.second_term.t_time);
       }
 
       const config = {headers: {'Content-Type': 'multipart/form-data'}};
@@ -165,7 +176,7 @@ module.exports= {
         if (response.data.success == false) {
           Notification.error('Error occur while inserting data.');
         } else {
-          window.location.href = indexPageUrl;
+          window.location.href = indexpage;
         }
       }).catch(error => {
         if (error.response.status == 401 || error.response.status == 419) {
@@ -176,7 +187,11 @@ module.exports= {
           Notification.error('Error occur while inserting data.');
         }
       });
-    }
+    },
+    submitsuccess (value) {
+      this.selected_guardian = {id: value.id, fullName: value.fullName, email: value.email};
+      $('#guardian-modal').modal('hide');
+    },
   },
   mounted () {
     // this.handleTab();

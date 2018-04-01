@@ -5,6 +5,7 @@ namespace Data\FileSystem;
 
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 abstract class AbstractFileSystem {
@@ -68,8 +69,9 @@ abstract class AbstractFileSystem {
 
         $result = false;
         try {
-            $fileName = $this->file->store($this->path);
-
+            $fileName= Storage::disk('public')->put($this->getPath(), $this->file);
+//            $fileName = $this->file->store(storage_path() . '/app/public/images/business');
+//            Storage::disks('public/images/business')->put($this->file->getClientOriginalName(),File::get($this->file));
 
             if ($fileName) {
                 $this->storedName = basename($fileName);
@@ -82,10 +84,11 @@ abstract class AbstractFileSystem {
 
 
     public function delete()  {
-        if($this->exists()){
-            return  unlink(storage_path() . '/app/' .$this->path . '/' . $this->storedName);
-        }
-        return false;
+//        if($this->exists()){
+        return Storage::disk('public')->delete($this->getPath().'/'. $this->storedName);
+//            return  unlink(storage_path() . '/app/public/' .$this->path . '/' . $this->storedName);
+//        }
+//        return false;
     }
 
     public function exists()  {
@@ -93,11 +96,13 @@ abstract class AbstractFileSystem {
     }
 
     public function checkfile(){
-        return Storage::disk('public')->exists('students/'.$this->getStoredName());
+
+        return Storage::disk('public')->exists($this->getPath(),$this->storedName);
     }
 
     public function getFileResponse() {
-        return response()->file(storage_path() . '/app/' .$this->path . '/' . $this->storedName);
+
+        return response()->file(storage_path() .'/app/public/'.$this->path . '/' . $this->storedName);
     }
 
     private function checkMimeType($mimeType)  {

@@ -35,7 +35,7 @@ class CreateStudent extends BaseStudentAction
         $student=new Request();
         try {
             $student['academic_id']=$this->request()['academic_id'];
-            $student['guardian_id']=null;
+            $student['guardian_id']=$this->request()['guardian_id'];;
             $student['studentCode']= $this->getLastCode();
             $student['profile']= $this->storeImage();
             $student['history'] = $this->storeHistory();

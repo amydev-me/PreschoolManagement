@@ -97,9 +97,16 @@ Route::middleware('web')->group(function() {
             Route::name('index')->get('/', 'StudentController@index');
             Route::name('create')->get('create', 'StudentController@createIndex');
             Route::name('create')->post('create', 'StudentController@create');
-
+            Route::name('update')->post('update', 'StudentController@update');
+            Route::name('delete')->get('delete/{id}', 'StudentController@delete');
+            Route::name('detail-view')->get('detail-view', 'StudentController@detailIndex');
+            Route::name('get-detail')->get('get-detail', 'StudentController@getDetail');
             Route::name('get-by-academic')->get('get-by-academic', 'StudentController@getStudentByActiveAcademic');
-            Route::name('filter')->get('filter/{param}/{academic_id}', 'StudentController@filterStudent');
+            Route::name('filter')->get('filter', 'StudentController@filterStudent');
+            Route::name('get-by-acg')->get('get-by-acg', 'StudentController@getByACG');
+            Route::name('get-by-ac')->get('get-by-ac', 'StudentController@getByAC');
+
+            Route::name('get-file')->get('get-file', 'StudentController@getFile');
         });
     });
 });

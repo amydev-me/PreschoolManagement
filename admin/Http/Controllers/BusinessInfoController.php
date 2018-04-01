@@ -28,7 +28,11 @@ class BusinessInfoController extends Controller
     public function getImage($name)
     {
         $img = new BusinessImage($name);
-        return $img->getFileResponse();
+        if ($img->checkfile()) {
+            return $img->getFileResponse();
+        }
+        return null;
+
     }
 
     public function create(Request $request){

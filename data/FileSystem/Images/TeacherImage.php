@@ -15,7 +15,7 @@ class TeacherImage extends AbstractFileSystem
     public function __construct($file)
     {
         parent::__construct($file);
-        $this->path = 'images/teachers';
+        $this->path = 'datafiles/images/teachers';
     }
 
     public function defaultImage(){
