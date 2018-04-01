@@ -28,7 +28,8 @@ use Illuminate\Validation\Validator;
 class StudentController extends Controller
 {
     private $repository, $userRepo, $termRepo, $acaRepo, $catRepo;
-    private $pages=1;
+    private $pages = 1;
+
     public function __construct(StudentRepository $repo, UserRepository $userRepo, TermRepository $termRepo, AcademicYearRepository $acaRepo, CategoryRepository $catRepo)
     {
         $this->repository = $repo;
@@ -52,29 +53,30 @@ class StudentController extends Controller
         return view('student.create');
     }
 
-    public function detailIndex(){
+    public function detailIndex()
+    {
         return view('student.detail');
     }
 
     public function create(Request $request)
     {
         $rules = [
-        'username' => 'required|unique:users',
-        'password' => 'required',
-        'academic_id'=>'required',
-        'grade_id'=>'required',
-        'guardian_id' => 'required',
-        'join_date'=>'required',
-        'email'=>'required',
-        'firstName'=>'required|max:255',
-        'lastName'=>'required|max:255',
-        'phone'=>'required|max:255',
-        'gender'=>'required|max:6',
-        'dateofbirth'=>'required|max:255',
-        'nrc'=>'required|max:255',
-        'nationality'=>'required|max:255',
-        'meal_preferences'=>'required',
-        'allergies'=>'required'
+            'username' => 'required|unique:users',
+            'password' => 'required',
+            'academic_id' => 'required',
+            'grade_id' => 'required',
+            'guardian_id' => 'required',
+            'join_date' => 'required',
+            'email' => 'required',
+            'firstName' => 'required|max:255',
+            'lastName' => 'required|max:255',
+            'phone' => 'required|max:255',
+            'gender' => 'required|max:6',
+            'dateofbirth' => 'required|max:255',
+            'nrc' => 'required|max:255',
+            'nationality' => 'required|max:255',
+            'meal_preferences' => 'required',
+            'allergies' => 'required'
         ];
 
         $validatedata = validator($request->all(), $rules);
@@ -86,22 +88,23 @@ class StudentController extends Controller
         return response()->json(['success' => $result]);
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $rules = [
 
 
             'guardian_id' => 'required',
-            'join_date'=>'required',
-            'email'=>'required',
-            'firstName'=>'required|max:255',
-            'lastName'=>'required|max:255',
-            'phone'=>'required|max:255',
-            'gender'=>'required|max:6',
-            'dateofbirth'=>'required|max:255',
-            'nrc'=>'required|max:255',
-            'nationality'=>'required|max:255',
-            'meal_preferences'=>'required',
-            'allergies'=>'required'
+            'join_date' => 'required',
+            'email' => 'required',
+            'firstName' => 'required|max:255',
+            'lastName' => 'required|max:255',
+            'phone' => 'required|max:255',
+            'gender' => 'required|max:6',
+            'dateofbirth' => 'required|max:255',
+            'nrc' => 'required|max:255',
+            'nationality' => 'required|max:255',
+            'meal_preferences' => 'required',
+            'allergies' => 'required'
         ];
 
         $validatedata = validator($request->all(), $rules);
@@ -113,18 +116,19 @@ class StudentController extends Controller
         return response()->json(['success' => $result]);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $_req = ['id' => $id];
         $action = new DeleteStudent($this->repository, $this->userRepo, $_req);
         $result = $action->invoke();
         return response()->json(['success' => $result]);
     }
 
-    public function getDetail(Request $request){
-
-       $action=new GetStudentDetail($this->repository,['id'=>$request->student_id]);
-       $result=$action->invoke();
-       return response()->json($result);
+    public function getDetail(Request $request)
+    {
+        $action = new GetStudentDetail($this->repository, ['id' => $request->student_id]);
+        $result = $action->invoke();
+        return response()->json($result);
     }
 
     public function getImage($name)
@@ -208,11 +212,11 @@ class StudentController extends Controller
         return response()->json($students);
     }
 
-    public function getByAC(Request $request){
-        $grades= Grade::where('academic_id',$request->academic_id)->where('category_id',$request->category_id)->get();
+    public function getByAC(Request $request)
+    {
+        $grades = Grade::where('academic_id', $request->academic_id)->where('category_id', $request->category_id)->get();
 
-        $students= Student::with('terms')->where('academic_id',$request->academic_id)->getByCategory($request->category_id)->paginate($this->pages);
-        return response()->json(['students'=>$students,'grades'=>$grades]);
+        $students = Student::with('terms')->where('academic_id', $request->academic_id)->getByCategory($request->category_id)->paginate($this->pages);
+        return response()->json(['students' => $students, 'grades' => $grades]);
     }
-
 }

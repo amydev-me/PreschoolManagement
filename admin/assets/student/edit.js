@@ -67,7 +67,7 @@ module.exports= {
         }
       }).catch(error => {
         if (error.response.status == 401 || error.response.status == 419) {
-          window.location.href = Helper.loginPage();
+          window.location.href = route.urls.login;
         } else {
           Notification.error('Error occured while loading data.');
         }

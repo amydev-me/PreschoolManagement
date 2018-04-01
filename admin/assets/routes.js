@@ -1,16 +1,18 @@
 let prefix='/admin/';
+let _user='user/';
 let _academic='academic-year/';
 let _category='category/';
 let _fee='feetype/';
 let _subject='subject/';
 let _grade='grade/';
-let _user='user/';
+let _teacher='teacher/';
 let _guardian='guardian/';
 let _student='student/';
 module.exports = {
   urls: {
     login: '/login',
     student_image:'/image/student/',
+    teacher_image:'/image/teacher/',
     // grade
     get_ac: '/get-academic-category',
     checkuser:'/checkuser/',
@@ -59,6 +61,15 @@ module.exports = {
       getdata: prefix + _grade + 'get-data?page=',
       getgrade:prefix+_grade+'get-grade'
     },
+    teacher:{
+      indexpage:prefix+'teacher',
+      create: prefix + _teacher + 'create',
+      update: prefix + _teacher + 'update',
+      remove: prefix + _teacher + 'delete/',
+      getdata: prefix + _teacher + 'get-data?page=',
+      details:prefix+_teacher+'get-detail/',
+      detailView:prefix+_teacher+'detail-view?teacher_id=',
+    },
     guardian:{
       indexpage:prefix+'guardian',
       create: prefix + _guardian + 'create',
@@ -74,6 +85,7 @@ module.exports = {
       create: prefix + _student + 'create',
       update: prefix + _student + 'update',
       remove: prefix + _student + 'delete/',
+
     }
   }
 };
