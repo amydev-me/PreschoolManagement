@@ -18,18 +18,18 @@ use Data\Repositories\InfoRepository;
 
 class EditBusinessInfo extends BaseBusinessInfoAction
 {
-    protected $rules=[
-        'title'=>'required',
-        'phone'=>'required',
-        'address'=>'required',
-        'email'=>'required'
+    protected $rules = [
+        'title' => 'required',
+        'phone' => 'required',
+        'address' => 'required',
+        'email' => 'required'
     ];
     private $_req;
 
     public function __construct(InfoRepository $repository, $data = null, $_req)
     {
         parent::__construct($repository, $data);
-        $this->_req=$_req;
+        $this->_req = $_req;
     }
 
     protected function perform()
@@ -39,38 +39,45 @@ class EditBusinessInfo extends BaseBusinessInfoAction
         $_info = $this->repository->getInfo();
 
         if ($_info) {
+
+            if ($this->request()['remove'] == true) {
+                $this->removeImage($_info['logo']);
+                $_info['logo'] = null;
+            }
+
+
             if ($this->_req->hasFile('logo')) {
+                $this->removeImage($_info['logo']);
                 $img = new BusinessImage($info['logo']);
                 $img->store();
-                $info['logo'] = $img->getStoredName();
-                if ($info['logo']) {
-                    if($_info['logo'] !='' && $_info!=null){
-                        $img = new BusinessImage($_info['logo']);
+                $info['logo'] = $this->storeImage($info['logo']);
 
-                        if($img->checkfile()){
-                            $img->delete();
-                        }
-                    }
-
-                }
             } else {
-                if($this->request()['remove'] == 'true'){
-                    if($_info['logo'] !='' && $_info!=null){
-                        $img = new BusinessImage($_info['logo']);
-                        if($img->checkfile()) {
-                            $img->delete();
-                        }
-                    }
-
-                    $info['logo'] = null;
-                }else{
-                    $info['logo'] = $_info['logo'];
-                }
+                $info['logo'] = $_info['logo'];
             }
+
+
             $this->repository->update($info, $_info['id']);
             return true;
         }
 
         return false;
+    }
+
+    private function storeImage($logo)
+    {
+        $img = new BusinessImage($logo);
+        $img->store();
+        return $img->getStoredName();
+    }
+
+    private function removeImage($logo)
+    {
+        if ($logo != null) {
+            $img = new BusinessImage($logo);
+            if ($img->checkfile()) {
+                $img->delete();
+            }
+        }
     }
 }

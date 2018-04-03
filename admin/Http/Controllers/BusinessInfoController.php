@@ -11,6 +11,7 @@ use Data\FileSystem\Images\BusinessImage;
 use Data\Models\BusinessInfo;
 use Data\Repositories\InfoRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Validator;
 
 class BusinessInfoController extends Controller
@@ -42,6 +43,7 @@ class BusinessInfoController extends Controller
 
         return response()->json(['success' => $result]);
     }
+
 
     public function update(Request $request){
 
