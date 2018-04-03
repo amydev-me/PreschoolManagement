@@ -1,7 +1,7 @@
 <aside class="left-panel">
     <div class="logo">
         <a href="#" class="logo-expanded" v-cloak>
-            <img style="width: 24px;height: 24px;" :src="getImage(info.logo)" v-if="info.logo!='null'">
+            <img v-if="info.logo=='null'" style="width: 24px;height: 24px;" :src="getImage(info.logo)" >
             <span class="nav-label">@{{ info.title }}</span>
         </a>
     </div>
