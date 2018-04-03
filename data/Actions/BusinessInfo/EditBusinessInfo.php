@@ -51,10 +51,14 @@ class EditBusinessInfo extends BaseBusinessInfoAction
                 }
             } else {
                 if($this->request()['remove'] == 'true'){
-                    $img = new BusinessImage($_info['logo']);
-                    if($img->checkfile()) {
-                        $img->delete();
+                    if($_info['logo'] !=null){
+                        $img = new BusinessImage($_info['logo']);
+                        if($img->checkfile()) {
+                            $img->delete();
+                        }
                     }
+
+                    $info['logo'] = null;
                 }else{
                     $info['logo'] = $_info['logo'];
                 }
