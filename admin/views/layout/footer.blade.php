@@ -1,5 +1,5 @@
 <!-- Footer Start -->
 <footer class="footer" v-cloak>
-    @{{ info.footer }}
+    @{{ info.footer==null?'':info.footer }}
 </footer>
 <!-- Footer Ends -->
