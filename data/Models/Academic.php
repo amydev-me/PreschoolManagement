@@ -12,4 +12,8 @@ class Academic extends Model
     public function grades(){
         return $this->hasMany(Grade::class);
     }
+
+    public function grade_teachers(){
+        return $this->hasMany(GradeTeacher::class);
+    }
 }

@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('guardian','active')
-@section('page-title','All Guardian')
+@section('page-title','Guardian List')
 @section('style')
     <style>
         body.modal-open {

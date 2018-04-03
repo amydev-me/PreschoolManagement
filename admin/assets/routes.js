@@ -6,6 +6,7 @@ let _fee='feetype/';
 let _subject='subject/';
 let _grade='grade/';
 let _teacher='teacher/';
+let _assignteacher='assign_teacher/';
 let _guardian='guardian/';
 let _student='student/';
 module.exports = {
@@ -15,6 +16,7 @@ module.exports = {
     teacher_image:'/image/teacher/',
     // grade
     get_ac: '/get-academic-category',
+    get_active_category: '/get-active-category',
     checkuser:'/checkuser/',
     user: {
 
@@ -69,6 +71,17 @@ module.exports = {
       getdata: prefix + _teacher + 'get-data?page=',
       details:prefix+_teacher+'get-detail/',
       detailView:prefix+_teacher+'detail-view?teacher_id=',
+      asyncget: prefix + _teacher + 'async-get/',
+    },
+    assign_teacher:{
+      indexpage:prefix+'teacher',
+      create: prefix + _assignteacher + 'create',
+      update: prefix + _assignteacher + 'update',
+      remove: prefix + _assignteacher + 'delete/',
+      getdata: prefix + _assignteacher + 'get-data?page=',
+      getbycategorygrade: prefix + _assignteacher + 'getby-category-grade?',
+      getbycategory: prefix + _assignteacher + 'getby-category?category_id=',
+      getbyteacher: prefix + _assignteacher + 'getby-teacher?teacher_id=',
     },
     guardian:{
       indexpage:prefix+'guardian',

@@ -10,11 +10,15 @@ namespace Admin\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use Data\Actions\Teacher\AsyncTeacher;
 use Data\Actions\Teacher\CreateTeacher;
 use Data\Actions\Teacher\DeleteTeacher;
 use Data\Actions\Teacher\GetTeacherDetail;
 use Data\Actions\Teacher\GetTeachers;
+use Data\Actions\Teacher\UpdateTeacher;
 use Data\FileSystem\Images\TeacherImage;
+
+use Data\Models\GradeTeacher;
 use Data\Repositories\TeacherRepository;
 use Data\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -77,8 +81,36 @@ class TeacherController extends Controller
     }
 
     public function update(Request $request){
+        $rules = [
+            'firstName' => 'required|max:255',
+            'lastName' => 'required|max:255',
+            'personal_email' => 'required',
+            'dateofbirth' => 'required',
+            'join_date' => 'required',
+            'salary' => 'required',
+            'position' => 'required|max:255',
+            'gender' => 'required',
+            'phone' => 'required|max:255',
+            'nrc' => 'required|max:255',
+            'nationality' => 'required|max:255',
+            'address' => 'required',
+            'degree' => 'required|max:255',
+            'contactFirstName' => 'required|max:255',
+            'contactLastName' => 'required|max:255',
+            'contactEmail' => 'required|max:255',
+            'contactphone' => 'required|max:255',
+            'contactrelation' => 'required|max:255',
+        ];
 
+        $validatedata = validator($request->all(), $rules);
+        if ($validatedata->fails()) {
+            return response()->json([$validatedata->errors()], 422);
+        }
+        $action = new UpdateTeacher($this->repository, $request->all(), $request);
+        $result = $action->invoke();
+        return response()->json(['success'=>$result]);
     }
+
     public function delete($id)
     {
         $_req = ['id' => $id];
@@ -108,5 +140,12 @@ class TeacherController extends Controller
             return $img->getFileResponse();
         }
         return response()->file($img->defaultImage());
+    }
+
+    public function asyncget($q){
+        $_req=['fullName'=>$q];
+        $action = new AsyncTeacher($this->repository,$_req);
+        $result = $action->invoke();
+        return response()->json($result);
     }
 }

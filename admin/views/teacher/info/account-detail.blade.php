@@ -1,4 +1,4 @@
-<div class="tab-pane active animated bounceInRight" id="account_detail">
+<div class="tab-pane active animated bounceInRight" id="account_detail" >
     <form class="form-horizontal"  role="form" @submit.prevent="validateData('account-form')" data-vv-scope="account-form" autocomplete="off">
         <div class="form-group">
             <label class="control-label col-sm-2" for="username">Username:</label>

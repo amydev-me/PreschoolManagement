@@ -5,12 +5,12 @@ let _getdata=route.urls.grade.getdata;
 let _remove=route.urls.grade.remove;
 
 module.exports= {
-  components: {viewComponent,DeleteModal,VuePagination},
+  components: {viewComponent, DeleteModal, VuePagination},
   data: function () {
     return {
-      removeUrl:_remove,
+      removeUrl: _remove,
       grades: [],
-      grade_id:null,
+      grade_id: null,
       pagination: {
         total: 0,
         per_page: 2,

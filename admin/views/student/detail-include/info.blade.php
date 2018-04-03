@@ -2,7 +2,7 @@
 <div id="aboutme" class="tab-pane active">
 
 
-    <delete-modal @input="successdelete" :inputid="teacher_id" :inputurl="removeUrl"></delete-modal>
+    <delete-modal @input="successdelete" :inputid="student_id" :inputurl="removeUrl"></delete-modal>
             <div class="profile-desk animated bounceInRight">
                 <table class="table table-condensed">
                     <thead>

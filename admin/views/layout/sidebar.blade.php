@@ -18,7 +18,7 @@
                     <li class="@yield('grade')"><a href="{{route('admin.grade.index')}}">Grade</a></li>
                     <li class="@yield('subject')"><a href="{{route('admin.subject.index')}}">Subject</a></li>
                     <li class="@yield('fee')"><a href="{{route('admin.feetype.index')}}">Fee Types</a></li>
-                    {{--<li class="@yield('manage')"><a href="{{route('admin.manage.index')}}">Grade Teacher Allocation</a></li>--}}
+                    <li class="@yield('assign_teacher')"><a href="{{route('admin.assign_teacher.index')}}">Grade Teacher Allocation</a></li>
 
                 </ul>
             </li>

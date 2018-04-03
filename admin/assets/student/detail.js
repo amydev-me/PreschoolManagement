@@ -60,7 +60,7 @@ module.exports={
     },
     getImage (profile) {
       if (profile == null) return;
-      console.log(_studentImage);
+
       return _studentImage + profile;
     },
     editSuccess (value) {
@@ -77,6 +77,7 @@ module.exports={
       Notification.success('Success');
       window.location.href = _indexpage;
     },
+
     getDetail () {
       axios.get('/admin/student/get-detail?student_id=' + this.student.id).then(({data}) => {
         let student = data.student;

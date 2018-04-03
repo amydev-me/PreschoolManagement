@@ -4,7 +4,7 @@
 Route::middleware('web')->group(function() {
 
     Route::name('login')->get('login', 'AuthController@index');
-    Route::name('admin.')->prefix('admin')->group(function() {
+    Route::name('admin.')->prefix('admin')->group(function () {
         Route::name('logout')->get('logout', 'AuthController@logout');
         Route::name('login-post')->post('login-post', 'AuthController@login');
     });
@@ -12,12 +12,16 @@ Route::middleware('web')->group(function() {
      * Get In Grade
      */
     Route::name('get-academic-category')->get('get-academic-category', 'AsyncController@asyncAcademicAndCategory');
+    /**
+     * Get In Teacher Allocation
+     */
+    Route::name('get-active-category')->get('get-active-category', 'AsyncController@asyncActiveAcademicAndCategory');
 
     //Use in UserJS
     Route::name('checkuser')->get('checkuser/{q}', 'UserController@check_username');
 
 
-    Route::name('image.')->prefix('image')->group(function() {
+    Route::name('image.')->prefix('image')->group(function () {
         Route::name('business')->get('business/{name}', 'BusinessInfoController@getImage');
         Route::name('student')->get('student/{name}', 'StudentController@getImage');
         Route::name('teacher')->get('teacher/{name}', 'TeacherController@getImage');
@@ -25,7 +29,7 @@ Route::middleware('web')->group(function() {
     });
 
     Route::name('index')->get('/', 'DashboardController@index')->middleware('admin.auth');
-    Route::name('admin.')->prefix('admin')->middleware('admin.auth')->group(function() {
+    Route::name('admin.')->prefix('admin')->middleware('admin.auth')->group(function () {
 
 
         Route::name('user.')->prefix('user')->group(function () {
@@ -92,21 +96,31 @@ Route::middleware('web')->group(function() {
             Route::name('get-grade')->get('get-grade', 'GradeController@getGradeByAC');
         });
 
+        Route::name('assign_teacher.')->prefix('assign_teacher')->group(function () {
+
+            Route::name('index')->get('/', 'GradeTeacherController@index');
+            Route::name('create')->post('create', 'GradeTeacherController@create');
+            Route::name('update')->post('update', 'GradeTeacherController@update');
+            Route::name('get-data')->get('get-data', 'GradeTeacherController@getData');
+            Route::name('delete')->get('delete/{id}', 'GradeTeacherController@delete');
+            Route::name('getby-category')->get('getby-category', 'GradeTeacherController@getByCategory');
+            Route::name('getby-category-grade')->get('getby-category-grade', 'GradeTeacherController@getByCategoryAndGrade');
+            Route::name('getby-teacher')->get('getby-teacher', 'GradeTeacherController@getGradeByTeacher');
+        });
+
         Route::name('teacher.')->prefix('teacher')->group(function () {
             Route::name('index')->get('/', 'TeacherController@index');
             Route::name('create')->get('create', 'TeacherController@createIndex');
-            Route::name('create')->post('create', 'TeacherController@create');
-            Route::name('get-data')->get('get-data', 'TeacherController@getData');
-//            Route::name('update')->post('update', 'StudentController@update');
-            Route::name('delete')->get('delete/{id}', 'TeacherController@delete');
             Route::name('detail-view')->get('detail-view', 'TeacherController@detailIndex');
+
+            Route::name('create')->post('create', 'TeacherController@create');
+            Route::name('update')->post('update', 'TeacherController@update');
+            Route::name('delete')->get('delete/{id}', 'TeacherController@delete');
+
+            Route::name('get-data')->get('get-data', 'TeacherController@getData');
             Route::name('get-detail')->get('get-detail/{id}', 'TeacherController@getDetail');
-//            Route::name('get-by-academic')->get('get-by-academic', 'StudentController@getStudentByActiveAcademic');
-//            Route::name('filter')->get('filter', 'StudentController@filterStudent');
-//            Route::name('get-by-acg')->get('get-by-acg', 'StudentController@getByACG');
-//            Route::name('get-by-ac')->get('get-by-ac', 'StudentController@getByAC');
 
-
+            Route::name('async-get')->get('async-get/{q}', 'TeacherController@asyncget');
         });
 
         Route::name('guardian.')->prefix('guardian')->group(function () {

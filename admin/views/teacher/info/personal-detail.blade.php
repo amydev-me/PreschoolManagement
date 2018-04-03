@@ -1,4 +1,4 @@
-<div class="tab-pane animated bounceInRight" id="personal_detail">
+<div class="tab-pane animated bounceInRight" id="personal_detail" :class="{'tab-pane active animated bounceInRight':isedit,'tab-pane animated bounceInRight':!isedit}">
     <form class="form-horizontal"  @submit.prevent="validateData('personal_detail_form')" data-vv-scope="personal_detail_form" autocomplete="off">
 
 
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2" for="gender">Gender</label>
+            <label class="control-label col-sm-2" for="gender">Gender</label>
             <div class="radio-inline">
                 <label class="cr-styled" for="male">
                     <input type="radio" id="male" name="gender" value="Male" v-model="teacher.gender">
@@ -93,7 +93,7 @@
 
         </div>
         <div class="text-right">
-            <button id="previous_account"  class="btn btn-primary" type="button" @click="personal_back_click">Previous</button>
+            <button id="previous_account"  class="btn btn-primary" type="button" @click="personal_back_click" v-if="!isedit">Previous</button>
             <button type="submit" class="btn btn-primary">Next</button>
         </div>
     </form>

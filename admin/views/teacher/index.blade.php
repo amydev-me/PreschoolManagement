@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('teacher','active')
-@section('page-title','All Teachers')
+@section('page-title','Teacher List')
 @section('style')
 
     <style>
@@ -49,7 +49,7 @@
                                 </a>
                                 <div class="info">
                                     <a :href="goDetailView(teacher.id)"><h4>@{{teacher.fullName}}</h4></a>
-                                    {{--<p class="text-muted">@{{teacher.position}}</p>--}}
+                                    <p class="text-muted">@{{teacher.position}}</p>
                                 </div>
                             </div>
                             <div class="clearfix"></div>

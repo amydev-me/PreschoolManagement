@@ -1,7 +1,22 @@
 module.exports= {
-  props: ['inputid', 'inputurl'],
+  props:
+    {
+      message:{
+        default:'Are you sure to delete?'
+      },
+      id: {
+        default: 'deleteModal',
+      },
+      inputid:{
+        default:null
+      },
+      inputurl:{
+        default:null
+      }
+    }
+  ,
   template: `
-        <div id="deleteModal" class="modal fade bs-example-modal-sm modal-dialog-center" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div :id="id" class="modal fade bs-example-modal-sm modal-dialog-center" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
              <div class="modal-dialog modal-sm">
                   <div class="modal-content">
                       <div class="modal-header">
@@ -9,7 +24,7 @@ module.exports= {
                           <h4 class="modal-title" id="mySmallModalLabel">Delete</h4>
                       </div>
                       <div class="modal-body">
-                             <h4> Are you sure to delete?</h4>
+                             <h4> {{this.message}}</h4>
                       </div>
                        <div class="modal-footer">
                               <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
@@ -18,25 +33,19 @@ module.exports= {
                   </div>s
               </div>
         </div>`,
-  data:function () {
-    return {
-      id: null
-    }
-  },
-
   methods: {
     performdelete () {
       axios.get(this.inputurl + this.inputid).then(response => {
         if (response.data.success) {
           this.$emit('input');
         } else {
-          Notification.error('Error occured whild deleting.');
+          Notification.error('Error occured whild deleting data.');
         }
       }).catch(error => {
         if (error.response.status == 401 || error.response.status == 419) {
           window.location.href = route.urls.login;
         } else {
-          Notification.error('Error occured whild deleting.');
+          Notification.error('Error occured while deleting data.');
         }
       });
     }

@@ -21,4 +21,8 @@ class Grade extends Model
         return $this->belongsTo(Category::class);
 
     }
+
+    public function grade_teachers(){
+        return $this->hasMany(GradeTeacher::class);
+    }
 }

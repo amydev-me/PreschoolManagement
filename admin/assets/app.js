@@ -15,9 +15,12 @@ Vue.component('manageSubject', resolve => require(['./subject/index'], resolve))
 Vue.component('manageFee', resolve => require(['./fee/index'], resolve));
 Vue.component('gradeList', resolve => require(['./grade/index'], resolve));
 Vue.component('manageGrade', resolve => require(['./grade/action'], resolve));
+
 Vue.component('allTeacher', resolve => require(['./teacher/index'], resolve));
 Vue.component('teacherAction', resolve => require(['./teacher/create'], resolve));
 Vue.component('detailTeacher', resolve => require(['./teacher/detail'], resolve));
+Vue.component('gradeTeacher', resolve => require(['./grade_teacher/index'], resolve));
+
 Vue.component('allGuardian', resolve => require(['./guardian/index'], resolve));
 Vue.component('detailGuardian', resolve => require(['./guardian/detail'], resolve));
 
@@ -36,7 +39,7 @@ Vue.component('detailStudent', resolve => require(['./student/detail'], resolve)
 
 // Vue.component('teacherAction', resolve => require(['./teacher/action'], resolve));
 // Vue.component('detailTeacher', resolve => require(['./teacher/detail'], resolve));
-// Vue.component('courseTeacher', resolve => require(['./course_teacher/index'], resolve));
+
 //
 
 // Vue.component('detailGuardian', resolve => require(['./guardian/detail'], resolve));

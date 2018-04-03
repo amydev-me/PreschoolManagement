@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2" for="gender">Gender</label>
+            <label class="control-label col-sm-2" for="gender">Gender</label>
             <div class="radio-inline">
                 <label class="cr-styled" for="male">
                     <input type="radio" id="male" name="gender" value="Male" v-model="student.gender">

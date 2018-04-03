@@ -32,6 +32,11 @@ class TeacherRepository extends Repository
     }
     public function getAll($page)
     {
-        return Teacher::orderByDesc('created_at')->paginate($page);
+        return Teacher::with('grade_teachers')->orderByDesc('created_at')->paginate($page);
+    }
+
+    public function asyncGetData($fullname)
+    {
+        return Teacher::where('fullName','LIKE',$fullname.'%')->orderBy('fullName')->select('id','fullName','personal_email')->take(10)->get();
     }
 }

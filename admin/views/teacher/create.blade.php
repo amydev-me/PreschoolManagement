@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('teacher','active')
+{{--@section('teacher','active')--}}
 @section('page-title','Add Teacher Form')
 
 @section('content')
@@ -25,10 +25,10 @@
 
                 <div class="tab-content">
 
-                    @include('teacher.create-include.account-detail')
-                    @include('teacher.create-include.personal-detail')
-                    @include('teacher.create-include.employee-detail')
-                    @include('teacher.create-include.contact-person')
+                    @include('teacher.info.account-detail')
+                    @include('teacher.info.personal-detail')
+                    @include('teacher.info.employee-detail')
+                    @include('teacher.info.contact-person')
 
 
 
