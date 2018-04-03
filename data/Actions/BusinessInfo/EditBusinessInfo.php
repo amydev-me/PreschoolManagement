@@ -44,14 +44,18 @@ class EditBusinessInfo extends BaseBusinessInfoAction
                 $img->store();
                 $info['logo'] = $img->getStoredName();
                 if ($info['logo']) {
-                    $img = new BusinessImage($_info['logo']);
-                    if($img->checkfile()){
-                        $img->delete();
+                    if($_info['logo'] !='' && $_info!=null){
+                        $img = new BusinessImage($_info['logo']);
+
+                        if($img->checkfile()){
+                            $img->delete();
+                        }
                     }
+
                 }
             } else {
                 if($this->request()['remove'] == 'true'){
-                    if($_info['logo'] !=''){
+                    if($_info['logo'] !='' && $_info!=null){
                         $img = new BusinessImage($_info['logo']);
                         if($img->checkfile()) {
                             $img->delete();
