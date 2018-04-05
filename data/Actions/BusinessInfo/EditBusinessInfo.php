@@ -1,15 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Angelo
- * Date: 19/03/2018
- * Time: 1:52 PM
- */
 
 namespace Data\Actions\BusinessInfo;
-
-
-
 
 use Data\FileSystem\Images\BusinessImage;
 use Data\Models\BusinessInfo;
@@ -45,7 +36,6 @@ class EditBusinessInfo extends BaseBusinessInfoAction
                 $_info['logo'] = null;
             }
 
-
             if ($this->_req->hasFile('logo')) {
                 $this->removeImage($_info['logo']);
                 $img = new BusinessImage($info['logo']);
@@ -55,7 +45,6 @@ class EditBusinessInfo extends BaseBusinessInfoAction
             } else {
                 $info['logo'] = $_info['logo'];
             }
-
 
             $this->repository->update($info, $_info['id']);
             return true;

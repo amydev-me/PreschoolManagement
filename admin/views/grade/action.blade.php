@@ -25,11 +25,12 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Category :</label>
                                     <div class="col-sm-10">
-                                        <multiselect
-                                                open-direction="bottom" v-validate="'required'" data-vv-name="category"
-                                                label="categoryName" v-model="selected_category"
-                                                :options="categories" :show-labels="false" placeholder="Select category">
-                                        </multiselect>
+                                        <category-select @input="selectedCategoryChange" :value="selected_category"></category-select>
+                                        {{--<multiselect--}}
+                                                {{--open-direction="bottom" v-validate="'required'" data-vv-name="category"--}}
+                                                {{--label="categoryName" v-model="selected_category"--}}
+                                                {{--:options="categories" :show-labels="false" placeholder="Select category">--}}
+                                        {{--</multiselect>--}}
                                     </div>
                                     <div class="col-sm-push-2 col-sm-9" v-show="errors.has('category')"><span class="error">Required category.</span></div>
                                 </div>

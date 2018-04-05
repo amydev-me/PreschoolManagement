@@ -39,4 +39,14 @@ class TeacherRepository extends Repository
     {
         return Teacher::where('fullName','LIKE',$fullname.'%')->orderBy('fullName')->select('id','fullName','personal_email')->take(10)->get();
     }
+
+    public function filterTeacher($_param,$pages){
+       return Teacher::orWhere('teacherCode', 'LIKE', $_param . '%')
+            ->orWhere('fullName', 'LIKE', $_param. '%')
+            ->orWhere('phone', 'LIKE', $_param . '%')
+            ->orWhere('personal_email', 'LIKE',$_param . '%')
+            ->orWhere('nrc', 'LIKE', $_param . '%')
+
+            ->paginate($pages);
+    }
 }

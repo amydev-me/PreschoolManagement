@@ -1,13 +1,13 @@
 const datepicker = resolve => require(['../core/JQueryDatePicker'], resolve);
 const NumericInput = resolve => require(['../core/NumericInput'], resolve);
-
+const CategorySelect = resolve => require(['../select_components/CategorySelect'], resolve);
 let create=route.urls.grade.create;
 let update=route.urls.grade.update;
 let getdetailurl='/admin/grade/detail?grade_id=';
 let getac=route.urls.get_ac;
 
 module.exports= {
-  components: {datepicker, NumericInput},
+  components: {datepicker, NumericInput,CategorySelect},
 
   data: function () {
     return {
@@ -55,6 +55,9 @@ module.exports= {
   },
 
   methods: {
+    selectedCategoryChange(value){
+      this.selected_category=value;
+    },
     formatDate (date) {
       return Helper.formatDate(date);
     },

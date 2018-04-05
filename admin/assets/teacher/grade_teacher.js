@@ -45,7 +45,7 @@ components:{DeleteGrade},
       });
     },
     selectedCategoryChange(){
-      axios.get(_getgrade + '?academic_id=' + this.active_academic.id + '&' + 'category_id=' + this.selected_category.id).then(({data})=>{
+      axios.get(_getgrade + '?category_id=' + this.selected_category.id).then(({data})=>{
         this.grades=data;
       });
     },

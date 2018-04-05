@@ -4,6 +4,7 @@
 Route::middleware('web')->group(function() {
 
     Route::name('login')->get('login', 'AuthController@index');
+
     Route::name('admin.')->prefix('admin')->group(function () {
         Route::name('logout')->get('logout', 'AuthController@logout');
         Route::name('login-post')->post('login-post', 'AuthController@login');
@@ -29,6 +30,7 @@ Route::middleware('web')->group(function() {
     });
 
     Route::name('index')->get('/', 'DashboardController@index')->middleware('admin.auth');
+
     Route::name('admin.')->prefix('admin')->middleware('admin.auth')->group(function () {
 
 
@@ -121,6 +123,7 @@ Route::middleware('web')->group(function() {
             Route::name('get-detail')->get('get-detail/{id}', 'TeacherController@getDetail');
 
             Route::name('async-get')->get('async-get/{q}', 'TeacherController@asyncget');
+            Route::name('filter')->get('filter', 'TeacherController@filterTeacher');
         });
 
         Route::name('guardian.')->prefix('guardian')->group(function () {

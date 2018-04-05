@@ -1,3 +1,4 @@
+const CategorySelect = resolve => require(['../select_components/CategorySelect'], resolve);
 let _create=route.urls.assign_teacher.create;
 let _update=route.urls.assign_teacher.update;
 let _asyncteacher=route.urls.teacher.asyncget;
@@ -5,6 +6,7 @@ let _asynccategory=route.urls.get_active_category;
 let _getgrade=route.urls.grade.getgrade;
 
 module.exports= {
+  componets:{CategorySelect},
   props:['grade_teacher','isedit','categories','subjects','active_academic'],
   data: function () {
     return {
@@ -20,11 +22,9 @@ module.exports= {
   },
   methods: {
     selectedCategoryChange () {
-      if (this.active_academic == null) return;
       if (this.selected_category == null) return;
-
       this.selected_grade = null;
-      axios.get(_getgrade + '?academic_id=' + this.active_academic.id + '&' + 'category_id=' + this.selected_category.id).then(({data}) => {
+      axios.get(_getgrade + '?category_id=' + this.selected_category.id).then(({data}) => {
         this.grades = data;
       });
     },
@@ -80,7 +80,6 @@ module.exports= {
     },
     showModal() {
       if (this.isedit) {
-        this.active_academic = this.grade_teacher.academic;
         this.selected_grade = this.grade_teacher.grade;
         this.selected_subject = this.grade_teacher.subject;
         this.selected_teacher = this.grade_teacher.teacher;

@@ -17,6 +17,7 @@ use Data\Actions\Subject\AsyncGet;
 use Data\Repositories\AcademicYearRepository;
 use Data\Repositories\CategoryRepository;
 use Data\Repositories\SubjectRepository;
+use Illuminate\Support\Facades\Session;
 
 class AsyncController extends Controller
 {
@@ -29,12 +30,12 @@ class AsyncController extends Controller
         $this->subjectRepository=$subjectRepository;
     }
 
-    private function getActiveAcademic()
-    {
-        $action = new ActiveAcademic($this->academicRepository);
-        $active_academic = $action->invoke();
-        return $active_academic;
-    }
+//    private function getActiveAcademic()
+//    {
+//        $action = new ActiveAcademic($this->academicRepository);
+//        $active_academic = $action->invoke();
+//        return $active_academic;
+//    }
 
     private function getAcademics()
     {
@@ -59,7 +60,7 @@ class AsyncController extends Controller
 
     public function asyncAcademicAndCategory()
     {
-        $active_academic = $this->getActiveAcademic();
+        $active_academic = Session::get('academic');
         $academics = $this->getAcademics();
         $categories = $this->getCategories();
         return response()->json(['academics' => $academics, 'categories' => $categories, 'active' => $active_academic]);
@@ -67,7 +68,7 @@ class AsyncController extends Controller
 
     public function asyncActiveAcademicAndCategory()
     {
-        $active_academic = $this->getActiveAcademic();
+        $active_academic = Session::get('academic');
         $categories = $this->getCategories();
         $subjects = $this->getSubjects();
         return response()->json(['categories' => $categories,'subjects'=>$subjects, 'active' => $active_academic]);

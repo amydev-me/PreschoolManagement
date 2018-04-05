@@ -33,8 +33,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>Year</th>
-                                <th>Start At</th>
-                                <th>End At</th>
                                 <th>Active</th>
                                 <th>Actions</th>
                             </tr>
@@ -42,10 +40,7 @@
                         <tbody>
                             <tr v-for="acad,index in academics">
                                 <td>@{{pagination.from+index}}</td>
-                                <td>@{{acad.academicName}}
-
-                                <td>@{{formatDate(acad.start_date)}}</td>
-                                <td>@{{formatDate(acad.end_date)}}</td>
+                                <td>@{{acad.academicName}}</td>
                                 <td>@{{acad.active_year?'Yes':'No'}}</td>
                                 <td>
                                     <a @click="showEditModal(acad)" data-toggle="modal" data-target="#mymodal" class="on-default edit-row"><i class="fa fa-pencil"></i></a>

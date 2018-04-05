@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Academic extends Model
 {
-    protected $fillable=['academicName','start_date','end_date','active_year'];
-    protected $dates=['start_date','end_date'];
+    protected $fillable=['academicName','active_year'];
+
     public $timestamps=false;
     public function grades(){
         return $this->hasMany(Grade::class);

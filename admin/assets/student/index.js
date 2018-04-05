@@ -1,8 +1,9 @@
 const VuePagination = resolve => require(['../core/VuePagination'], resolve);
-let _getgrade=route.urls.grade.getgrade;
+const CategorySelect = resolve => require(['../select_components/CategorySelect'], resolve);
+
 let _studentImage=route.urls.student_image;
 module.exports= {
-  components:{VuePagination},
+  components:{VuePagination,CategorySelect},
   data: function () {
     return {
       students: [],

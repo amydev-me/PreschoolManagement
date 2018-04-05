@@ -102,13 +102,14 @@
                                 <div class="col-sm-5">
                                     <label class="col-sm-3 control-label" style="text-align: right;margin-top:7px;">Category</label>
                                     <div class="col-sm-9">
-                                        <multiselect @input="selectedCategoryChange"
-                                                     :searchable="false"
-                                                     v-model="selected_category"
-                                                     :options="categories"
-                                                     label="categoryName"
-                                                     :show-labels="false" placeholder="Select Category">
-                                        </multiselect>
+                                        <category-select @input="selectedCategoryChange"></category-select>
+                                        {{--<multiselect @input="selectedCategoryChange"--}}
+                                                     {{--:searchable="false"--}}
+                                                     {{--v-model="selected_category"--}}
+                                                     {{--:options="categories"--}}
+                                                     {{--label="categoryName"--}}
+                                                     {{--:show-labels="false" placeholder="Select Category">--}}
+                                        {{--</multiselect>--}}
                                     </div>
                                 </div>
                                 <div class="col-sm-7">

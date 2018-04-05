@@ -1,9 +1,10 @@
 const VuePagination = resolve => require(['../core/VuePagination'], resolve);
+const CategorySelect = resolve => require(['../select_components/CategorySelect'], resolve);
 let _detailview=route.urls.teacher.detailView;
 let _getdata=route.urls.teacher.getdata;
 let _teacherimage=route.urls.teacher_image;
 module.exports= {
-  components:{VuePagination},
+  components:{VuePagination,CategorySelect},
   data: function () {
     return {
       pagination: {
@@ -16,11 +17,22 @@ module.exports= {
       },
       teachers: [],
 
-      filterValue: null
+      filterValue: null,
+      selected_category:null
     }
   },
 
   methods: {
+
+    selectedCategoryChange(value) {
+
+      if (this.selected_category == null) return;
+
+      this.selected_grade = null;
+      axios.get(_getgrade + '?academic_id=' + this.active_academic.id + '&' + 'category_id=' + this.selected_category.id).then(({data}) => {
+        this.grades = data;
+      });
+    },
     getImage (profile) {
       if(profile==null) return;
       return _teacherimage + profile;

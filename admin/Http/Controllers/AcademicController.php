@@ -47,22 +47,32 @@ class AcademicController extends Controller
 
     public function create(Request $request)
     {
+        $rules = [
+            'academicName' => 'required',
+        ];
 
+        $validatedata = validator($request->all(), $rules);
+        if ($validatedata->fails()) {
+            return response()->json([$validatedata->errors()], 422);
+        }
         $action = new Create($this->repository, $request->all());
         $result = $action->invoke();
-        if ($result instanceof Validator) {
-            return response()->json([$result->errors()], 422);
-        }
         return response()->json(['success' => $result]);
     }
 
     public function update(Request $request)
     {
+        $rules = [
+            'id'=>'required',
+            'academicName' => 'required',
+        ];
+
+        $validatedata = validator($request->all(), $rules);
+        if ($validatedata->fails()) {
+            return response()->json([$validatedata->errors()], 422);
+        }
         $action = new Update($this->repository, $request->all());
         $result = $action->invoke();
-        if ($result instanceof Validator) {
-            return response()->json([$result->errors()], 422);
-        }
         return response()->json(['success' => $result]);
     }
 
@@ -71,9 +81,6 @@ class AcademicController extends Controller
         $_req = ['id' => $id];
         $action = new Delete($this->repository, $_req);
         $result = $action->invoke();
-        if ($result instanceof Validator) {
-            return response()->json([$result->errors()], 422);
-        }
         return response()->json(['success' => $result]);
     }
 

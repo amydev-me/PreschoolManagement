@@ -9,13 +9,16 @@
 namespace Admin\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+
 use Data\Actions\Grade\CreateGrade;
 use Data\Actions\Grade\DeleteGrade;
 use Data\Actions\Grade\UpdateGrade;
 use Data\Models\Grade;
+
 use Data\Repositories\GradeRepository;
 use Data\Repositories\TermRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Validator;
 
 class GradeController extends Controller
@@ -89,7 +92,8 @@ class GradeController extends Controller
     }
 
     public function getGradeByAC(Request $request){
-        $grades= Grade::where('academic_id',$request->academic_id)->where('category_id',$request->category_id)->get();
+        $grades= Grade::where('academic_id',Session::get('academic')->id)->where('category_id',$request->category_id)->get();
         return response()->json($grades);
+
     }
 }

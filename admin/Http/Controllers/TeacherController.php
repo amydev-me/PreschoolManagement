@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Data\Actions\Teacher\AsyncTeacher;
 use Data\Actions\Teacher\CreateTeacher;
 use Data\Actions\Teacher\DeleteTeacher;
+use Data\Actions\Teacher\FilterTeacher;
 use Data\Actions\Teacher\GetTeacherDetail;
 use Data\Actions\Teacher\GetTeachers;
 use Data\Actions\Teacher\UpdateTeacher;
@@ -146,6 +147,13 @@ class TeacherController extends Controller
         $_req=['fullName'=>$q];
         $action = new AsyncTeacher($this->repository,$_req);
         $result = $action->invoke();
+        return response()->json($result);
+    }
+
+    public function filterTeacher(Request $request)
+    {
+        $action=new FilterTeacher($this->repository,$request->all());
+        $result=$action->invoke();
         return response()->json($result);
     }
 }

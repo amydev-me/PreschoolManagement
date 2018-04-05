@@ -102,7 +102,7 @@ module.exports= {
       if (this.selected_category.id == null) return;
 
       this.selected_grade = null;
-      axios.get(_getgrade + '?academic_id=' + this.selected_academic.id + '&' + 'category_id=' + this.selected_category.id).then(({data}) => {
+      axios.get(_getgrade + '?category_id=' + this.selected_category.id).then(({data}) => {
         this.grades = data;
       });
     },

@@ -24,8 +24,6 @@ module.exports= {
       academic: {
         id: null,
         academicName: null,
-        start_date: null,
-        end_date: null,
         active_year: false
       },
       academics: [],
@@ -59,8 +57,6 @@ module.exports= {
       var temp = Object.assign({}, academic);
       this.academic.id = temp.id;
       this.academic.academicName = temp.academicName;
-      this.academic.start_date = this.formatDate(temp.start_date);
-      this.academic.end_date = this.formatDate(temp.end_date);
       this.academic.active_year = temp.active_year;
       this.isedit = true;
     },

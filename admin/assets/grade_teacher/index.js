@@ -1,6 +1,6 @@
 const VuePagination = resolve => require(['../core/VuePagination'], resolve);
 const DeleteModal = resolve => require(['../core/DeleteModal'], resolve);
-
+const CategorySelect = resolve => require(['../select_components/CategorySelect'], resolve);
 const ActionGrade = resolve => require(['../grade_teacher/action'], resolve);
 let _getdata=route.urls.assign_teacher.getdata;
 let _remove=route.urls.assign_teacher.remove;
@@ -12,7 +12,7 @@ let _getgrade=route.urls.grade.getgrade;
 module.exports= {
 
   components: {
-    ActionGrade,VuePagination,DeleteModal
+    ActionGrade,VuePagination,DeleteModal,CategorySelect
   },
 
   data: function () {
@@ -41,7 +41,7 @@ module.exports= {
 
   methods: {
     getGrade(){
-      return axios.get(_getgrade + '?academic_id=' + this.active_academic.id + '&' + 'category_id=' + this.selected_category.id);
+      return axios.get(_getgrade + '?category_id=' + this.selected_category.id);
     },
     getByCategory(){
       return axios.get(_getbycategory+this.selected_category.id);
@@ -57,9 +57,10 @@ module.exports= {
         this.pagination = data;
       });
     },
-    selectedCategoryChange () {
+    selectedCategoryChange (value) {
       this.selected_grade = null;
       this.grades=[];
+      this.selected_category=value;
       if (this.selected_category == null) {
         this.getData(_getdata);
         return;
@@ -102,6 +103,7 @@ module.exports= {
     },
     showEditModal(grade_teacher){
       this.isedit=true;
+
       var temp = Object.assign({}, grade_teacher);
       this.grade_teacher = temp;
       $('#courseteacher-modal').modal('show');

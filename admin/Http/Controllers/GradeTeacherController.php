@@ -20,17 +20,16 @@ use Data\Repositories\AcademicYearRepository;
 
 use Data\Repositories\GradeTeacherRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Validator;
 
 class GradeTeacherController extends Controller
 {
-    private $repository, $academicRepo;
+    private $repository;
 
-    public function __construct(GradeTeacherRepository $repository, AcademicYearRepository $academicRepo)
+    public function __construct(GradeTeacherRepository $repository)
     {
         $this->repository = $repository;
-        $this->academicRepo = $academicRepo;
-
     }
 
     public function index()
@@ -40,30 +39,40 @@ class GradeTeacherController extends Controller
 
     public function create(Request $request)
     {
-        $rules = ['teacher_id' => 'required', 'academic_id' => 'required', 'grade_id' => 'required', 'subject_id' => 'required'];
-        $validatedata = validator($request->all(), $rules);
-        if ($validatedata->fails()) {
-            return response()->json([$validatedata->errors()], 422);
+        $success =$this->validateData($request);
+        if (!$success) {
+            return response()->json(['success'=>false], 422);
         }
         $action = new CreateGradeTeacher($this->repository, $request->all());
         $result = $action->invoke();
         if (!$result) {
             return response()->json(['message' => ' Teacher is already assigned for this grade.'], 500);
         }
-
         return response()->json(['success' => $result]);
     }
 
-    public function update(Request $request){
-        $rules = ['teacher_id' => 'required', 'academic_id' => 'required', 'grade_id' => 'required', 'subject_id' => 'required'];
+    private function validateData($request)
+    {
+        $rules = [
+            'teacher_id' => 'required',
+            'academic_id' => 'required',
+            'grade_id' => 'required',
+            'subject_id' => 'required'];
         $validatedata = validator($request->all(), $rules);
         if ($validatedata->fails()) {
-            return response()->json([$validatedata->errors()], 422);
+            return false;
+        }
+        return true;
+    }
+
+    public function update(Request $request){
+
+        $success =$this->validateData($request);
+        if (!$success) {
+            return response()->json(['success'=>false], 422);
         }
         $action = new UpdateGradeTeacher($this->repository, $request->all());
         $result = $action->invoke();
-
-
         if (!$result) {
             return response()->json(['message' => 'Grade teacher is already assigned for this grade.'], 500);
         }
@@ -87,8 +96,7 @@ class GradeTeacherController extends Controller
 
     public function getData()
     {
-        $active = new ActiveAcademic($this->academicRepo);
-        $academic = $active->invoke();
+        $academic =Session::get('academic');
         if ($academic) {
             $grades = GradeTeacher::with(['academic','grade.category', 'grade', 'subject', 'teacher' => function ($q) {
                 $q->select('id', 'fullName', 'personal_email');
@@ -98,11 +106,8 @@ class GradeTeacherController extends Controller
         return response()->json([]);
     }
 
-
-
     public function getByCategory(Request $request){
-        $active = new ActiveAcademic($this->academicRepo);
-        $academic = $active->invoke();
+        $academic =Session::get('academic');
         if ($academic) {
             $grades = GradeTeacher::with(['academic','grade.category', 'grade', 'subject', 'teacher' =>
                 function ($q) {
@@ -115,9 +120,9 @@ class GradeTeacherController extends Controller
         }
         return response()->json([]);
     }
+
     public function getByCategoryAndGrade(Request $request){
-        $active = new ActiveAcademic($this->academicRepo);
-        $academic = $active->invoke();
+        $academic =Session::get('academic');
         if ($academic) {
             $grades = GradeTeacher::with(['academic','grade.category', 'grade', 'subject', 'teacher' =>
                 function ($q) {
@@ -132,8 +137,7 @@ class GradeTeacherController extends Controller
     }
 
     public function getGradeByTeacher(Request $request){
-        $active = new ActiveAcademic($this->academicRepo);
-        $academic = $active->invoke();
+        $academic =Session::get('academic');
         if ($academic) {
             $grades = GradeTeacher::with(['academic','grade.category', 'grade', 'subject', 'teacher' =>
                 function ($q) {
