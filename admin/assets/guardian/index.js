@@ -56,20 +56,3 @@ module.exports= {
     this.getData(_getdata);
   }
 }
-
-// goDetailView (id) {
-//   return detailUrl + id;
-// },
-// getAll(url) {
-//   axios.get(url + this.pagination.current_page).then(response => {
-//     this.pagination = response.data;
-//     this.guardians = response.data.data;
-//
-//   }).catch(error => {
-//     if (error.response.status == 401 ||error.response.status==419) {
-//       window.location.href = route.urls.login;
-//     } else {
-//       Notification.error('Error occured while loading data.');
-//     }
-//   });
-// },

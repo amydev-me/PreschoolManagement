@@ -13,9 +13,10 @@ Vue.component('allUser', resolve => require(['./user/index'], resolve));
 Vue.component('manageCategory', resolve => require(['./category/index'], resolve));
 Vue.component('manageSubject', resolve => require(['./subject/index'], resolve));
 Vue.component('manageFee', resolve => require(['./fee/index'], resolve));
+Vue.component('manageTerm', resolve => require(['./term/index'], resolve));
 Vue.component('gradeList', resolve => require(['./grade/index'], resolve));
 Vue.component('manageGrade', resolve => require(['./grade/action'], resolve));
-
+Vue.component('editGrade', resolve => require(['./grade/edit-action'], resolve));
 Vue.component('allTeacher', resolve => require(['./teacher/index'], resolve));
 Vue.component('teacherAction', resolve => require(['./teacher/create'], resolve));
 Vue.component('detailTeacher', resolve => require(['./teacher/detail'], resolve));
@@ -44,9 +45,10 @@ Vue.component('detailStudent', resolve => require(['./student/detail'], resolve)
 
 // Vue.component('detailGuardian', resolve => require(['./guardian/detail'], resolve));
 
-
-// Vue.component('allPayment', resolve => require(['./payment/index'], resolve));
-// Vue.component('detailPayment', resolve => require(['./payment/invoice'], resolve));
+Vue.component('createPayment', resolve => require(['./payment/create'], resolve));
+Vue.component('editPayment', resolve => require(['./payment/edit'], resolve));
+Vue.component('invoiceList', resolve => require(['./payment/index'], resolve));
+Vue.component('invoiceView', resolve => require(['./payment/view'], resolve));
 
 // Vue.component('dashboard', resolve => require(['./dashboard/index'], resolve));
 

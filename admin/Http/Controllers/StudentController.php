@@ -8,6 +8,7 @@ use Data\Actions\AcademicYear\ActiveAcademic;
 use Data\Actions\AcademicYear\AsyncGet;
 use Data\Actions\Student\CreateStudent;
 use Data\Actions\Student\DeleteStudent;
+use Data\Actions\Student\GetStudentByGrade;
 use Data\Actions\Student\GetStudentDetail;
 use Data\Actions\Student\GetStudents;
 use Data\Actions\Student\UpdateStudent;
@@ -22,21 +23,21 @@ use Data\Repositories\StudentRepository;
 use Data\Repositories\TermRepository;
 use Data\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Validator;
 
 class StudentController extends Controller
 {
-    private $repository, $userRepo, $termRepo, $acaRepo, $catRepo;
+    private $repository,  $acaRepo, $catRepo;
     private $pages = 1;
 
-    public function __construct(StudentRepository $repo, UserRepository $userRepo, TermRepository $termRepo, AcademicYearRepository $acaRepo, CategoryRepository $catRepo)
+    public function __construct(StudentRepository $repo,  AcademicYearRepository $acaRepo, CategoryRepository $catRepo)
     {
         $this->repository = $repo;
 
-        $this->userRepo = $userRepo;
 
-        $this->termRepo = $termRepo;
+
 
         $this->acaRepo = $acaRepo;
 
@@ -61,8 +62,7 @@ class StudentController extends Controller
     public function create(Request $request)
     {
         $rules = [
-            'username' => 'required|unique:users',
-            'password' => 'required',
+
             'academic_id' => 'required',
             'grade_id' => 'required',
             'guardian_id' => 'required',
@@ -83,7 +83,7 @@ class StudentController extends Controller
         if ($validatedata->fails()) {
             return response()->json([$validatedata->errors()], 422);
         }
-        $action = new CreateStudent($this->repository, $this->userRepo, $request->all(), $request);
+        $action = new CreateStudent($this->repository, $request->all(), $request);
         $result = $action->invoke();
         return response()->json(['success' => $result]);
     }
@@ -91,6 +91,7 @@ class StudentController extends Controller
     public function update(Request $request)
     {
         $rules = [
+
 
 
             'guardian_id' => 'required',
@@ -151,50 +152,32 @@ class StudentController extends Controller
         return response()->file($img->defaultImage());
     }
 
-    private function getActiveAcademic()
+    public function getData()
     {
-        $action = new ActiveAcademic($this->acaRepo);
-        $active_academic = $action->invoke();
-        return $active_academic;
+        $academic = Session::get('academic');
+        $students = Student::where('academic_id', $academic->id)->paginate($this->pages);
+        return response()->json($students);
     }
-
-    private function getAcademics()
-    {
-        $academicAction = new AsyncGet($this->acaRepo);
-        $academics = $academicAction->invoke();
-        return $academics;
-    }
-
-    private function getCategories()
-    {
-        $categoryAction = new \Data\Actions\Category\AsyncGet($this->catRepo);
-        $categories = $categoryAction->invoke();
-        return $categories;
-    }
-
     public function getStudentByActiveAcademic()
     {
-        $active_academic = $this->getActiveAcademic();
-        $academics = $this->getAcademics();
-        $categories = $this->getCategories();
-        if ($active_academic) {
-            $students = Student::with('terms')->where('academic_id', $active_academic->id)->paginate($this->pages);
-            return response()->json(['active_academic' => $active_academic, 'batches' => $academics, 'categories' => $categories, 'students' => $students]);
-        }
-        return response()->json(['active_academic' => $active_academic, 'batches' => $academics, 'categories' => $categories, 'students' => []]);
+        $active_academic = Session::get('academic');
 
+        if ($active_academic) {
+            $students = Student::with('grade')->where('academic_id', $active_academic->id)->paginate($this->pages);
+            return response()->json(['active_academic' => $active_academic, 'students' => $students]);
+        }
     }
 
     public function filterStudent(Request $request)
     {
-
-        $students = Student::with('terms')
+        $academic = Session::get('academic');
+        $students = Student::with('grade')
             ->orWhere('studentCode', 'LIKE', $request->param . '%')
             ->orWhere('fullName', 'LIKE', $request->param . '%')
             ->orWhere('phone', 'LIKE', $request->param . '%')
             ->orWhere('email', 'LIKE', $request->param . '%')
             ->orWhere('nrc', 'LIKE', $request->param . '%')
-            ->where('academic_id', $request->academic_id)
+            ->where('academic_id', $academic->id)
             ->paginate($this->pages);
 
         return response()->json($students);
@@ -204,10 +187,7 @@ class StudentController extends Controller
     {
         $grade_id = $request->grade_id;
         $category_id = $request->category_id;
-        $students = Student::with('terms')
-            ->where('academic_id', $request->academic_id)
-            ->getByCategory($category_id)
-            ->getByGrade($grade_id)
+        $students = Student::where('academic_id', $request->academic_id)
             ->paginate($this->pages);
         return response()->json($students);
     }
@@ -216,7 +196,13 @@ class StudentController extends Controller
     {
         $grades = Grade::where('academic_id', $request->academic_id)->where('category_id', $request->category_id)->get();
 
-        $students = Student::with('terms')->where('academic_id', $request->academic_id)->getByCategory($request->category_id)->paginate($this->pages);
+        $students = Student::where('academic_id', $request->academic_id)->paginate($this->pages);
         return response()->json(['students' => $students, 'grades' => $grades]);
+    }
+
+    public function getbyGrade(Request $request){
+        $action=new GetStudentByGrade($this->repository,$request->all());
+        $result=$action->invoke();
+        return response()->json($result);
     }
 }

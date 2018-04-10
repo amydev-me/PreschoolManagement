@@ -16,17 +16,21 @@ use Data\Actions\Category\DeleteCategory;
 use Data\Actions\Category\FilterByName;
 use Data\Actions\Category\GetCategories;
 use Data\Actions\Category\UpdateCategory;
+use Data\Models\Category;
 use Data\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Validator;
 
 class CategoryController extends Controller
 {
     private $repository;
+
     public function __construct(CategoryRepository $repository)
     {
-        $this->repository=$repository;
+        $this->repository = $repository;
     }
+
     public function index()
     {
         return view('category.index');
@@ -80,9 +84,19 @@ class CategoryController extends Controller
         return response()->json($result);
     }
 
-    public function asyncget(){
+    public function asyncget()
+    {
         $action = new AsyncGet($this->repository);
         $result = $action->invoke();
         return response()->json($result);
+    }
+
+    public function getCategoryWithGrade()
+    {
+        $academic = Session::get('academic');
+        $categories = Category::with(['grades' => function ($q) {
+            $q->where('academic_id', 1)->get();
+        }])->get();
+        return response()->json(['grades' => $categories, 'active_academic' => $academic]);
     }
 }

@@ -1,4 +1,4 @@
-<div class="tab-pane animated bounceInRight" id="personal_detail" :class="{'tab-pane active animated bounceInRight':isedit,'tab-pane animated bounceInRight':!isedit}">
+<div class="tab-pane active animated bounceInRight" id="personal_detail">
     <form class="form-horizontal"  @submit.prevent="validateData('personal_detail_form')" data-vv-scope="personal_detail_form" autocomplete="off">
 
 
@@ -93,7 +93,7 @@
 
         </div>
         <div class="text-right">
-            <button id="previous_account"  class="btn btn-primary" type="button" @click="personal_back_click" v-if="!isedit">Previous</button>
+
             <button type="submit" class="btn btn-primary">Next</button>
         </div>
     </form>

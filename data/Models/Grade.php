@@ -9,9 +9,6 @@ class Grade extends Model
     protected $fillable = ['academic_id','category_id','gradeName', 'start_date', 'end_date','description'];
     public $timestamps=false;
 
-    public function terms(){
-        return $this->hasMany(Term::class);
-    }
 
     public function academic(){
         return $this->belongsTo(Academic::class);
@@ -24,5 +21,14 @@ class Grade extends Model
 
     public function grade_teachers(){
         return $this->hasMany(GradeTeacher::class);
+    }
+
+    public function terms()
+    {
+        return $this->belongsToMany(Term::class)->withPivot('term_id','grade_id','amount');
+    }
+
+    public function payments(){
+        return $this->hasMany(Payment::class);
     }
 }

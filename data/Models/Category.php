@@ -12,4 +12,10 @@ class Category extends Model
     public function grades(){
         return $this->hasMany(Grade::class);
     }
+
+    public function terms(){
+        return $this->hasMany(Term::class);
+    }
+
+
 }

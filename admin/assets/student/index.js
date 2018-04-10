@@ -16,12 +16,10 @@ module.exports= {
         last_page: 1,
       },
       filterValue: null,
-      academics: [],
       selected_academic: null,
       grades: [],
       selected_grade: null,
-      categories: [],
-      selected_category: null
+
     }
   },
   methods: {
@@ -36,8 +34,6 @@ module.exports= {
       axios.get('/admin/student/get-by-academic?page=' + this.pagination.current_page).then(({data}) => {
         this.students = data.students.data;
         this.pagination = data.students;
-        this.academics = data.academics;
-        this.categories = data.categories;
         this.selected_academic = data.active_academic;
       });
     },
@@ -68,16 +64,7 @@ module.exports= {
           this.pagination = data;
       });
     },
-    selectedCategoryChange () {
-      if (this.selected_category == null)  {this.getDataByAcademic();return;}
-      this.selected_grade=null;
-      axios.get('/admin/student/get-by-ac?academic_id=' + this.selected_academic.id + '&' + 'category_id=' + this.selected_category.id)
-        .then(({data}) => {
-        this.grades = data.grades;
-        this.students = data.students.data;
-        this.pagination = data.students;
-      });
-    },
+
     paginationdata(){
       if(this.selected_category!=null&&this.selected_category!=null){
         if(this.filterValue==null){

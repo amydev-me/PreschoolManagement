@@ -14,8 +14,6 @@ module.exports= {
       isedit:false,
       teacher: {
         id: null,
-        username: null,
-        password: null,
         profile: null,
         firstName:null,
         lastName:null,
@@ -40,26 +38,23 @@ module.exports= {
         biography:null,
         personal_email:null,
       },
-      password_confirmation:null,
+
       countries:[]
     }
   },
 
   methods: {
-    // handleTab(){
-    //   $('.nav li').not('.active').addClass('disabled');
-    //   $('.nav li').not('.active').find('a').removeAttr("data-toggle");
-    //
-    //   $('button').click(function(){
-    //     /*enable next tab*/
-    //     $('.nav li.active').next('li').removeClass('disabled');
-    //     $('.nav li.active').next('li').find('a').attr("data-toggle","tab");
-    //   });
-    // },
-    personal_back_click(){
+    handleTab() {
+      $('.nav li').not('.active').addClass('disabled');
+      $('.nav li').not('.active').find('a').removeAttr("data-toggle");
 
-      $('#teacher_form a[href="#account_detail"]').tab('show');
+      $('button').click(function () {
+        /*enable next tab*/
+        $('.nav li.active').next('li').removeClass('disabled');
+        $('.nav li.active').next('li').find('a').attr("data-toggle", "tab");
+      });
     },
+
     employee_back_click(){
       $('#teacher_form a[href="#personal_detail"]').tab('show');
     },
@@ -82,9 +77,7 @@ module.exports= {
     validateData (scope) {
       this.$validator.validateAll(scope).then(successsValidate => {
         if (successsValidate) {
-          if (scope == 'account-form') {
-            $('#teacher_form a[href="#personal_detail"]').tab('show');
-          }else if(scope=='personal_detail_form'){
+           if(scope=='personal_detail_form'){
             $('#teacher_form a[href="#employee_detail"]').tab('show');
           }else if(scope=='employee_form'){
             $('#teacher_form a[href="#contact_info"]').tab('show');
@@ -98,8 +91,6 @@ module.exports= {
     performAction () {
       let data = new FormData();
       data.append('id', this.teacher.id);
-      data.append('password', this.teacher.password);
-      data.append('username', this.teacher.username);
       data.append('profile', this.teacher.profile);
       data.append('firstName', this.teacher.firstName);
       data.append('lastName', this.teacher.lastName);
@@ -125,10 +116,11 @@ module.exports= {
 
       const config = { headers: { 'Content-Type': 'multipart/form-data' } };
       axios.post(create, data,config).then(response => {
+        console.log(response.data.success);
         if (response.data.success == false) {
           Notification.error('Error occur while inserting data.');
         } else {
-          window.location.href=indexpage;
+          // window.location.href=indexpage;
         }
       }).catch(error => {
         if (error.response.status == 401 ||error.response.status==419) {
@@ -145,23 +137,6 @@ module.exports= {
     this.teacher.dateofbirth = this.formatDate(new Date());
     this.teacher.join_date = this.formatDate(new Date());
     this.countries=Helper.countries();
-  },
-  created(){
-    this.$validator.extend('verify_user', {
-      getMessage: field => `Username already exists.`,
-      validate: value => new Promise((resolve) => {
-        let validUser = true;
-        axios.get(checkinguser + value).then(response => {
-
-          validUser = response.data.valid;
-        }).then(response => {
-          setTimeout(() => {
-            resolve({
-              valid: validUser == true ? true : false
-            });
-          }, 200);
-        });
-      })
-    });
+    this.handleTab();
   }
 }

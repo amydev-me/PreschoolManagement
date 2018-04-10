@@ -5,68 +5,109 @@
 
 @section('content')
     <grade-list inline-template>
-       <div v-cloak>
+        <div class="panel" v-cloak>
            <delete-modal @input="successdelete" :inputid="grade_id" :inputurl="removeUrl"></delete-modal>
-           <div class="row">
-               <div class="col-sm-12">
-                   <div class="panel panel-default">
-                       <div class="panel-body p-t-0">
-                           <div class="row">
-                               <div class="col-sm-12">
-                                   <div class="col-sm-3">
-                                       <div class="m-b-10">
-                                           <a href="{{route('admin.grade.action')}}"  class="btn btn-primary btn-sm">  <i class="fa fa-plus"></i> Add New Grade</a>
-                                       </div>
-                                   </div>
-                               </div>
+            {{--<action :grade="grade"  @success="successdata" inline-template>--}}
+                {{--<div ref="thismodel" id="mymodal" class="modal fade modal-dialog-center" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">--}}
+                    {{--<div class="modal-dialog">--}}
+                        {{--<div class="modal-content">--}}
+                            {{--<div class="modal-header">--}}
+                                {{--<h4 class="modal-title">Edit Grade</h4>--}}
+                            {{--</div>--}}
+                            {{--<form class="form-horizontal" role="form" @submit.prevent="submitdata">--}}
+
+                                 {{--<div class="modal-body">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="col-sm-3 control-label">Year :</label>--}}
+                                        {{--<div class="col-sm-9">--}}
+                                            {{--<academic-select  @input="selectedAcadmiceChange" :value="selected_academic" data-vv-name="academic" v-validate="'required'"></academic-select>--}}
+                                            {{--<div  v-show="errors.has('academic')"><span class="error">Required year.</span></div>--}}
+                                        {{--</div>--}}
+
+                                    {{--</div>--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="col-sm-3 control-label">Category :</label>--}}
+                                        {{--<div class="col-sm-9">--}}
+                                            {{--<category-select @input="selectedCategoryChange" :value="selected_category" data-vv-name="category" v-validate="'required'"></category-select>--}}
+                                            {{--<div  v-show="errors.has('category')"><span class="error">Required category.</span></div>--}}
+                                        {{--</div>--}}
+
+                                    {{--</div>--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="col-sm-3 control-label">Grade :</label>--}}
+                                        {{--<div class="col-sm-9">--}}
+                                            {{--<input type="text" class="form-control" name="gradeName" v-model="performdata.gradeName" v-validate="'required'">--}}
+                                            {{--<div  v-show="errors.has('gradeName')"><span class="error">Required grade name.</span></div>--}}
+                                        {{--</div>--}}
+
+                                    {{--</div>--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="col-sm-3 control-label">Description :</label>--}}
+                                        {{--<div class="col-sm-9">--}}
+                                            {{--<textarea type="text" rows="1" class="form-control" name="description" v-model="performdata.description"></textarea>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                 {{--</div>--}}
+
+                                {{--<div class="modal-footer">--}}
+                                    {{--<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>--}}
+                                    {{--<button type="submit" class="btn btn-info">Save changes</button>--}}
+                                {{--</div>--}}
+                            {{--</form>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</action>--}}
+            <div class="panel-body">
+               <div class="row">
+                   <div class="col-sm-12">
+                       <div class="col-sm-6">
+                           <div class="m-b-30">
+                               <a :href="'/admin/grade/manage'"  class="btn btn-primary btn-sm">  <i class="fa fa-plus"></i> Add New Grade</a>
+                           </div>
+                       </div>
+                       <div class="col-sm-4 pull-right">
+                           <div class="form-group m-b-30 ">
+                               <category-select @input="selectedCategoryChange"></category-select>
                            </div>
                        </div>
                    </div>
                </div>
-           </div>
-           <div class="row">
-               <div class="col-sm-6" v-for="grade in grades">
-                   <div class="panel">
-                       <div class="panel-body">
-                           <div class="media-main">
-                               <div class="pull-right btn-group-sm">
-                                   <a :href="'/admin/grade/action?grade_id='+grade.id" class="btn btn-success tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit">
-                                       <i class="fa fa-pencil"></i>
-                                   </a>
-                                   <a @click="showDeleteModal(grade.id)" class="btn btn-danger tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete">
-                                       <i class="fa fa-close"></i>
-                                   </a>
-                               </div>
-                               <div class="info">
-                                   <h4 style="display: inline !important;">@{{grade.gradeName}}</h4>
-                                   <p class="text-muted" style="display: inline !important;">(@{{ grade.description }})</p>
-                               </div>
-                               <div class="clearfix"></div>
-                               <hr style="margin-top: 10px;margin-bottom: 10px;">
-                               <view-component :terms="grade.terms" inline-template>
-                                   <div class="col-sm-12">
-                                       <div class="col-sm-6">
-                                           <h5>Term#1</h5>
-                                           <p><i class="fa  fa-calendar"></i> <span>@{{fstart_date}}</span>,@{{fend_date}}</p>
-                                           <p> <i class="fa fa-clock-o"></i> @{{ffterm_time}} <i class="fa fa-money"></i> @{{ffamount}}</p>
-                                           <p> <i class="fa fa-clock-o"></i> @{{fhterm_time}} <i class="fa fa-money"></i> @{{fhamount}}</p>
-
-                                       </div>
-                                       <div class="col-sm-6">
-                                           <h5>Term#2</h5>
-                                           <p><i class="fa  fa-calendar"></i> <span>@{{sstart_date}}</span>,@{{send_date}}</p>
-                                           <p> <i class="fa fa-clock-o"></i> @{{sfterm_time}} <i class="fa fa-money"></i> @{{sfamount}}</p>
-                                           <p> <i class="fa fa-clock-o"></i> @{{shterm_time}} <i class="fa fa-money"></i> @{{shamount}}</p>
-                                       </div>
-                                   </div>
-                               </view-component>
-
-                           </div>
-                       </div> <!-- panel-body -->
-                   </div> <!-- panel -->
+               <div class="row">
+                   <div class="col-md-12 col-sm-12 col-xs-12">
+                       <div class="table-responsive">
+                           <table class="table" id="datatable-normal">
+                               <thead>
+                               <tr>
+                                   <th>#</th>
+                                   <th>Category</th>
+                                   <th>Grade</th>
+                                   <th>Description</th>
+                                   <th>Actions</th>
+                               </tr>
+                               </thead>
+                               <tbody>
+                               <tr v-for="grade,index in grades">
+                                   <td>@{{pagination.from+index}}</td>
+                                   <td>@{{grade.category?grade.category.categoryName:''}}</td>
+                                   <td>@{{grade.gradeName}}</td>
+                                   <td>@{{grade.description}}</td>
+                                   <td>
+                                       <a :href="'/admin/grade/edit?grade_id='+grade.id" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                       <a @click="showDeleteModal(grade.id)" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                   </td>
+                               </tr>
+                               </tbody>
+                           </table>
+                       </div>
+                   </div>
                </div>
-
-           </div>
-       </div>
+               <div class="row">
+                   <div class="col-sm-12">
+                       <vue-pagination  :length.number="pagination.last_page" v-model="pagination.current_page" @input="searchClick"></vue-pagination>
+                   </div>
+               </div>
+            </div>
+        </div>
     </grade-list>
 @endsection

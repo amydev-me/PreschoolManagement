@@ -17,9 +17,9 @@ class CreateTeachersTable extends Migration
             $table->increments('id');
             $table->mediumText('profile')->nullable();
             $table->string('teacherCode', 255)->nullable();
-            $table->string('firstName', 255);
-            $table->string('lastName', 255);
-            $table->string('fullName', 255);
+            $table->string('firstName', 255)->nullable();
+            $table->string('lastName', 255)->nullable();
+            $table->string('fullName', 255)->nullable();
             $table->string('gender', 6);
             $table->string('personal_email',255);
             $table->string('nrc', 255)->nullable();

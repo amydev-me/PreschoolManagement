@@ -13,9 +13,9 @@ class FeeSeeder extends Seeder
     {
         \Illuminate\Support\Facades\DB::table('fees')->insert(
             [
-                ['feeName'=>'Uniform','description'=>'4 PCS','amount'=>50000],
+                ['feeName'=>'Uniform','description'=>'4 PCS','amount'=>60],
                 ['feeName'=>'Meals','description'=>'','amount'=>50000],
-
+                ['feeName'=>'Fine','description'=>'','amount'=>300],
 
             ]);
     }

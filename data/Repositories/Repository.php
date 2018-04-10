@@ -43,9 +43,12 @@ abstract  class Repository
     public function update(array $data=[], $id, $attribute='id')
     {
         $_data = $this->model->where($attribute,$id);
+
         if ($_data) {
             return ($_data->update($data)) ? $_data : false;
         }
+
+        return false;
     }
 
     public function delete($value,$attribute='id'){

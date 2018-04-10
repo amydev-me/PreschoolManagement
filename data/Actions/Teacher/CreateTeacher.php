@@ -17,16 +17,17 @@ use Illuminate\Http\Request;
 
 class CreateTeacher extends BaseTeacherAction
 {
-    private $userRepo;
-    public function __construct(TeacherRepository $repository,UserRepository $userRepo, $request = null)
+
+    public function __construct(TeacherRepository $repository, $request = null)
     {
         parent::__construct($repository, $request);
-        $this->userRepo=$userRepo;
+
     }
 
     protected function perform()
     {
         $teacher = $this->request();
+
         $_teacher=null;
         try {
             $teacher['teacherCode'] = $this->getLastCode();
@@ -34,8 +35,6 @@ class CreateTeacher extends BaseTeacherAction
             $_teacher = $this->repository->create($teacher);
 
             if ($_teacher) {
-
-                $this->createUser($_teacher['id']);
                 return true;
             }
             return false;
@@ -59,14 +58,5 @@ class CreateTeacher extends BaseTeacherAction
         $img = new TeacherImage($this->request()['profile']);
         $img->store();
         return $img->getStoredName();
-    }
-
-    private function createUser($teacher_id){
-        $admin = new Request();
-        $admin['username'] = $this->request()['username'];
-        $admin['password'] = $this->cryptPassword();
-        $admin['type'] = 'teacher';
-        $admin['access_id'] = $teacher_id;
-        $this->userRepo->create($admin->all());
     }
 }

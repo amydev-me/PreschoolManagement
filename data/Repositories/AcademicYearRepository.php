@@ -50,7 +50,7 @@ class AcademicYearRepository extends Repository
 
     public function asyncGetData()
     {
-        return Academic::orderBy('academicName')->get();
+        return Academic::orderByDesc('active_year')->get();
     }
 
     public function activeAcademic(){

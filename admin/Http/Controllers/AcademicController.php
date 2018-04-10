@@ -21,6 +21,7 @@ use App\Http\Controllers\Controller;
 use Data\Actions\AcademicYear\Update;
 use Data\Repositories\AcademicYearRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Validator;
 
 class AcademicController extends Controller
@@ -57,7 +58,13 @@ class AcademicController extends Controller
         }
         $action = new Create($this->repository, $request->all());
         $result = $action->invoke();
-        return response()->json(['success' => $result]);
+        if($result){
+            if($result->active_year){
+                Session::put(['academic' => $result]);
+            }
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false]);
     }
 
     public function update(Request $request)
@@ -93,6 +100,7 @@ class AcademicController extends Controller
     }
 
     public function asyncget(){
+
         $action = new AsyncGet($this->repository);
         $result = $action->invoke();
         return response()->json($result);

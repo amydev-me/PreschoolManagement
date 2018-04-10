@@ -17,10 +17,10 @@ use Illuminate\Http\Request;
 class CreateGuardian extends BaseGuardianAction
 {
     private $adminRepo;
-    public function __construct(GuardianRepository $repository,UserRepository $adminRepo, $request = null)
+    public function __construct(GuardianRepository $repository, $request = null)
     {
         parent::__construct($repository, $request);
-        $this->adminRepo = $adminRepo;
+
     }
 
     protected function perform()
@@ -30,14 +30,7 @@ class CreateGuardian extends BaseGuardianAction
         $_guardian = $this->repository->create($guardian);
 
         if ($_guardian) {
-            $admin = new Request();
-            $admin['username'] = $guardian['username'];
-            $admin['password'] = $this->cryptPassword();
-            $admin['type'] = 'guardian';
-            $admin['access_id'] = $_guardian['id'];
-            $action=new CreateUser($this->adminRepo,$admin->all());
-            $action->invoke();
-            return $_guardian;
+         return $_guardian;
         }
         return null;
     }

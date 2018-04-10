@@ -1,4 +1,4 @@
-<div class="tab-pane" id="personal_detail">
+<div class="tab-pane active1" id="personal_detail">
 
     <form class="form-horizontal  animated bounceInRight"  @submit.prevent="validateData('personal_detail_form')" data-vv-scope="personal_detail_form">
 

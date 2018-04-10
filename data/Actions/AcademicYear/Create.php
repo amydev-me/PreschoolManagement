@@ -16,9 +16,6 @@ class Create extends BaseAcademicAction
     protected function perform()
     {
         $academic = $this->repository->create($this->request());
-        if ($academic) {
-            return true;
-        }
-        return false;
+      return $academic;
     }
 }

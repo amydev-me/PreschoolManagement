@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="join_date">Join Date:</label>
                         <div class="col-sm-10">
-                            <datepicker v-model="student.join_date" v-validate="'required'" data-vv-value-path="value" data-vv-name="join_date"></datepicker>
+                            <datepicker v-model="student.join_date" :value="student.join_date" v-validate="'required'" data-vv-value-path="value" data-vv-name="join_date"></datepicker>
                             <div v-show="errors.has('personal_detail_form.join_date')"><span class="error">@{{ errors.first('personal_detail_form.join_date') }}</span></div>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="dateofbirth">Date Of Birth:</label>
                         <div class="col-sm-10">
-                            <datepicker v-model="student.dateofbirth" v-validate="'required'" data-vv-value-path="value" data-vv-name="dateofbirth"></datepicker>
+                            <datepicker v-model="student.dateofbirth" :value="student.dateofbirth" v-validate="'required'" data-vv-value-path="value" data-vv-name="dateofbirth"></datepicker>
                             <div v-show="errors.has('personal_detail_form.dateofbirth')"><span class="error">@{{ errors.first('personal_detail_form.dateofbirth') }}</span></div>
                         </div>
                     </div>

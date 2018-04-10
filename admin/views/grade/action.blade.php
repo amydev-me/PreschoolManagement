@@ -1,160 +1,72 @@
 @extends('layout.app')
-@section('page-title','Add New Grade')
+@section('page-title','Manage Grade')
 @section('setup','active')
 @section('grade','active')
-
+@section('style')
+    <style>
+        .form-horizontal .control-label{
+            text-align: right !important;
+        }
+    </style>
+    @endsection
 @section('content')
     <manage-grade inline-template>
         <div class="panel" v-cloak>
             <div class="panel-body">
+                <div class="form">
+                    <form class="cmxform form-horizontal tasi-form" role="form" @submit.prevent="submitdata">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Year :</label>
+                                <div class="col-sm-10">
+                                    <academic-select :empty="false" @input="selectedAcadmiceChange" :value="selected_academic" data-vv-name="academic" v-validate="'required'"></academic-select>
+                                    <div  v-show="errors.has('academic')"><span class="error">Required year.</span></div>
+                                </div>
 
-                    <form class="form-horizontal" role="form" @submit.prevent="submitdata">
-                        <div class="row">
-                            <div class="col-sm-push-1 col-sm-10 col-sm-pull-1">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Year :</label>
-                                    <div class="col-sm-10">
-                                        <multiselect
-                                                open-direction="bottom" v-validate="'required'" data-vv-name="year"
-                                                label="academicName" v-model="selected_academic"
-                                                :options="academics" :show-labels="false" placeholder="Select year">
-                                        </multiselect>
-                                    </div>
-                                    <div class="col-sm-push-2 col-sm-10" v-show="errors.has('year')"><span class="error">Required year.</span></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Category :</label>
-                                    <div class="col-sm-10">
-                                        <category-select @input="selectedCategoryChange" :value="selected_category"></category-select>
-                                        {{--<multiselect--}}
-                                                {{--open-direction="bottom" v-validate="'required'" data-vv-name="category"--}}
-                                                {{--label="categoryName" v-model="selected_category"--}}
-                                                {{--:options="categories" :show-labels="false" placeholder="Select category">--}}
-                                        {{--</multiselect>--}}
-                                    </div>
-                                    <div class="col-sm-push-2 col-sm-9" v-show="errors.has('category')"><span class="error">Required category.</span></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Grade :</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="gradeName" v-model="grade.gradeName" v-validate="'required'">
-                                    </div>
-                                    <div class="col-sm-push-2 col-sm-9" v-show="errors.has('gradeName')"><span class="error">Required grade name.</span></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Description :</label>
-                                    <div class="col-sm-10">
-                                        <textarea type="text" rows="1" class="form-control" name="description" v-model="grade.description"></textarea>
-                                    </div>
-                                </div>
-                                {{--Term1--}}
-                                <div class="col-sm-6 m-t-30">
-                                    <h3 class="panel-title">
-                                        TERM #1
-                                    </h3>
-                                    <hr>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Start Date :</label>
-                                        <div class="col-sm-8">
-                                            <datepicker v-model="firstDate.start_date" data-vv-name="start_date" v-validate="'required'" ></datepicker>
-                                        </div>
-                                        <div class="col-sm-push-3 col-sm-8" v-show="errors.has('start_date')"><span class="error">Required start date.</span></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">End Date :</label>
-                                        <div class="col-sm-8">
-                                            <datepicker v-model="firstDate.end_date" data-vv-name="end_date" v-validate="'required'" ></datepicker>
-                                        </div>
-                                        <div class="col-sm-push-3 col-sm-8" v-show="errors.has('end_date')"><span class="error">Required end date.</span></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Full Time :</label>
-                                        <div class="col-sm-8">
-                                            <input class="form-control" v-model="firstFull.term_time" data-vv-name="ff_term_time" v-validate="'required'" >
-                                        </div>
-                                        <div class="col-sm-push-3 col-sm-8" v-show="errors.has('ff_term_time')"><span class="error">Required  time.</span></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Amount :</label>
-                                        <div class="col-sm-8">
-                                            <numeric-input  mask-type="currency"   v-model="firstFull.amount" v-validate="'required'" data-vv-name="ff_term_amount"> </numeric-input>
-                                        </div>
-                                        <div class="col-sm-push-3 col-sm-8" v-show="errors.has('ff_term_amount')"><span class="error">Required  amount.</span></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Half Time :</label>
-                                        <div class="col-sm-8">
-                                            <input class="form-control" v-model="firstHalf.term_time" data-vv-name="fh_term_time" data-vv-name="fh_term_time" v-validate="'required'" >
-                                        </div>
-                                        <div class="col-sm-push-3 col-sm-8" v-show="errors.has('fh_term_time')"><span class="error">Required time.</span></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Amount :</label>
-                                        <div class="col-sm-8">
-                                            <numeric-input  mask-type="currency"   v-model="firstHalf.amount" v-validate="'required'" data-vv-name="fh_term_amount"> </numeric-input>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Category :</label>
+                                <div class="col-sm-10">
+                                    <category-select @input="selectedCategoryChange"></category-select>
 
-                                        </div>
-                                        <div class="col-sm-push-3 col-sm-8" v-show="errors.has('fh_term_amount')"><span class="error">Required amount.</span></div>
-                                    </div>
                                 </div>
-                                {{--Term2--}}
-                                <div class="col-sm-6 m-t-30">
-                                    <h3 class="panel-title">
-                                        TERM #2
-                                    </h3>
-                                    <hr>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Start Date :</label>
-                                        <div class="col-sm-8">
-                                            <datepicker v-model="secondDate.start_date" data-vv-name="s_start_date" v-validate="'required'" ></datepicker>
-                                        </div>
-                                        <div class="col-sm-push-3 col-sm-8" v-show="errors.has('s_start_date')"><span class="error">Required start date.</span></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">End Date :</label>
-                                        <div class="col-sm-8">
-                                            <datepicker v-model="secondDate.end_date" data-vv-name="s_end_date" v-validate="'required'" ></datepicker>
-                                        </div>
-                                        <div class="col-sm-push-3 col-sm-8" v-show="errors.has('s_end_date')"><span class="error">Required end date.</span></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Full Time :</label>
-                                        <div class="col-sm-8">
-                                            <input class="form-control" v-model="secondFull.term_time" data-vv-name="sf_term_time" v-validate="'required'" >
-                                        </div>
-                                        <div class="col-sm-push-3 col-sm-8" v-show="errors.has('sf_term_time')"><span class="error">Required  time.</span></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Amount :</label>
-                                        <div class="col-sm-8">
-                                            <numeric-input  mask-type="currency"   v-model="secondFull.amount" v-validate="'required'" data-vv-name="sf_term_amount"> </numeric-input>
-                                        </div>
-                                        <div class="col-sm-push-3 col-sm-8" v-show="errors.has('sf_term_amount')"><span class="error">Required  amount.</span></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Half Time :</label>
-                                        <div class="col-sm-8">
-                                            <input class="form-control" v-model="secondHalf.term_time" data-vv-name="sh_term_time" data-vv-name="sh_term_time" v-validate="'required'" >
-                                        </div>
-                                        <div class="col-sm-push-3 col-sm-8" v-show="errors.has('sh_term_time')"><span class="error">Required time.</span></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Amount :</label>
-                                        <div class="col-sm-8">
-                                            <numeric-input  mask-type="currency"   v-model="secondHalf.amount" v-validate="'required'" data-vv-name="sh_term_amount"> </numeric-input>
-
-                                        </div>
-                                        <div class="col-sm-push-3 col-sm-8" v-show="errors.has('sh_term_amount')"><span class="error">Required amount.</span></div>
+                                <div class="col-sm-push-2 col-sm-9" v-show="errors.has('category')"><span class="error">Required category.</span></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Grade :</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="gradeName" v-model="performdata.gradeName" v-validate="'required'">
+                                </div>
+                                <div class="col-sm-push-2 col-sm-9" v-show="errors.has('gradeName')"><span class="error">Required grade name.</span></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Description :</label>
+                                <div class="col-sm-10">
+                                    <textarea type="text" rows="1" class="form-control" name="description" v-model="performdata.description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group" v-for="term,index in terms">
+                                <label class="col-md-2 control-label" for="example-input1-group2">@{{ term.termName }}:</label>
+                                <div class="col-md-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input  type="checkbox" class="cr-styled" v-model="term.ischecked" @click="checkedChanged(term,index)">
+                                        </span>
+                                        <input type="text" class="form-control" id="example-input3-group1" v-model="term.amount" :disabled="!term.ischecked">
+                                        <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-info">Save changes</button>
+                        <hr>
+                        <div class="form-group">
+                            <div class="pull-right m-r-10">
+
+                                <button class="btn btn-default" type="button">Cancel</button>
+                                <button class="btn btn-info" type="submit">Save</button>
+                            </div>
                         </div>
                     </form>
                 </div>
+            </div>
         </div>
 
     </manage-grade>

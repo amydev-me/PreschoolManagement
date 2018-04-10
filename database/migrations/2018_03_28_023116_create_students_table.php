@@ -17,6 +17,7 @@ class CreateStudentsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('guardian_id')->nullable();
             $table->unsignedInteger('academic_id')->nullable();
+            $table->unsignedInteger('grade_id')->nullable();
             $table->mediumText('profile')->nullable();
             $table->string('studentCode', 255)->nullable();
             $table->string('firstName', 255)->nullable();
@@ -35,7 +36,8 @@ class CreateStudentsTable extends Migration
             $table->mediumText('allergies')->nullable();
             $table->mediumText('history')->nullable();
             $table->foreign('guardian_id')->references('id')->on('guardians')->onDelete('set null');
-            $table->foreign('academic_id')->references('id')->on('academics')->onDelete('RESTRICT');
+            $table->foreign('academic_id')->references('id')->on('academics')->onDelete('cascade');
+            $table->foreign('grade_id')->references('id')->on('grades')->onDelete('cascade');
             $table->timestamps();
         });
     }

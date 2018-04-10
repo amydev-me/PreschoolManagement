@@ -22,7 +22,6 @@ class FeeRepository extends Repository
     {
         return Fee::orderByDesc('id')->paginate($pages);
     }
-
     public function getByNameWithPaginate($value, $attribute, $pages)
     {
         return Fee::where($attribute, 'LIKE', $value . '%')->orderByDesc('id')->paginate($pages);

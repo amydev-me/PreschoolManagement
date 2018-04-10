@@ -14,5 +14,10 @@ class UpdateTerm extends BaseTermAction
     public function perform()
     {
 
+       $data= $this->repository->update($this->request(), $this->request()['id']);
+        if ($data) {
+            return true;
+        }
+        return false;
     }
 }

@@ -33,6 +33,21 @@ module.exports= {
   },
 
   methods: {
+    newHistory (event) {
+      let files = event.target.files;
+      if (files.length) {
+        this.student.history = files[0];
+      }
+    },
+    newProfile (event) {
+      let files = event.target.files;
+      if (files.length) {
+        this.student.profile = files[0];
+      }
+    },
+    formatDate (date) {
+      return Helper.formatDate(date);
+    },
     asyncFindGuardian (query) {
       if (query == '') {return;}
       if (query == undefined) {return;}
@@ -81,21 +96,7 @@ module.exports= {
         this.getDetail();
       }
     },
-    newHistory (event) {
-      let files = event.target.files;
-      if (files.length) {
-        this.student.history = files[0];
-      }
-    },
-    newProfile (event) {
-      let files = event.target.files;
-      if (files.length) {
-        this.student.profile = files[0];
-      }
-    },
-    formatDate (date) {
-      return Helper.formatDate(date);
-    },
+
     validateData (scope) {
       this.$validator.validateAll(scope).then(successsValidate => {
         if (successsValidate) {

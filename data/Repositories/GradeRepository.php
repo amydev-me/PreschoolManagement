@@ -19,8 +19,27 @@ class GradeRepository extends Repository
         return Grade::class;
     }
 
-    public function getGradeByAcademicYear($academic_id, $category_id)
+    public function getGradeByAcademicYear($req)
     {
-        Grade::where('academic_id', $academic_id)->where('category_id', $category_id)->get();
+       return Grade::with('academic','category')->where('academic_id', $req['academic_id'])->where('category_id',  $req['category_id'])->get();
+    }
+
+    public function getData($academic_id){
+        return Grade::with('academic','category')->where('academic_id', $academic_id)->orderByDesc('category_id')->get();
+    }
+
+    public function getGradeDetail($grade_id){
+        $grade= Grade::with('academic','category')->where('id',$grade_id)->first();
+        $sections=$grade->terms()->get();
+            return ['grade'=>$grade,'sections'=>$sections];
+    }
+
+    public function getGradeOfTerms($grade_id){
+        $grade= Grade::where('id',$grade_id)->first();
+        if($grade){
+            $sections=$grade->terms()->get();
+            return $sections;
+        }
+        return [];
     }
 }

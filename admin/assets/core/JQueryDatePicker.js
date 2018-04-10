@@ -5,7 +5,11 @@ module.exports ={
 
   "</div>",
   props: ['value'],
+  data:function(){
+    return {selectedValues:null}
+  },
   mounted: function() {
+
     let self = this;
     this.$nextTick(function() {
       $(this.$el).datepicker({
@@ -17,6 +21,14 @@ module.exports ={
           self.updateValue(date);
         });
     });
+  },
+  watch: {
+    // when the value fo the input is changed from the parent,
+    // the value prop will update, and we pass that updated value to the plugin.
+    value(newVal) {
+      $(this.$el).datepicker('setDate', newVal);
+
+    }
   },
   methods: {
     updateValue: function (value) {

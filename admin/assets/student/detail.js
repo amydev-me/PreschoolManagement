@@ -102,9 +102,9 @@ module.exports={
         if(student.guardian !=null) {
           this.guardian = student.guardian;
         }
-        if(student.terms !=null) {
-          this.terms = student.terms;
-          this.gradeName=this.terms.length>0?this.terms[0].gradeName:null;
+        if(student.grade !=null) {
+
+          this.gradeName=student.grade.gradeName;
         }
 
       });

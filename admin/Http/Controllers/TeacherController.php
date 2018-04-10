@@ -27,12 +27,12 @@ use Illuminate\Validation\Validator;
 
 class TeacherController extends Controller
 {
-    private $repository, $userRepo;
+    private $repository;
 
-    public function __construct(TeacherRepository $repository, UserRepository $userRepository)
+    public function __construct(TeacherRepository $repository)
     {
         $this->repository=$repository;
-        $this->userRepo=$userRepository;
+
     }
 
     public function index(){
@@ -49,8 +49,7 @@ class TeacherController extends Controller
 
     public function create(Request $request){
         $rules = [
-            'username' => 'required|unique:users',
-            'password' => 'required',
+
             'firstName' => 'required|max:255',
             'lastName' => 'required|max:255',
             'dateofbirth' => 'required',
@@ -75,7 +74,7 @@ class TeacherController extends Controller
         if ($validatedata->fails()) {
             return response()->json([$validatedata->errors()], 422);
         }
-        $action = new CreateTeacher($this->repository, $this->userRepo, $request->all());
+        $action = new CreateTeacher($this->repository, $request->all());
         $result = $action->invoke();
         return response()->json(['success' => $result]);
 

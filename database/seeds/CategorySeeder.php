@@ -13,8 +13,8 @@ class CategorySeeder extends Seeder
     {
         \Illuminate\Support\Facades\DB::table('categories')->insert(
             [
-                ['categoryName'=>'Autumn'],
-                ['categoryName'=>'Spring'],
+                ['categoryName'=>'Academic'],
+
                 ['categoryName'=>'Summer'],
 
             ]);

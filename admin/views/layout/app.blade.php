@@ -22,7 +22,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/form-wizard/jquery.steps.css')}}" />
     <link href="{{URL::asset('css/csstyles.css')}}" rel="stylesheet">
-
+    <link href="{{URL::asset('css/helper.css')}}" rel="stylesheet">
     @yield('style')
 </head>
 <body >

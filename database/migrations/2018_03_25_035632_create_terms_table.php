@@ -15,15 +15,14 @@ class CreateTermsTable extends Migration
     {
         Schema::create('terms', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('grade_id')->nullable();
+            $table->unsignedInteger('academic_id')->nullable();
+            $table->unsignedInteger('category_id')->nullable();
             $table->string('termName', 500)->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->string('term_type', '50')->nullable();
-            $table->string('term_time', '255')->nullable();
-            $table->string('time_type', '50')->nullable();
-            $table->double('amount')->default(0);
-            $table->foreign('grade_id')->references('id')->on('grades')->onDelete('cascade');
+            $table->date('due_date')->nullable();
+            $table->foreign('academic_id')->references('id')->on('academics')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

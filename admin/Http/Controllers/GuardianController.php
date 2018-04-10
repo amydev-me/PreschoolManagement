@@ -23,12 +23,12 @@ use Illuminate\Validation\Validator;
 
 class GuardianController extends Controller
 {
-    private $repository, $adminRepo;
+    private $repository;
 
-    public function __construct(GuardianRepository $repo, UserRepository $adminRepo)
+    public function __construct(GuardianRepository $repo)
     {
         $this->repository = $repo;
-        $this->adminRepo = $adminRepo;
+
     }
 
     public function index()
@@ -44,8 +44,7 @@ class GuardianController extends Controller
     public function create(Request $request)
     {
         $rules =
-            ['username' => 'required|unique:users',
-                'password' => 'required',
+            [
                 'email' => 'required|max:50',
                 'firstName' => 'required|max:255',
                 'lastName' => 'required|max:255',
@@ -60,7 +59,7 @@ class GuardianController extends Controller
             return response()->json([$validatedata->errors()], 422);
         }
 
-        $action = new CreateGuardian($this->repository, $this->adminRepo, $request->all());
+        $action = new CreateGuardian($this->repository, $request->all());
         $result = $action->invoke();
         return response()->json($result);
     }

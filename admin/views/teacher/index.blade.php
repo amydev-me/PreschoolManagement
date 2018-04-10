@@ -26,14 +26,14 @@
                                             <a href="{{route('admin.teacher.create')}}"  class="btn btn-primary btn-sm">  <i class="fa fa-plus"></i> Add New Teacher</a>
                                         </div>
                                     </div>
-                                    <div class="col-sm-offset-2 col-sm-2 m-t-10  m-b-5">
-                                        <category-select @input="selectedCategoryChange"></category-select>
-                                    </div>
+                                    {{--<div class="col-sm-offset-2 col-sm-2 m-t-10  m-b-5">--}}
+                                        {{--<category-select @input="selectedCategoryChange"></category-select>--}}
+                                    {{--</div>--}}
 
                                     {{--<div class="col-sm-2 m-t-10 m-b-5">--}}
                                         {{--<multiselect @input="selectedGradeChange"  :searchable="false"   v-model="selected_grade" :options="grades" label="gradeName"   :show-labels="false" placeholder="Select grade"></multiselect>--}}
                                     {{--</div>--}}
-                                    <div class="col-sm-3 m-b-10">
+                                    <div class="col-sm-3 pull-right">
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Type to search" v-model="filterValue">
                                             <span class="input-group-btn"> <button type="submit" class="btn btn-primary" @click="searchClick">Search</button> </span>

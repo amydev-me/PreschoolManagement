@@ -9,35 +9,36 @@
 namespace Admin\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-
 use Data\Actions\Grade\CreateGrade;
 use Data\Actions\Grade\DeleteGrade;
+use Data\Actions\Grade\GetByCategory;
+use Data\Actions\Grade\GetGradeDetail;
+use Data\Actions\Grade\GetGradeOfTerms;
+use Data\Actions\Grade\GetGrades;
 use Data\Actions\Grade\UpdateGrade;
 use Data\Models\Grade;
-
 use Data\Repositories\GradeRepository;
-use Data\Repositories\TermRepository;
+use Data\Repositories\SectionRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Validator;
 
 class GradeController extends Controller
 {
-    private $repository, $termRepo;
+    private $repository;
 
-    public function __construct(GradeRepository $repository, TermRepository $termRepo)
+    public function __construct(GradeRepository $repository)
     {
         $this->repository = $repository;
-        $this->termRepo = $termRepo;
     }
 
     public function detailIndex(Request $request)
     {
-        if($request->grade_id){
+        if ($request->grade_id) {
             $grade = Grade::where('id', $request->grade_id)->first();
-            if($grade){
+            if ($grade) {
                 return view('grade.action');
-            }else{
+            } else {
                 return redirect()->route('admin.grade.index');
             }
         }
@@ -49,16 +50,42 @@ class GradeController extends Controller
         return view('grade.index');
     }
 
+    public function manageIndex(){
+        return view('grade.action');
+    }
+
     public function create(Request $request)
     {
-        $action = new CreateGrade($this->repository, $this->termRepo, $request->all());
+        $rules = [
+            'grade.gradeName' => 'required',
+            'grade.academic_id' => 'required',
+            'grade.category_id' => 'required'
+        ];
+
+        $validatedata = validator($request->all(), $rules);
+        if ($validatedata->fails()) {
+            return response()->json([$validatedata->errors()], 422);
+        }
+
+
+        $action = new CreateGrade($this->repository, $request->all());
         $result = $action->invoke();
         return response()->json(['success' => $result]);
     }
 
     public function update(Request $request)
     {
-        $action = new UpdateGrade($this->repository, $this->termRepo, $request->all());
+        $rules = [
+            'grade.gradeName' => 'required',
+            'grade.academic_id' => 'required',
+            'grade.category_id' => 'required'
+        ];
+
+        $validatedata = validator($request->all(), $rules);
+        if ($validatedata->fails()) {
+            return response()->json([$validatedata->errors()], 422);
+        }
+        $action = new UpdateGrade($this->repository, $request->all());
         $result = $action->invoke();
         return response()->json(['success' => $result]);
     }
@@ -74,20 +101,22 @@ class GradeController extends Controller
         return response()->json(['success' => $result]);
     }
 
-    public function getDetail(Request $request)
+    public function getData()
     {
-        $grade = Grade::with('academic','category')->where('id', $request->grade_id)->first();
-        if($grade){
-            $_firstFull = $grade->terms()->where('term_type', 't1')->where('time_type', 'Full')->first();
-            $_firstHalf = $grade->terms()->where('term_type', 't1')->where('time_type', 'Half')->first();
-            $_secondFull = $grade->terms()->where('term_type', 't2')->where('time_type', 'Full')->first();
-            $_secondHalf = $grade->terms()->where('term_type', 't2')->where('time_type', 'Half')->first();
-            return response()->json(['grade' => $grade, 'first_full' => $_firstFull, 'first_half' => $_firstHalf, 'second_full' => $_secondFull, 'second_half' => $_secondHalf]);
-        }
+        $academic = Session::get('academic');
+        $grade = (new GetGrades($this->repository, ['academic_id' => $academic->id]))->invoke();
+        return response()->json(['grades' => $grade, 'academic' => $academic]);
     }
 
-    public function getData(){
-        $grade=Grade::with('terms')->paginate(20);
+    public function getByCategory(Request $request){
+        $academic =Session::get('academic');
+
+        $grade = (new GetByCategory($this->repository,['academic_id'=>$academic->id,'category_id'=>$request->category_id]))->invoke();
+        return response()->json(['grades'=>$grade,'academic'=>$academic]);
+    }
+
+    public function getDeail(Request $request){
+        $grade = (new GetGradeDetail($this->repository,['grade_id'=>$request->grade_id]))->invoke();
         return response()->json($grade);
     }
 
@@ -95,5 +124,9 @@ class GradeController extends Controller
         $grades= Grade::where('academic_id',Session::get('academic')->id)->where('category_id',$request->category_id)->get();
         return response()->json($grades);
 
+    }
+    public function getByGradeOfTerms(Request $request){
+        $grade = (new GetGradeOfTerms($this->repository,['grade_id'=>$request->grade_id]))->invoke();
+        return response()->json($grade);
     }
 }

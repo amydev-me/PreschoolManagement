@@ -1,0 +1,57 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Angelo
+ * Date: 09/04/2018
+ * Time: 11:00 PM
+ */
+
+namespace Admin\Http\Controllers;
+
+
+use App\Http\Controllers\Controller;
+use Data\Actions\Payment\CreatePayment;
+use Data\Actions\Payment\GetPaymentDetail;
+use Data\Actions\Payment\UpdatePayment;
+use Data\Models\Payment;
+use Data\Repositories\PaymentRepository;
+use Illuminate\Http\Request;
+
+class PaymentController extends Controller
+{
+    private $repository;
+
+    public function __construct(PaymentRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function create(Request $request)
+    {
+        $action = new CreatePayment($this->repository, $request->all());
+        $result = $action->invoke();
+        return response()->json(['success' => $result]);
+    }
+
+    public function update(Request $request){
+        $action = new UpdatePayment($this->repository, $request->all());
+        $result = $action->invoke();
+        return response()->json(['success' => $result]);
+    }
+
+    public function getData()
+    {
+        $payments = Payment::with(['student' => function ($q) {
+            $q->select('id', 'fullName');
+        }, 'term' => function ($q) {
+            $q->select('id', 'termName');
+        }, 'grade'])->orderByDesc('payment_date')->paginate(20);
+        return response()->json($payments);
+    }
+
+    public function getDetail(Request $request){
+        $action=new GetPaymentDetail($this->repository,$request->all());
+        $result= $action->invoke();
+        return response()->json($result);
+    }
+}

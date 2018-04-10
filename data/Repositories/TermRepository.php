@@ -9,6 +9,7 @@
 namespace Data\Repositories;
 
 
+use Data\Models\Grade;
 use Data\Models\Term;
 
 class TermRepository extends Repository
@@ -18,12 +19,14 @@ class TermRepository extends Repository
       return Term::class;
     }
 
-    public function updaeterm($term){
+    public function getData($academic_id){
+        return Term::with('academic','category')->where('academic_id',$academic_id)->get();
+    }
 
-        $_term=Term::where('id',$term['id'])->where('grade_id',$term['grade_id']);
-
-        if ($_term) {
-            return ($_term->update($term)) ? $_term : false;
-        }
+    public function getByCategory($param){
+        return Term::
+            where('academic_id',$param['academic_id'])
+            ->where('category_id',$param['category_id'])
+            ->get();
     }
 }

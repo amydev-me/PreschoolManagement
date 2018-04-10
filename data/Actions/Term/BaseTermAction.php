@@ -8,12 +8,14 @@
 namespace Data\Actions\Term;
 
 use Data\Actions\Action;
+use Data\Repositories\TermRepository;
 
 class BaseTermAction extends Action
 {
-    public function __construct($request = null)
+    public function __construct(TermRepository $repository,$request = null)
     {
         parent::__construct($request);
+        $this->repository=$repository;
     }
 
     protected function perform()

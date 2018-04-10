@@ -11,10 +11,7 @@ module.exports= {
   data: function () {
     return {
       countries: [],
-      academics: [],
       selected_academic: null,
-      categories: [],
-      selected_category: null,
       guardians: [],
       selected_guardian: null,
       grades: [],
@@ -22,8 +19,6 @@ module.exports= {
 
       student: {
         id: null,
-        username: null,
-        password: null,
         guardian_id: null,
         grade_id: null,
         academic_id: null,
@@ -45,27 +40,13 @@ module.exports= {
         history: '',
 
       },
-      firstchecked: false,
-      secondchecked: false,
-
-      first_term: {term: 't1', t_time: 'Full'},
-      second_term: {term: 't2', t_time: 'Full'},
     }
   },
   methods: {
-
-    personal_back_click () {
-      $('#student_form a[href="#account_detail"]').tab('show');
-    },
-    grade_back_click () {
-      $('#student_form a[href="#personal_detail"]').tab('show');
-    },
-    handleTab () {
-      $('.nav li').not('.active').addClass('disabled');
-      $('.nav li').not('.active').find('a').removeAttr("data-toggle");
-      $('button').click(function () {
-        $('.nav li.active').next('li').removeClass('disabled');
-        $('.nav li.active').next('li').find('a').attr("data-toggle", "tab");
+    getGades () {
+      axios.get('/admin/category/get-with-category').then(({data}) => {
+        this.grades = data.grades;
+        this.selected_academic=data.active_academic;
       });
     },
     newProfile (event) {
@@ -93,19 +74,9 @@ module.exports= {
     getasyncdata () {
       axios.get(getac).then(({data}) => {
         this.academics = data.academics;
-        this.categories = data.categories;
-        this.selected_academic = data.active;
       });
     },
-    selectedGradeChange () {
-      if (this.selected_academic.id == null) return;
-      if (this.selected_category.id == null) return;
 
-      this.selected_grade = null;
-      axios.get(_getgrade + '?category_id=' + this.selected_category.id).then(({data}) => {
-        this.grades = data;
-      });
-    },
     asyncFindGuardian (query) {
       if (query == '') {return;}
       if (query == undefined) {return;}
@@ -115,17 +86,12 @@ module.exports= {
     },
 
     validateData (scope) {
+
       this.$validator.validateAll(scope).then(successsValidate => {
         if (successsValidate) {
-          if (scope == 'account-form') {
-            $('#student_form a[href="#personal_detail"]').tab('show');
 
-          } else if (scope == 'personal_detail_form') {
-            $('#student_form a[href="#grade_detail"]').tab('show');
-
-          } else {
             this.performAction();
-          }
+
         } else {
           Notification.error('Invalid data.');
         }
@@ -137,12 +103,10 @@ module.exports= {
 
       let data = new FormData();
 
+
       data.set('academic_id', this.selected_academic.id);
-      data.set('category_id', this.selected_category.id);
       data.set('guardian_id', this.selected_guardian.id);
       data.set('grade_id', this.selected_grade.id);
-      data.set('username', this.student.username);
-      data.set('password', this.student.password);
       data.append('profile', this.student.profile);
       data.set('firstName', this.student.firstName);
       data.set('lastName', this.student.lastName);
@@ -159,16 +123,6 @@ module.exports= {
       data.set('meal_preferences', this.student.meal_preferences);
       data.set('allergies', this.student.allergies);
       data.append('history', this.student.history);
-      data.append('firstterm', this.firstchecked);
-      data.append('secondterm', this.secondchecked);
-      if (this.firstchecked) {
-        data.append('fterm_type', this.first_term.term);
-        data.append('ftime_type', this.first_term.t_time);
-      }
-      if (this.secondchecked) {
-        data.append('sterm_type', this.second_term.term);
-        data.append('stime_type', this.second_term.t_time);
-      }
 
       const config = {headers: {'Content-Type': 'multipart/form-data'}};
       axios.post(_create, data, config).then(response => {
@@ -198,44 +152,8 @@ module.exports= {
     this.student.dateofbirth = this.formatDate(new Date());
     this.student.join_date = this.formatDate(new Date());
     this.countries = Helper.countries();
-    this.getasyncdata();
+    this.getGades();
+    // this.getasyncdata();
   },
-  created () {
-    this.$validator.extend('verify_user', {
-      getMessage: field => `Username already exists.`,
-      validate: value => new Promise((resolve) => {
-        let validUser = true;
-        axios.get(checkinguser + value).then(response => {
 
-          validUser = response.data.valid;
-        }).then(response => {
-          setTimeout(() => {
-            resolve({
-              valid: validUser == true ? true : false
-            });
-          }, 200);
-        });
-      })
-    });
-
-    const isUnique = value => new Promise((resolve) => {
-      setTimeout(() => {
-        if (this.firstchecked === false && this.secondchecked === false) {
-          return resolve({
-            valid: false,
-            data: {
-              message: `${value} is already taken.`
-            }
-          });
-        }
-        return resolve({
-          valid: true
-        });
-      }, 200);
-    });
-    this.$validator.extend('verify_term', {
-      validate: isUnique,
-      getMessage: (field, params, data) => data.message
-    });
-  },
 }

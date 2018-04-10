@@ -85,4 +85,6 @@ class FeesTypeController extends Controller
         $result = $action->invoke();
         return response()->json($result);
     }
+
+
 }

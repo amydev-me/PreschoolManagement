@@ -7,6 +7,7 @@
 <academic-year inline-template>
     <div class="panel" v-cloak>
         <delete-modal @input="successdelete" :inputid="academic_id" :inputurl="removeUrl"></delete-modal>
+
         <action :academic="academic" :isedit="isedit" @success="successdata"></action>
         <div class="panel-body">
 

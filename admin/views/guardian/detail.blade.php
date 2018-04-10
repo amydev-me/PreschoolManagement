@@ -24,7 +24,7 @@
                             <ul class="nav nav-tabs profile-tabs">
                                 <li class="active"><a data-toggle="tab" href="#aboutme">About Me</a></li>
                                 <li class=""><a data-toggle="tab" href="#edit-profile">Settings</a></li>
-                                <li class=""><a data-toggle="tab" href="#students">Students</a></li>
+                                {{--<li class=""><a data-toggle="tab" href="#students">Students</a></li>--}}
                             </ul>
 
                             <div class="tab-content m-0">

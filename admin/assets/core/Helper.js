@@ -20,7 +20,9 @@ module.exports={
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     },
-
+  testFormat(date){
+    return moment(date).format("MMMM DD, YYYY");
+  },
   formatDate(date){
         return moment(date).format("YYYY-MM-DD");
     },

@@ -10,35 +10,30 @@ namespace Data\Actions\Grade;
 
 
 use Data\Repositories\GradeRepository;
+use Data\Repositories\SectionRepository;
 use Data\Repositories\TermRepository;
+use Illuminate\Support\Facades\DB;
 
 class CreateGrade extends BaseGradeAction
 {
-    private $termRepo;
 
-    public function __construct(GradeRepository $repository, TermRepository $termRepository, $request = null)
+
+    public function __construct(GradeRepository $repository, $request = null)
     {
         parent::__construct($repository, $request);
-        $this->termRepo = $termRepository;
+
     }
 
     protected function perform()
     {
-        $_grade = $this->request()['grade'];
-        $success = $this->repository->create($_grade);
-        if ($success) {
-            $_firstFull = $this->request()['first_full'];
-            $_firstHalf = $this->request()['first_half'];
-            $_secondFull = $this->request()['second_full'];
-            $_secondHalf = $this->request()['second_half'];
-            $_firstFull['grade_id'] = $success['id'];
-            $_firstHalf['grade_id'] = $success['id'];
-            $_secondFull['grade_id'] = $success['id'];
-            $_secondHalf['grade_id'] = $success['id'];
-            $this->termRepo->create($_firstFull);
-            $this->termRepo->create($_firstHalf);
-            $this->termRepo->create($_secondFull);
-            $this->termRepo->create($_secondHalf);
+        $grade = $this->repository->create($this->request()['grade']);
+        if ($grade) {
+
+            foreach ($this->request()['terms'] as $term) {
+//                $term['grade_id'] = $grade['id'];
+                $grade->terms()->attach($grade->id,['term_id'=>$term['term_id'],'amount'=>$term['amount']]);
+//                $this->sectionRepo->create($term);
+            }
             return true;
         }
         return false;

@@ -10,6 +10,7 @@ module.exports= {
   props:['grade_teacher','isedit','categories','subjects','active_academic'],
   data: function () {
     return {
+
       grade_teachers: [],
       selected_category: null,
       grades: [],
@@ -28,8 +29,6 @@ module.exports= {
         this.grades = data;
       });
     },
-
-
     asyncGrade () {
       axios.get(_asynccategory).then(response => {
         this.grades = response.data;

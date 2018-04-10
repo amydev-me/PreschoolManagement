@@ -56,6 +56,41 @@ Route::middleware('web')->group(function() {
             Route::name('index')->get('/', 'BusinessInfoController@index');
             Route::name('detail')->get('detail', 'BusinessInfoController@getDetail');
         });
+        Route::name('payment.')->prefix('payment')->group(function () {
+            Route::view('/','payment.index')->name('index');
+            Route::view('create','payment.create')->name('create');
+            Route::view('edit','payment.edit')->name('edit');
+            Route::view('view','payment.view')->name('view');
+            Route::name('create')->post('create', 'PaymentController@create');
+            Route::name('get-data')->get('get-data', 'PaymentController@getData');
+            Route::name('get-detail')->get('get-detail', 'PaymentController@getDetail');
+            Route::name('update')->post('update', 'PaymentController@update');
+        });
+
+        Route::name('term.')->prefix('term')->group(function () {
+            Route::name('index')->get('/', 'TermController@index');
+            Route::name('create')->post('create', 'TermController@create');
+            Route::name('update')->post('update', 'TermController@update');
+            Route::name('delete')->get('delete/{id}', 'TermController@delete');
+            Route::name('get-data')->get('get-data', 'TermController@getData');
+            Route::name('getby-academic')->get('getby-academic', 'TermController@getByAcademic');
+            Route::name('get-bycategory')->get('get-bycategory', 'TermController@getByCategory');
+
+        });
+        Route::name('grade.')->prefix('grade')->group(function () {
+            Route::name('index')->get('/', 'GradeController@index');
+            Route::view('edit', 'grade.edit')->name('edit');
+            Route::name('manage')->get('manage', 'GradeController@manageIndex');
+            Route::name('create')->post('create', 'GradeController@create');
+            Route::name('update')->post('update', 'GradeController@update');
+            Route::name('delete')->get('delete/{id}', 'GradeController@delete');
+            Route::name('action')->get('action', 'GradeController@detailIndex');
+            Route::name('get-detail')->get('get-detail', 'GradeController@getDeail');
+            Route::name('get-data')->get('get-data', 'GradeController@getData');
+            Route::name('get-bycategory')->get('get-bycategory', 'GradeController@getByCategory');
+            Route::name('get-grade')->get('get-grade', 'GradeController@getGradeByAC');
+            Route::name('get-terms')->get('get-terms', 'GradeController@getByGradeOfTerms');
+        });
 
         Route::name('category.')->prefix('category')->group(function () {
             Route::name('index')->get('/', 'CategoryController@index');
@@ -65,6 +100,8 @@ Route::middleware('web')->group(function() {
             Route::name('get-data')->get('get-data', 'CategoryController@getData');
             Route::name('filter-name')->get('filter-name/{name}', 'CategoryController@filterByName');
             Route::name('async-get')->get('async-get', 'CategoryController@asyncget');
+            Route::name('get-with-category')->get('get-with-category', 'CategoryController@getCategoryWithGrade');
+
         });
 
         Route::name('subject.')->prefix('subject')->group(function () {
@@ -87,16 +124,6 @@ Route::middleware('web')->group(function() {
             Route::name('async-get')->get('async-get', 'FeesTypeController@asyncget');
         });
 
-        Route::name('grade.')->prefix('grade')->group(function () {
-            Route::name('index')->get('/', 'GradeController@index');
-            Route::name('create')->post('create', 'GradeController@create');
-            Route::name('update')->post('update', 'GradeController@update');
-            Route::name('delete')->get('delete/{id}', 'GradeController@delete');
-            Route::name('action')->get('action', 'GradeController@detailIndex');
-            Route::name('detail')->get('detail', 'GradeController@getDetail');
-            Route::name('get-data')->get('get-data', 'GradeController@getData');
-            Route::name('get-grade')->get('get-grade', 'GradeController@getGradeByAC');
-        });
 
         Route::name('assign_teacher.')->prefix('assign_teacher')->group(function () {
 
@@ -144,11 +171,12 @@ Route::middleware('web')->group(function() {
             Route::name('delete')->get('delete/{id}', 'StudentController@delete');
             Route::name('detail-view')->get('detail-view', 'StudentController@detailIndex');
             Route::name('get-detail')->get('get-detail', 'StudentController@getDetail');
+            Route::name('get-data')->get('get-data', 'StudentController@getData');
             Route::name('get-by-academic')->get('get-by-academic', 'StudentController@getStudentByActiveAcademic');
             Route::name('filter')->get('filter', 'StudentController@filterStudent');
-            Route::name('get-by-acg')->get('get-by-acg', 'StudentController@getByACG');
-            Route::name('get-by-ac')->get('get-by-ac', 'StudentController@getByAC');
 
+            Route::name('get-by-ac')->get('get-by-ac', 'StudentController@getByAC');
+            Route::name('get-by-grade')->get('get-by-grade', 'StudentController@getbyGrade');
             Route::name('get-file')->get('get-file', 'StudentController@getFile');
         });
     });

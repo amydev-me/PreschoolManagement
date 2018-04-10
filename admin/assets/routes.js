@@ -1,6 +1,7 @@
 let prefix='/admin/';
 let _user='user/';
 let _academic='academic-year/';
+let _term='term/';
 let _category='category/';
 let _fee='feetype/';
 let _subject='subject/';
@@ -32,6 +33,15 @@ module.exports = {
       filter_name: prefix + _academic + 'filter-name/',
       asyncget: prefix + _academic + 'async-get',
     },
+    term:{
+      getdata: prefix + _term + 'get-data',
+      getby_academic: prefix + _term + 'getby-academic?academic_id=',
+      getby_category: prefix + _term + 'get-bycategory?academic_id=',
+      getby_grade: prefix + _term + 'get-bygrade?grade_id=',
+      create: prefix + _term + 'create',
+      update: prefix + _term + 'update',
+      remove: prefix + _term + 'delete/',
+    },
     category: {
       getdata: prefix + _category + 'get-data?page=',
       create: prefix + _category + 'create',
@@ -57,12 +67,15 @@ module.exports = {
       asyncget: prefix + _subject + 'async-get',
     },
     grade: {
+      indexpage:prefix+'grade',
       create: prefix + _grade + 'create',
       update: prefix + _grade + 'update',
       remove: prefix + _grade + 'delete/',
-      getdata: prefix + _grade + 'get-data?page=',
-      getgrade:prefix+_grade+'get-grade'
+      getdata: prefix + _grade + 'get-data',
+      getgrade:prefix+_grade+'get-grade',
+      get_bycategory:prefix+_grade+'get-bycategory?category_id='
     },
+
     teacher:{
       indexpage:prefix+'teacher',
       create: prefix + _teacher + 'create',
