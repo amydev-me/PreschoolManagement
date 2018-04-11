@@ -103,32 +103,36 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="example-input1-group2">Fine :</label>
-                            <div class="col-sm-10">
-                                <numeric-input  mask-type="currency"    v-model="performdata.fine"> </numeric-input>
+                        {{--<div class="form-group">--}}
+                            {{--<label class="col-sm-2 control-label" for="example-input1-group2">Fine :</label>--}}
+                            {{--<div class="col-sm-10">--}}
+                                {{--<numeric-input  mask-type="currency"    v-model="performdata.fine"> </numeric-input>--}}
                                 {{--<input type="text" class="form-control"  v-model="performdata.fine">--}}
-                            </div>
-                        </div>
+                            {{--</div>--}}
+                        {{--</div>--}}
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="example-input1-group2" >Total :</label>
                             <div class="col-sm-10">
-                                <numeric-input  mask-type="currency"   :disabled="true"   :value="totalvalue"> </numeric-input>
-                                {{--<input type="text" class="form-control"  :disabled="true" :value="totalvalue">--}}
-                        </div>
+                                <div class="input-group">
+                                    <numeric-input  mask-type="currency"   :disabled="true"   :value="totalvalue"> </numeric-input>
+                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="example-input1-group2">Receipt Amount :</label>
+                            <label class="col-sm-2 control-label" for="example-input1-group2">Receipt :</label>
                             <div class="col-sm-10">
-                                <numeric-input  mask-type="currency"      v-model="performdata.receipt_amount"> </numeric-input>
-                                {{--<input type="text" class="form-control"  v-model="performdata.receipt_amount">--}}
+                                <div class="input-group">
+                                    <numeric-input  mask-type="currency"      v-model="performdata.receipt_amount"> </numeric-input>
+                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                </div>
                             </div>
                         </div>
                         <hr>
                         <div class="form-group">
                             <div class="pull-right m-r-10">
 
-                                <a :href="'/admin/payment" class="btn btn-default" type="button">Cancel</a>
+                                <a :href="'/admin/payment'" class="btn btn-default" type="button">Cancel</a>
                                 <button class="btn btn-info" type="submit">Save</button>
                             </div>
                         </div>
