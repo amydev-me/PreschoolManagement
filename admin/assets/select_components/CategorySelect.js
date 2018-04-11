@@ -15,7 +15,7 @@ module.exports = {
                 :internal-search="false"
                 
              
-                @select="onAuthorChange">                                                                          
+                @input="onAuthorChange">                                                                          
               </multiselect>`,
   data: function () {
     return {

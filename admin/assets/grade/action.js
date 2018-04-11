@@ -1,5 +1,5 @@
 const AcademicSelect = resolve => require(['../select_components/AcademicSelect'], resolve);
-const CategorySelect = resolve => require(['../select_components/CategorySelect'], resolve);
+// const CategorySelect = resolve => require(['../select_components/CategorySelect'], resolve);
 const NumericInput = resolve => require(['../core/NumericInput'], resolve);
 let create=route.urls.grade.create;
 let getby_category=route.urls.term.getby_category;

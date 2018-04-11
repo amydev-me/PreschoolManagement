@@ -68,7 +68,7 @@
                         <div class="form-group">
                             <div class="pull-right m-r-10">
 
-                                <button class="btn btn-default" type="button">Cancel</button>
+                                <a :href="'/admin/grade" class="btn btn-default" type="button">Cancel</a>
                                 <button class="btn btn-info" type="submit">Save</button>
                             </div>
                         </div>

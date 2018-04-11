@@ -27,7 +27,7 @@
                             </div>
                             <div class="modal-body">
 
-                                <form class="form-horizontal animated bounceInRight"  @submit.prevent="validateData('guardian_personal_detail_form')" data-vv-scope="guardian_personal_detail_form">
+                                <form class="form-horizontal"  @submit.prevent="validateData('guardian_personal_detail_form')" data-vv-scope="guardian_personal_detail_form">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Email :</label>
                                         <div class="col-sm-9">

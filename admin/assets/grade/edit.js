@@ -5,6 +5,58 @@ const CategorySelect = resolve => require(['../select_components/CategorySelect'
 let update=route.urls.grade.update;
 
 module.exports= {
+template:`
+<action :grade="grade"  @success="successdata" inline-template>
+                <div ref="thismodel" id="mymodal" class="modal fade modal-dialog-center" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Grade</h4>
+                            </div>
+                            <form class="form-horizontal" role="form" @submit.prevent="submitdata">
+
+                                 <div class="modal-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Year :</label>
+                                        <div class="col-sm-9">
+                                            <academic-select  @input="selectedAcadmiceChange" :value="selected_academic" data-vv-name="academic" v-validate="'required'"></academic-select>
+                                            <div  v-show="errors.has('academic')"><span class="error">Required year.</span></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Category :</label>
+                                        <div class="col-sm-9">
+                                            <category-select @input="selectedCategoryChange" :value="selected_category" data-vv-name="category" v-validate="'required'"></category-select>
+                                            <div  v-show="errors.has('category')"><span class="error">Required category.</span></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Grade :</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="gradeName" v-model="performdata.gradeName" v-validate="'required'">
+                                            <div  v-show="errors.has('gradeName')"><span class="error">Required grade name.</span></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Description :</label>
+                                        <div class="col-sm-9">
+                                            <textarea type="text" rows="1" class="form-control" name="description" v-model="performdata.description"></textarea>
+                                        </div>
+                                    </div>
+                                 </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-info">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </action>`,
   props:['grade','isedit'],
   components: { CategorySelect,AcademicSelect},
 

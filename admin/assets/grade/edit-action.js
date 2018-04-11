@@ -1,5 +1,6 @@
 const AcademicSelect = resolve => require(['../select_components/AcademicSelect'], resolve);
-const CategorySelect = resolve => require(['../select_components/CategorySelect'], resolve);
+// const CategorySelect = resolve => require(['../select_components/CategorySelect'], resolve);
+let asyncurl=route.urls.category.asyncget;
 const NumericInput = resolve => require(['../core/NumericInput'], resolve);
 let create=route.urls.grade.create;
 let update=route.urls.grade.update;
@@ -7,7 +8,7 @@ let getby_category=route.urls.term.getby_category;
 
 let _indexpage=route.urls.grade.indexpage;
 module.exports= {
-  components: {CategorySelect, AcademicSelect,NumericInput},
+  components: { AcademicSelect,NumericInput},
   data: function () {
     return {
       selected_academic: null,
@@ -40,35 +41,32 @@ module.exports= {
         this.sections = data.sections;
         this.selected_academic = grade.academic;
         this.selected_category = grade.category;
-        // axios.get(getby_category + this.selected_academic.id + '&category_id=' + this.selected_category.id).then(({data}) => {
-        //   let _terms = data;
-        //   let that = this;
-        //
-        //   var result = _terms.map(function (el) {
-        //
-        //     var section = that.sections.find(sec => sec.id == el.id);
-        //
-        //     var o = Object.assign({}, el);
-        //     console.log(section);
-        //     console.log(o);
-        //     if (section != null) {
-        //       console.log('here');
-        //       o.grade_id = section.pivot.grade_id;
-        //       o.ischecked = true;
-        //       o.amount = section.pivot.amount;
-        //     } else {
-        //       console.log('there');
-        //       o.grade_id = null;
-        //       o.ischecked = false;
-        //       o.amount = 0;
-        //     }
-        //
-        //     return o;
-        //   });
-        //   this.terms = result;
-        //   console.log(result);
-        // });
+        console.log('ear')
+        axios.get(getby_category + this.selected_academic.id + '&category_id=' + this.selected_category.id).then(({data}) => {
+          let _terms = data;
+          let that = this;
 
+          var result = _terms.map(function (el) {
+
+            var section = that.sections.find(sec => sec.id == el.id);
+
+            var o = Object.assign({}, el);
+
+            if (section != null) {
+
+              o.grade_id = section.pivot.grade_id;
+              o.ischecked = true;
+              o.amount = section.pivot.amount;
+            } else {
+              o.grade_id = null;
+              o.ischecked = false;
+              o.amount = 0;
+            }
+
+            return o;
+          });
+          this.terms = result;
+        });
       });
     },
     checkedChanged (term, index) {
@@ -82,7 +80,7 @@ module.exports= {
       if (value == null) {return;}
       axios.get(getby_category + this.selected_academic.id + '&category_id=' + value.id).then(({data}) => {
         let _terms = data;
-        console.log('hahah');
+
         var result = _terms.map(function (el) {
           var o = Object.assign({}, el);
           o.ischecked = false;
@@ -105,13 +103,7 @@ module.exports= {
         Notification.warning('Invalid data.');
       });
     },
-    checkUrlParam () {
-      let grade_id = Helper.getUrlParameter('grade_id');
-      if (grade_id != null) {
-        this.grade_id = grade_id;
-        this.getDetail();
-      }
-    },
+
     performAction () {
       this.performdata.academic_id = this.selected_academic.id;
       this.performdata.category_id = this.selected_category.id;
@@ -140,8 +132,23 @@ module.exports= {
         }
       });
     },
+    asyncGet () {
+      axios.get(asyncurl).then(response => {
+
+        this.categories = response.data;
+      });
+
+    },
+    checkUrlParam () {
+      let grade_id = Helper.getUrlParameter('grade_id');
+      if (grade_id != null) {
+        this.grade_id = grade_id;
+        this.getDetail();
+      }
+    },
   },
   mounted () {
+    this.asyncGet();
     this.checkUrlParam();
   }
 }
