@@ -5,6 +5,9 @@
 @section('style')
 
     <style>
+        .page-title{
+            padding:0px 0px 0px;
+        }
         @media print {
             body * {
                 visibility: hidden;
