@@ -22,7 +22,7 @@
 @endsection
 @section('content')
     <invoice-view inline-template>
-        <div class="wraper container-fluid">
+        <div class="wraper container-fluid" v-cloak>
 
             <div class="row">
                 <div class="col-md-12">
