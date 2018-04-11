@@ -40,6 +40,7 @@ module.exports= {
     clearOnHidden () {
       this.user.username = null;
       this.user.password = null;
+      this.user.type='admin';
       this.password_confirmation = null;
       this.errors.clear('userform');
     }

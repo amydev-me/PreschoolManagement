@@ -36,9 +36,7 @@ class UserController extends Controller
     {
         $action=new CreateUser($this->repo,$request->all());
         $result=$action->invoke();
-        if ($result instanceof Validator) {
-            return response()->json([$result->errors()],422);
-        }
+
         return response()->json(['success'=>$result]);
     }
 
@@ -46,9 +44,7 @@ class UserController extends Controller
     {
         $action=new ChangePassword($this->repo,$request->all());
         $result=$action->invoke();
-        if ($result instanceof Validator) {
-            return response()->json([$result->errors()],422);
-        }
+
         return response()->json(['success'=>$result]);
     }
 
@@ -58,9 +54,7 @@ class UserController extends Controller
 
         $action = new DeleteUser($this->repo, $_req);
         $result = $action->invoke();
-        if ($result instanceof Validator) {
-            return response()->json([$result->errors()], 422);
-        }
+
         return response()->json(['success' => $result]);
     }
 

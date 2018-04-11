@@ -9,13 +9,13 @@ module.exports= {
   data: function () {
     return {
       removeUrl:remove,
-      usertypes: [
-        {type: 'admin', 'text': 'Admin'},
-        {type: 'teacher', 'text': 'Teacher'},
-        {type: 'student', 'text': 'Student'},
-        {type: 'guardian', 'text': 'Guardian'},
-      ],
-      selected_user: {type: 'admin', 'text': 'Admin'},
+      // usertypes: [
+      //   {type: 'admin', 'text': 'Admin'},
+      //   {type: 'teacher', 'text': 'Teacher'},
+      //   {type: 'student', 'text': 'Student'},
+      //   {type: 'guardian', 'text': 'Guardian'},
+      // ],
+      // selected_user: {type: 'admin', 'text': 'Admin'},
       users: [],
       pagination: {
         total: 0,
@@ -41,13 +41,11 @@ module.exports= {
     successdelete () {
       $('#deleteModal').modal('hide');
       Notification.success('Success');
-      this.selectedValueChange();
+      this.getUser();
     },
-    selectedValueChange () {
-      this.getUser(this.selected_user.type);
-    },
-    getUser (type) {
-      axios.get('/admin/user/getuser/' + type + '?page=' + this.pagination.current_page).then(response => {
+
+    getUser () {
+      axios.get('/admin/user/getuser/admin?page=' + this.pagination.current_page).then(response => {
         this.pagination = response.data;
         this.users = response.data.data;
 
@@ -61,6 +59,6 @@ module.exports= {
     },
   },
   mounted () {
-    this.getUser('admin');
+    this.getUser();
   },
 }

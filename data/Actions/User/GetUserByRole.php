@@ -13,6 +13,6 @@ class GetUserByRole extends BaseUserAction
 {
     protected function perform()
     {
-        return   $this->repository->getUserByRole($this->request()['type'],$this->pages);
+        return   $this->repository->getUserByRole('admin',$this->pages);
     }
 }

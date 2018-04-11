@@ -15,7 +15,7 @@
         <div class="panel" v-cloak>
             <div class="panel-body">
                 <delete-modal @input="successdelete" :inputid="user_id" :inputurl="removeUrl"></delete-modal>
-                <create-user @input="selectedValueChange" inline-template>
+                <create-user @input="getUser" inline-template>
                     <div ref="usmodal" id="usermodal" class="modal fade modal-dialog-center" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                         <div class="modal-dialog">
                         <div class="modal-content">
@@ -99,19 +99,19 @@
                         <div class="col-sm-6">
                             <div class="m-b-30">
 
-                                <a  v-show="selected_user.type=='admin'"   class="btn btn-primary btn-sm" data-toggle="modal" data-target="#usermodal">  <i class="fa fa-plus"></i> Add User</a>
+                                <a  class="btn btn-primary btn-sm" data-toggle="modal" data-target="#usermodal">  <i class="fa fa-plus"></i> Add User</a>
                             </div>
                         </div>
-                        <div class="col-sm-6 m-b-30" >
-                            <div class="form-group">
-                                <label class="col-sm-2 col-sm-push-4 control-label" style="text-align: right;margin-top:7px;">User</label>
-                                <div class="col-sm-6 col-sm-push-4">
-                                    <select class="form-control"  v-model="selected_user" name="batch_id" v-on:change="selectedValueChange">
-                                        <option v-for="user in usertypes" :value="user">@{{ user.text }}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                        {{--<div class="col-sm-6 m-b-30" >--}}
+                            {{--<div class="form-group">--}}
+                                {{--<label class="col-sm-2 col-sm-push-4 control-label" style="text-align: right;margin-top:7px;">User</label>--}}
+                                {{--<div class="col-sm-6 col-sm-push-4">--}}
+                                    {{--<select class="form-control"  v-model="selected_user" name="batch_id" v-on:change="selectedValueChange">--}}
+                                        {{--<option v-for="user in usertypes" :value="user">@{{ user.text }}</option>--}}
+                                    {{--</select>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </div>
                 </div>
                 <div class="row">
@@ -133,7 +133,7 @@
 
                                     <td class="">
                                         <a @click="showEditModal(user)" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                        <a v-show="selected_user.type=='admin'" @click="showDeleteModal(user.id)" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                        <a  @click="showDeleteModal(user.id)" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -143,7 +143,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <vue-pagination  :length.number="pagination.last_page" v-model="pagination.current_page" @input="selectedValueChange"></vue-pagination>
+                        <vue-pagination  :length.number="pagination.last_page" v-model="pagination.current_page" @input="getUser"></vue-pagination>
                     </div>
                 </div>
             </div>
