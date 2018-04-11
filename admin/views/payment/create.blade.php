@@ -80,13 +80,14 @@
 
                                         :internal-search="false" @input="selectedTermChange">
                                 </multiselect>
-                                <div  v-show="errors.has('student')"><span class="error">Required term.</span></div>
+                                <div  v-show="errors.has('term')"><span class="error">Required term.</span></div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" v-if="terms.length>0">
                             <label class="col-sm-2 control-label" for="example-input1-group2">Fees :</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control"  v-model="performdata.amount">
+                                <numeric-input  mask-type="currency"    v-model="performdata.amount"> </numeric-input>
+                                {{--<input type="text" class="form-control"  v-model="performdata.amount">--}}
                             </div>
                         </div>
                         <div class="form-group" v-for="fee,index in fees">
@@ -96,15 +97,31 @@
                                         <span class="input-group-addon">
                                             <input  type="checkbox" class="cr-styled" v-model="fee.ischecked"  @click="feeCheckedChanged(index)">
                                         </span>
-                                    <input type="text" class="form-control" id="example-input3-group2" v-model="fee.amount" :disabled="!fee.ischecked">
+                                    <numeric-input  mask-type="currency"    v-model="fee.amount"  :disabled="!fee.ischecked"> </numeric-input>
+                                    {{--<input type="text" class="form-control" id="example-input3-group2" v-model="fee.amount" :disabled="!fee.ischecked">--}}
                                     <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="example-input1-group2">Total :</label>
+                            <label class="col-sm-2 control-label" for="example-input1-group2">Fine :</label>
                             <div class="col-sm-10">
-                                    <input type="text" class="form-control"  v-model="total">
+                                <numeric-input  mask-type="currency"    v-model="performdata.fine"> </numeric-input>
+                                {{--<input type="text" class="form-control"  v-model="performdata.fine">--}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="example-input1-group2" >Total :</label>
+                            <div class="col-sm-10">
+                                <numeric-input  mask-type="currency"   :disabled="true"   :value="totalvalue"> </numeric-input>
+                                {{--<input type="text" class="form-control"  :disabled="true" :value="totalvalue">--}}
+                        </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="example-input1-group2">Receipt Amount :</label>
+                            <div class="col-sm-10">
+                                <numeric-input  mask-type="currency"      v-model="performdata.receipt_amount"> </numeric-input>
+                                {{--<input type="text" class="form-control"  v-model="performdata.receipt_amount">--}}
                             </div>
                         </div>
                         <hr>

@@ -1,15 +1,15 @@
 
 @extends('layout.app')
 @section('page-title','Invoice')
-@section('setup','active')
-@section('invoice','active')
+
+@section('payment','active')
 
 @section('content')
 
     <invoice-list inline-template>
         <div class="panel" v-cloak>
             <div class="panel-body">
-
+                <delete-modal @input="successdelete" :inputid="payment_id" :inputurl="removeUrl"></delete-modal>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="m-b-30">
@@ -30,7 +30,7 @@
                                     <th>Term</th>
                                     <th>Amount</th>
                                     <th>Status</th>
-                                    <th>Due Date</th>
+
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -38,23 +38,24 @@
                                 <tr v-for="pay,index in payments">
                                     <td>@{{pagination.from+index}}</td>
                                     <td>@{{formatDate(pay.payment_date)}}</td>
+
                                     <td>@{{pay.student!=null?pay.student.fullName:''}}</td>
                                     <td>@{{pay.grade!=null?pay.grade.gradeName:''}}</td>
                                     <td>@{{pay.term!=null?pay.term.termName:''}}</td>
                                     <td>@{{formatNumber(pay.total)}}</td>
                                     <td>
                                         <p>
-                                            <span class="label label-success" v-if="pay.status=='Fully Paid'">@{{pay.status}}</span>
-                                            <span class="label label-danger" v-if="pay.status=='Not Paid'">@{{pay.status}}</span>
-                                            <span class="label label-warning" v-if="pay.status=='Partially Paid'"></span>
+                                            <span class="label label-success" v-if="pay.status=='PAID'">@{{pay.status}}</span>
+                                            <span class="label label-danger" v-if="pay.due_date> currentdate && pay.status=='UNPAID'">@{{pay.status}}</span>
+                                            <span class="label label-warning" v-if="pay.due_date< currentdate &&pay.status=='UNPAID'">OVERDUE</span>
 
                                         </p>
                                     </td>
-                                    <td>@{{formatDate(pay.due_date)}}</td>
+
                                     <td>
-                                        <a class="label label-success" :href="'/admin/payment/view?payment_id='+pay.id">view</a>
+                                        <a class="label label-primary" :href="'/admin/payment/view?payment_id='+pay.id">view</a>
                                         <a class="label label-info" :href="'/admin/payment/edit?payment_id='+pay.id">edit</a>
-                                        <a class="label label-danger">delete</a>
+                                        <a @click="showDeleteModal(pay.id)" class="label label-danger">delete</a>
                                         {{--<a @click="showDeleteModal(acad.id)" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>--}}
                                     </td>
                                 </tr>

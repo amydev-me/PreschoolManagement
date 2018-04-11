@@ -65,9 +65,10 @@
                                 <div class="pull-right m-t-30">
                                     <p><strong>Date: </strong> @{{ formatDate(payment.payment_date) }}</p>
                                     <p class="m-t-10"><strong>Status: </strong>
-                                        <span class="label label-pink" v-if="payment.status=='Not Paid'">@{{payment.status}}</span>
-                                        <span class="label label-success" v-if="payment.status=='Fully Paid'">@{{payment.status}}</span>
-                                        <span class="label label-warning" v-if="payment.status=='Partially Paid'">@{{payment.status}}</span>
+                                        <span class="label label-success" v-if="payment.status=='PAID'">@{{payment.status}}</span>
+                                        <span class="label label-danger"  v-if="payment.due_date> currentdate && payment.status=='UNPAID'">@{{payment.status}}</span>
+                                        <span class="label label-warning" v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
+
                                     </p>
                                     {{--<p class="m-t-10"><strong>Order ID: </strong> #123456</p>--}}
                                 </div>
@@ -119,11 +120,12 @@
                         </div>
                         <div class="row" style="border-radius: 0px;">
                             <div class="col-md-3 col-md-offset-9">
-                                <p class="text-right" style="margin-right: 10px;"><b>Sub-total:</b> @{{ formatNumber(payment.total) }}</p>
+                                <h3 class="text-right" style="margin-right: 10px;"><span>$</span> @{{ formatNumber(payment.total) }}</h3>
+                                <hr>
 
                                 {{--<p class="text-right" style="margin-right: 10px;">Receipt Amount: @{{ formatNumber(payment.total-payment.balance) }}</p>--}}
-                                <hr>
-                                {{--<h3 class="text-right" style="margin-right: 10px;"><span>MMK</span> @{{ formatNumber(payment.balance) }}</h3>--}}
+
+
                             </div>
                         </div>
 

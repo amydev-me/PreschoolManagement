@@ -30,7 +30,7 @@ use Illuminate\Validation\Validator;
 class StudentController extends Controller
 {
     private $repository,  $acaRepo, $catRepo;
-    private $pages = 1;
+    private $pages = 20;
 
     public function __construct(StudentRepository $repo,  AcademicYearRepository $acaRepo, CategoryRepository $catRepo)
     {

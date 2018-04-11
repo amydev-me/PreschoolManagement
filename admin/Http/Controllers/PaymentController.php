@@ -11,6 +11,7 @@ namespace Admin\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Data\Actions\Payment\CreatePayment;
+use Data\Actions\Payment\DeletePayment;
 use Data\Actions\Payment\GetPaymentDetail;
 use Data\Actions\Payment\UpdatePayment;
 use Data\Models\Payment;
@@ -53,5 +54,13 @@ class PaymentController extends Controller
         $action=new GetPaymentDetail($this->repository,$request->all());
         $result= $action->invoke();
         return response()->json($result);
+    }
+
+    public function delete($id)
+    {
+        $_req = ['id' => $id];
+        $action = new DeletePayment($this->repository, $_req);
+        $result = $action->invoke();
+        return response()->json(['success' => $result]);
     }
 }

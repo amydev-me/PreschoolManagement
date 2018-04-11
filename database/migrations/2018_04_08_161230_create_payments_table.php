@@ -19,6 +19,8 @@ class CreatePaymentsTable extends Migration
             $table->unsignedInteger('grade_id')->nullable();
             $table->unsignedInteger('term_id')->nullable();
             $table->double('amount')->nullable();
+            $table->double('receipt_amount')->nullable();
+            $table->double('fine')->nullable();
             $table->string('invoice', 255)->nullable();
             $table->date('payment_date')->nullable();
             $table->date('due_date')->nullable();

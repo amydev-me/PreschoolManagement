@@ -65,6 +65,7 @@ Route::middleware('web')->group(function() {
             Route::name('get-data')->get('get-data', 'PaymentController@getData');
             Route::name('get-detail')->get('get-detail', 'PaymentController@getDetail');
             Route::name('update')->post('update', 'PaymentController@update');
+            Route::name('delete')->get('delete/{id}', 'PaymentController@delete');
         });
 
         Route::name('term.')->prefix('term')->group(function () {

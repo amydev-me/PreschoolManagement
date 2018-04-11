@@ -1,12 +1,13 @@
 const AcademicSelect = resolve => require(['../select_components/AcademicSelect'], resolve);
 const CategorySelect = resolve => require(['../select_components/CategorySelect'], resolve);
+const NumericInput = resolve => require(['../core/NumericInput'], resolve);
 let create=route.urls.grade.create;
 let update=route.urls.grade.update;
 let getby_category=route.urls.term.getby_category;
 
 let _indexpage=route.urls.grade.indexpage;
 module.exports= {
-  components: {CategorySelect, AcademicSelect},
+  components: {CategorySelect, AcademicSelect,NumericInput},
   data: function () {
     return {
       selected_academic: null,

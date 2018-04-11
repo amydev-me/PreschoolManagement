@@ -1,6 +1,7 @@
 module.exports={
   data:function () {
     return {
+      currentdate:null,
       payment: {
         id: null,
         amount: 0,
@@ -81,6 +82,7 @@ module.exports={
     }
   },
   mounted(){
+    this.currentdate=this.formatDate(new Date());
     this.checkUrlParam();
   }
 }

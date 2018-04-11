@@ -1,7 +1,8 @@
 const datepicker = resolve => require(['../core/JQueryDatePicker'], resolve);
+const NumericInput = resolve => require(['../core/NumericInput'], resolve);
 let get_fees=route.urls.fee.asyncget;
 module.exports={
-  components:{datepicker},
+  components:{datepicker,NumericInput},
   data:function(){
     return{
       active_academic:null,
@@ -19,11 +20,13 @@ module.exports={
         grade_id:null,
         term_id:null,
         payment_date:null,
-        status:'Not Paid',
+        status:'UNPAID',
         invoice:null,
         amount:0,
-        due_date:null
-
+        due_date:null,
+        receipt_amount:0,
+        fine:0,
+        total:0
       }
     }
   },
@@ -83,8 +86,11 @@ module.exports={
       }
     },
     selectedGradeChange (value) {
+
       if(value==null){
+        this.students=[];
         this.selected_student=null;
+        this.selected_term=null;
         this.terms=[];
         return;
       }
@@ -108,6 +114,12 @@ module.exports={
       this.performdata.grade_id=this.selected_grade.id;
       this.performdata.term_id=this.selected_term.id;
       this.performdata.due_date=this.selected_term.due_date;
+      this.performdata.total=this.total;
+      if(this.total==this.performdata.receipt_amount) {
+
+        this.performdata.status="PAID";
+      }
+
       var tc=new Object();
       tc.payment=new Object(this.performdata);
       var temp2=[];
@@ -136,7 +148,26 @@ module.exports={
       });
     }
   },
+  computed: {
+    totalvalue() {
+      var _total = 0;
+      var result = this.fees.map(function (el) {
 
+        if (el.ischecked) {
+          _total = parseInt(el.amount)+_total;
+        }
+      });
+      _total =parseInt(this.performdata.fine)+_total;
+      _total=   parseInt(this.performdata.amount)  +_total;
+      return _total;
+    }
+  },
+  watch: {
+    totalvalue (n, o) {
+
+      this.total = n;
+    }
+  },
   mounted(){
       this.performdata.payment_date=this.formatDate(new Date());
       this.getGades();

@@ -1,6 +1,7 @@
 const VuePagination = resolve => require(['../core/VuePagination'], resolve);
+const DeleteModal = resolve => require(['../core/DeleteModal'], resolve);
 module.exports= {
-  components:{VuePagination},
+  components:{VuePagination,DeleteModal},
   data: function () {
     return {
      payments:[],
@@ -12,9 +13,21 @@ module.exports= {
         current_page: 1,
         last_page: 1,
       },
+      currentdate:null,
+      payment_id:null,
+      removeUrl:'/admin/payment/delete/'
     }
   },
   methods: {
+    showDeleteModal (id) {
+      this.payment_id = id;
+      $('#deleteModal').modal('show');
+    },
+    successdelete(){
+      $('#deleteModal').modal('hide');
+      Notification.success('Success');
+      this.loaddata();
+    },
     formatNumber(number){
       return parseInt( number ).toLocaleString();
     },
@@ -29,6 +42,7 @@ module.exports= {
     }
   },
   mounted () {
+    this.currentdate=this.formatDate(new Date());
     this.loaddata();
   }
 }

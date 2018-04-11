@@ -16,6 +16,7 @@ class CreateGpaymentsTable extends Migration
         Schema::create('payment_details', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('payment_id')->nullable();
+            $table->double('fine')->default(0);
             $table->double('amount')->default(0);
             $table->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
             $table->timestamps();

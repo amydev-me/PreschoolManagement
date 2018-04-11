@@ -51,7 +51,8 @@
                                         <span class="input-group-addon">
                                             <input  type="checkbox" class="cr-styled" v-model="term.ischecked" @click="checkedChanged(term,index)">
                                         </span>
-                                    <input type="text" class="form-control" id="example-input3-group1" v-model="term.amount" :disabled="!term.ischecked">
+                                    <numeric-input  mask-type="currency"   v-model="term.amount" :disabled="!term.ischecked"> </numeric-input>
+                                    {{--<input type="text" class="form-control" id="example-input3-group1" v-model="term.amount" :disabled="!term.ischecked">--}}
                                     <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
                                 </div>
                             </div>

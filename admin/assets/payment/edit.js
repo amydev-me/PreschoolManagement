@@ -1,7 +1,8 @@
 const datepicker = resolve => require(['../core/JQueryDatePicker'], resolve);
+const NumericInput = resolve => require(['../core/NumericInput'], resolve);
 let get_fees=route.urls.fee.asyncget;
 module.exports={
-  components:{datepicker},
+  components:{datepicker,NumericInput},
   data:function(){
     return{
       active_academic:null,
@@ -19,11 +20,14 @@ module.exports={
         grade_id:null,
         term_id:null,
         payment_date:null,
-        status:'Not Paid',
-        invoice:'I-000001',
+        status:'UNPAID',
+        invoice:null,
         amount:0,
         id:null,
-        due_date:null
+        due_date:null,
+        receipt_amount:0,
+        fine:0,
+        total:0
       },
       payment_id:null
     }
@@ -32,20 +36,8 @@ module.exports={
     formatDate (date) {
       return Helper.formatDate(date);
     },
-
-    getFees () {
-      axios.get(get_fees).then(({data}) => {
-        let _fees = data;
-        let that = this;
-
-        var result = _fees.map(function (el) {
-          var o = Object.assign({}, el);
-          o.ischecked = false;
-          o.amount = el.amount;
-          return o;
-        });
-        this.fees = result;
-      });
+    formatNumber(number){
+      return parseInt( number ).toLocaleString();
     },
 
     asyncstudentbygrade(query){
@@ -66,15 +58,18 @@ module.exports={
         this.active_academic = data.active_academic;
       });
     },
-    // feeCheckedChanged ( index) {
-    //   var _fee = this.fees[index];
-    //
-    //   if(!_fee.ischecked){
-    //     this.total +=_fee.amount;
-    //   }  else{
-    //     this.total -=_fee.amount;
-    //   }
-    // },
+    feeCheckedChanged ( index) {
+      // var _total = 0;
+      // var result = this.fees.map(function (el) {
+      //
+      //   if (el.ischecked) {
+      //     _total = parseInt(el.amount)+_total;
+      //   }
+      // });
+      //
+      // this.total=parseInt(this.performdata.amount)+_total;
+
+    },
     selectedGradeChange (value) {
       if(value==null){
         this.selected_student=null;
@@ -101,6 +96,13 @@ module.exports={
       this.performdata.term_id=this.selected_term.id;
       this.performdata.id=this.payment_id;
       this.performdata.due_date=this.selected_term.due_date;
+      this.performdata.total=this.total;
+      if(this.total==this.performdata.receipt_amount) {
+
+        this.performdata.status="PAID";
+      }else{
+        this.performdata.status="UNPAID";
+      }
       var tc=new Object();
       tc.payment=new Object(this.performdata);
       var temp2=[];
@@ -146,17 +148,21 @@ module.exports={
         this.performdata.invoice=data.payment.invoice;
         this.performdata.amount=data.payment.amount;
         this.performdata.due_date=this.formatDate(data.payment.due_date);
+        this.performdata.receipt_amount=data.payment.receipt_amount;
+        this.performdata.fine=data.payment.fine;
+
         this.selected_grade={id:data.grade.id,gradeName:data.grade.gradeName,academic_id:data.grade.academic_id,category_id:data.grade.category_id,description:data.grade.description}
         this.selected_student={id:data.student.id,fullName:data.student.fullName};
-        axios.get('/admin/grade/get-terms?grade_id=' +  this.performdata.grade_id).then(response => {
-          this.terms = response.data;
-          var te=data.term;
-          var t= this.terms.find(function (el) {
-              return el.id==te.id;
-          });
-          this.selected_term=t;
-
-        });
+        this.selected_term=data.term;
+        // axios.get('/admin/grade/get-terms?grade_id=' +  this.performdata.grade_id).then(response => {
+        //   this.terms = response.data;
+        //   var te=data.term;
+        //   var t= this.terms.find(function (el) {
+        //       return el.id==te.id;
+        //   });
+        //   this.selected_term=t;
+        //
+        // });
         var  _tempfees = data.fees;
         axios.get(get_fees).then(({data}) => {
           let _fees = data;
@@ -178,28 +184,36 @@ module.exports={
             return o;
           });
           this.fees = result;
-
         });
-
-
-        // academic_id:1
-        // category_id:1
-        // due_date:"2018-04-10 00:00:00"
-        // end_date:"2018-04-10 00:00:00"
-        // id:1
-        // pivot:Object
-        // start_date:"2018-04-10 00:00:00"
-        // termName:"Term-1"
-
-
       });
+    }
+  },
+  computed: {
+    totalvalue() {
+      var _total = 0;
+      var result = this.fees.map(function (el) {
+
+        if (el.ischecked) {
+          _total = parseInt(el.amount)+_total;
+        }
+      });
+      _total =parseInt(this.performdata.fine)+_total;
+      _total=   parseInt(this.performdata.amount)  +_total;
+      return _total;
+    }
+  },
+  watch: {
+    totalvalue (n, o) {
+
+      this.total = n;
     }
   },
 
   mounted(){
     this.performdata.payment_date=this.formatDate(new Date());
-    this.getGades();
+    // this.getGades();
 
     this. checkUrlParam ();
-  }
+  },
+
 }

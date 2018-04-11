@@ -15,11 +15,11 @@ class CreatePayment extends BasePaymentAction
 {
     protected function perform()
     {
-        $_payment=$this->request()['payment'];
-        $_payment['invoice']=$this->getLastCode();
+        $_payment = $this->request()['payment'];
+        $_payment['invoice'] = $this->getLastCode();
 
         $payment = $this->repository->create($_payment);
-        if($payment){
+        if ($payment) {
             foreach ($this->request()['fees'] as $term) {
                 $payment->fees()->attach($payment->id, ['fee_id' => $term['fee_id'], 'amount' => $term['amount']]);
             }
@@ -27,7 +27,9 @@ class CreatePayment extends BasePaymentAction
         }
         return false;
     }
-    private function getLastCode(){
+
+    private function getLastCode()
+    {
         $code = $this->repository->getLastCode();
         return GenerateCodeNo::invoice($code['invoice']);
 
