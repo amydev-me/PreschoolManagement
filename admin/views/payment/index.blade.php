@@ -53,7 +53,7 @@
                                     </td>
 
                                     <td>
-                                        <a class="label label-primary" :href="'/admin/payment/view?payment_id='+pay.id" target="_blank">view</a>
+                                        <a class="label label-primary" :href="'/admin/payment/view?payment_id='+pay.id">view</a>
                                         <a class="label label-info" :href="'/admin/payment/edit?payment_id='+pay.id">edit</a>
                                         <a @click="showDeleteModal(pay.id)" class="label label-danger">delete</a>
                                         {{--<a @click="showDeleteModal(acad.id)" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>--}}
