@@ -3,6 +3,8 @@
 @section('payment','active')
 
 @section('style')
+    <link href=" https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
+
 
     <style>
         .page-title{
@@ -32,20 +34,20 @@
                                 <div class="pull-right">
                                     {{--<button type="button" class="btn btn-success m-r-5 m-b-10"><i class="fa fa-floppy-o"></i></button>--}}
                                     {{--<button type="button" class="btn btn-success m-r-5 m-b-10"><i class="fa fa-trash-o"></i></button>--}}
-                                    <button @click="print" class="btn btn-inverse m-r-5 m-b-10"><i class="fa fa-print"></i>Print</button>
+                                    <button  class="btn btn-inverse m-r-5 m-b-10" onclick="printJS('printJS-form', 'html')" ><i class="fa fa-print" ></i>Print</button>
 
-                                    <button class="btn btn-purple" id="sa-basic"> <span>Send</span> <i class="fa fa-send m-l-10"></i> </button>
+                                    <button class="btn btn-purple" id="sa-basic" > <span>Send</span> <i class="fa fa-send m-l-10"></i> </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="panel panel-default" id="section-to-print">
+                            <div class="panel panel-default" >
                                 <!-- <div class="panel-heading">
                                     <h4>Invoice</h4>
                                 </div> -->
-                                <div class="panel-body">
+                                <div class="panel-body" id="printJS-form">
                                     <div class="clearfix">
                                         <div class="pull-left">
                                             <h1 class="text-right"><img v-show="parentData.logo!='null'" class="thumb-md" :src="getImage()">@{{ parentData.title }}
@@ -157,7 +159,9 @@
     </invoice-view>
 
 @endsection
-
+@section('script')
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    @endsection
 {{--<div class="hidden-print">--}}
     {{--<div class="pull-right">--}}
         {{--<button @click="print" class="btn btn-inverse" style="margin-right: 30px;"><i class="fa fa-print"></i> Print</button>--}}
