@@ -50,7 +50,7 @@ Vue.component('editPayment', resolve => require(['./payment/edit'], resolve));
 Vue.component('invoiceList', resolve => require(['./payment/index'], resolve));
 Vue.component('invoiceView', resolve => require(['./payment/view'], resolve));
 
-// Vue.component('dashboard', resolve => require(['./dashboard/index'], resolve));
+Vue.component('dashboard', resolve => require(['./dashboard/index'], resolve));
 
 // Vue.component('attendance', resolve => require(['./attendance/index'], resolve));
 const app = new Vue({

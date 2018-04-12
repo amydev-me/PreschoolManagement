@@ -94,8 +94,8 @@ class CategoryController extends Controller
     public function getCategoryWithGrade()
     {
         $academic = Session::get('academic');
-        $categories = Category::with(['grades' => function ($q) {
-            $q->where('academic_id', 1)->get();
+        $categories = Category::with(['grades' => function ($q) use($academic) {
+            $q->where('academic_id', $academic->id)->get();
         }])->get();
         return response()->json(['grades' => $categories, 'active_academic' => $academic]);
     }

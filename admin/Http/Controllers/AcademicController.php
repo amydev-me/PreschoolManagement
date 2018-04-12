@@ -80,6 +80,11 @@ class AcademicController extends Controller
         }
         $action = new Update($this->repository, $request->all());
         $result = $action->invoke();
+        if($result){
+            if($result->active_year){
+                Session::put(['academic' => $result]);
+            }
+        }
         return response()->json(['success' => $result]);
     }
 

@@ -11,6 +11,8 @@
         @media print {
             body * {
                 visibility: hidden;
+                size: landscape;
+                margin:0cm;
             }
             #section-to-print, #section-to-print * {
                 visibility: visible;
@@ -18,6 +20,7 @@
             }
 
         }
+
     </style>
 @endsection
 @section('content')
@@ -57,11 +60,11 @@
                                             </h4>
                                         </div>
                                     </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-md-12">
+                                    <hr style="margin-top: 20px;">
+                                    <div style="display: flex;flex-direction: row">
 
-                                            <div class="col-md-4 m-t-30 m-l-30">
+
+                                            <div class="m-t-30"  style="width: 30%;margin-right: 30px !important;">
                                                 <h4 class="m-b-25">Invoice From</h4>
                                                 <address>
                                                     <strong>@{{ parentData.title }}</strong><br>
@@ -70,7 +73,7 @@
                                                 </address>
 
                                             </div>
-                                            <div class="col-md-4 m-t-30">
+                                            <div class="m-t-30"  style="width: 30%">
                                                 <h4 class="m-b-25">Invoice To</h4>
                                                 <address>
                                                     <strong>@{{ student.fullName }}</strong><br>
@@ -79,17 +82,17 @@
                                                 </address>
 
                                             </div>
-                                            <div class="pull-right m-t-30">
+                                            <div class="m-t-30" style="width: 40%;text-align: right;">
                                                 <p><strong>Date: </strong> @{{ formatDate(payment.payment_date) }}</p>
                                                 <p class="m-t-10"><strong>Status: </strong>
                                                     <span class="label label-success" v-if="payment.status=='PAID'">@{{payment.status}}</span>
-                                                    <span class="label label-danger"  v-if="payment.due_date> currentdate && payment.status=='UNPAID'">@{{payment.status}}</span>
+                                                    <span class="label label-danger"  v-if="!(payment.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>
                                                     <span class="label label-warning" v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
 
                                                 </p>
                                                 {{--<p class="m-t-10"><strong>Order ID: </strong> #123456</p>--}}
                                             </div>
-                                        </div>
+
                                     </div>
                                     <div class="m-h-50"></div>
                                     <div class="row">
@@ -138,7 +141,7 @@
                                     <div class="row" style="border-radius: 0px;">
                                         <div class="col-md-3 col-md-offset-9">
                                             <h3 class="text-right" style="margin-right: 10px;"><span>$</span> @{{ formatNumber(payment.total) }}</h3>
-                                            <hr>
+                                            <hr style="width: 50%;text-align: right;">
 
                                             {{--<p class="text-right" style="margin-right: 10px;">Receipt Amount: @{{ formatNumber(payment.total-payment.balance) }}</p>--}}
 

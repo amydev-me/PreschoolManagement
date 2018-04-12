@@ -46,7 +46,7 @@
                                     <td>
                                         <p>
                                             <span class="label label-success" v-if="pay.status=='PAID'">@{{pay.status}}</span>
-                                            <span class="label label-danger" v-if="pay.due_date> currentdate && pay.status=='UNPAID'">@{{pay.status}}</span>
+                                            <span class="label label-danger" v-if="!(pay.due_date< currentdate) && pay.status=='UNPAID'">@{{pay.status}}</span>
                                             <span class="label label-warning" v-if="pay.due_date< currentdate &&pay.status=='UNPAID'">OVERDUE</span>
 
                                         </p>

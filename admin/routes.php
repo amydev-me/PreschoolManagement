@@ -2,7 +2,8 @@
 
 
 Route::middleware('web')->group(function() {
-
+    Route::name('yearlystudents')->get('yearlystudents', 'DashboardController@yearlyStudents');
+    Route::name('yearlyincome')->get('yearlyincome', 'DashboardController@yearlyIncome');
     Route::name('login')->get('login', 'AuthController@index');
 
     Route::name('admin.')->prefix('admin')->group(function () {

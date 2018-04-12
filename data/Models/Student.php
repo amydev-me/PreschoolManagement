@@ -11,6 +11,10 @@ class Student extends Model
         'meal_preferences', 'allergies', 'address', 'history',];
     protected $dates = ['dateofbirth'];
 
+    public function academic(){
+        return $this->belongsTo(Academic::class);
+    }
+
     public function guardian()
     {
         return $this->belongsTo(Guardian::class);
