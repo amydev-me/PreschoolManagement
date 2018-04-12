@@ -1,11 +1,28 @@
-@extends('layout.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+    <meta name="author" content="Coderthemes">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" href="{{URL::asset('img/logo.png')}}">
 
-@section('payment','active')
+    <title>UNIVERSITY OF OXFORD</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
 
-@section('style')
-    <link href=" https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
+    <!--Icon-fonts css-->
+    <link href="{{URL::asset('css/myfonts.css')}}" rel="stylesheet" />
 
+    <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('css/bootstrap-reset.css')}}" rel="stylesheet">
 
+    <!--Animation css-->
+    <link href="{{URL::asset('css/animate.css')}}" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/form-wizard/jquery.steps.css')}}" />
+    <link href="{{URL::asset('css/csstyles.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('css/helper.css')}}" rel="stylesheet">
     <style>
         .page-title{
             padding:0px 0px 0px;
@@ -18,36 +35,48 @@
             #section-to-print, #section-to-print * {
                 visibility: visible;
             }
+            header, aside {
+                display:none;
+            }
+        }
+        body, article {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        @page {
+            margin-left: 2cm;
+            margin-right: 2cm;
         }
 
     </style>
-@endsection
-@section('content')
+</head>
+<body >
+
+<div id="app">
     <invoice-view inline-template>
         <div class="wraper container-fluid" v-cloak>
-
             <div class="row">
                 <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="btn-toolbar" role="toolbar">
-                                <div class="pull-right">
-                                    {{--<button type="button" class="btn btn-success m-r-5 m-b-10"><i class="fa fa-floppy-o"></i></button>--}}
-                                    {{--<button type="button" class="btn btn-success m-r-5 m-b-10"><i class="fa fa-trash-o"></i></button>--}}
-                                    <button  class="btn btn-inverse m-r-5 m-b-10" onclick="printJS('printJS-form', 'html')" ><i class="fa fa-print" ></i>Print</button>
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="pull-right">
+                            {{--<button type="button" class="btn btn-success m-r-5 m-b-10"><i class="fa fa-floppy-o"></i></button>--}}
+                            {{--<button type="button" class="btn btn-success m-r-5 m-b-10"><i class="fa fa-trash-o"></i></button>--}}
+                            <button @click="print" class="btn btn-inverse m-r-5 m-b-10"><i class="fa fa-print"></i>Print</button>
 
-                                    <button class="btn btn-purple" id="sa-basic" > <span>Send</span> <i class="fa fa-send m-l-10"></i> </button>
-                                </div>
-                            </div>
+                            <button class="btn btn-purple" id="sa-basic"> <span>Send</span> <i class="fa fa-send m-l-10"></i> </button>
                         </div>
                     </div>
-                    <div class="row">
+                </div>
+            </div>
+            <div class="row">
                         <div class="col-md-12">
                             <div class="panel panel-default" >
                                 <!-- <div class="panel-heading">
                                     <h4>Invoice</h4>
                                 </div> -->
-                                <div class="panel-body" id="printJS-form">
+                                <div class="panel-body" id="section-to-print">
                                     <div class="clearfix">
                                         <div class="pull-left">
                                             <h1 class="text-right"><img v-show="parentData.logo!='null'" class="thumb-md" :src="getImage()">@{{ parentData.title }}
@@ -63,34 +92,34 @@
                                     <div style="display: flex;flex-direction: row">
 
 
-                                            <div class="m-t-30"  style="width: 30%;margin-right: 30px !important;">
-                                                <h4 class="m-b-25">Invoice From</h4>
-                                                <address>
-                                                    <strong>@{{ parentData.title }}</strong><br>
-                                                    @{{ parentData.address }}<br>
-                                                    <abbr title="Phone">P:</abbr>@{{ parentData.phone }}
-                                                </address>
+                                        <div class="m-t-30"  style="width: 30%;margin-right: 30px !important;">
+                                            <h4 class="m-b-25">Invoice From</h4>
+                                            <address>
+                                                <strong>@{{ parentData.title }}</strong><br>
+                                                @{{ parentData.address }}<br>
+                                                <abbr title="Phone">P:</abbr>@{{ parentData.phone }}
+                                            </address>
 
-                                            </div>
-                                            <div class="m-t-30"  style="width: 30%">
-                                                <h4 class="m-b-25">Invoice To</h4>
-                                                <address>
-                                                    <strong>@{{ student.fullName }}</strong><br>
-                                                    @{{ student.address }}<br>
-                                                    <abbr title="Phone">P:</abbr>@{{ student.phone }}
-                                                </address>
+                                        </div>
+                                        <div class="m-t-30"  style="width: 30%">
+                                            <h4 class="m-b-25">Invoice To</h4>
+                                            <address>
+                                                <strong>@{{ student.fullName }}</strong><br>
+                                                @{{ student.address }}<br>
+                                                <abbr title="Phone">P:</abbr>@{{ student.phone }}
+                                            </address>
 
-                                            </div>
-                                            <div class="m-t-30" style="width: 40%;text-align: right;">
-                                                <p><strong>Date: </strong> @{{ formatDate(payment.payment_date) }}</p>
-                                                <p class="m-t-10"><strong>Status: </strong>
-                                                    <span class="label label-success" v-if="payment.status=='PAID'">@{{payment.status}}</span>
-                                                    <span class="label label-danger"  v-if="!(payment.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>
-                                                    <span class="label label-warning" v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
+                                        </div>
+                                        <div class="m-t-30" style="width: 40%;text-align: right;">
+                                            <p><strong>Date: </strong> @{{ formatDate(payment.payment_date) }}</p>
+                                            <p class="m-t-10"><strong>Status: </strong>
+                                                <span class="label label-success" v-if="payment.status=='PAID'">@{{payment.status}}</span>
+                                                <span class="label label-danger"  v-if="!(payment.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>
+                                                <span class="label label-warning" v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
 
-                                                </p>
-                                                {{--<p class="m-t-10"><strong>Order ID: </strong> #123456</p>--}}
-                                            </div>
+                                            </p>
+                                            {{--<p class="m-t-10"><strong>Order ID: </strong> #123456</p>--}}
+                                        </div>
 
                                     </div>
                                     <div class="m-h-50"></div>
@@ -153,15 +182,23 @@
 
                         </div>
                     </div>
-                </div>
-            </div>
         </div>
     </invoice-view>
+</div>
+<script src="{{URL::asset('js/jquery-3.1.1.min.js')}}"></script>
+<script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
+<script src="{{URL::asset('js/manifest.js')}}" type="text/javascript"></script>
+<script src="{{URL::asset('js/vendor.js')}}" type="text/javascript"></script>
+<script src="{{URL::asset('js/app.js')}}" type="text/javascript"></script>
+<script src="{{URL::asset('js/pace.min.js')}}" type="text/javascript"></script>
+<script src="{{URL::asset('js/wow.min.js')}}"></script>
+<script src="{{URL::asset('js/jquery.nicescroll.js')}}" type="text/javascript"></script>
+<script src="{{URL::asset('js/common.js')}}" type="text/javascript"></script>
+@yield('script')
+</body>
+</html>
 
-@endsection
-@section('script')
-    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
-    @endsection
+
 {{--<div class="hidden-print">--}}
     {{--<div class="pull-right">--}}
         {{--<button @click="print" class="btn btn-inverse" style="margin-right: 30px;"><i class="fa fa-print"></i> Print</button>--}}
