@@ -120,7 +120,7 @@ class StudentController extends Controller
     public function delete($id)
     {
         $_req = ['id' => $id];
-        $action = new DeleteStudent($this->repository, $this->userRepo, $_req);
+        $action = new DeleteStudent($this->repository, $_req);
         $result = $action->invoke();
         return response()->json(['success' => $result]);
     }

@@ -17,11 +17,11 @@ use Data\Repositories\UserRepository;
 
 class DeleteStudent extends BaseStudentAction
 {
-    private $adminRepo;
-    public function __construct(StudentRepository $repository, UserRepository $adminRepo, $request = null)
+
+    public function __construct(StudentRepository $repository, $request = null)
     {
         parent::__construct($repository, $request);
-        $this->adminRepo = $adminRepo;
+
     }
 
     protected function perform()
@@ -38,8 +38,6 @@ class DeleteStudent extends BaseStudentAction
             if ($history->checkfile()) {
                 $history->delete();
             }
-
-            $this->adminRepo->removeUser($student['id'], 'student');
             return true;
         }
 

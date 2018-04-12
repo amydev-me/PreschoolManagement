@@ -114,7 +114,7 @@ class TeacherController extends Controller
     public function delete($id)
     {
         $_req = ['id' => $id];
-        $action = new DeleteTeacher($this->repository, $this->userRepo, $_req);
+        $action = new DeleteTeacher($this->repository, $_req);
         $result = $action->invoke();
         return response()->json(['success' => $result]);
     }

@@ -47,7 +47,6 @@ module.exports= {
       });
     },
     createLineChart () {
-      var that=this;
       axios.get('/yearlyincome').then(response => {
 
         new Chart('income-chart', {
@@ -57,7 +56,7 @@ module.exports= {
             datasets: [
               {
                 label: "# Income",
-                data: response.data.map(function (a) {return parseInt( a.income ).toLocaleString();}),
+                data: response.data.map(function (a) {return a.income;}),
                 backgroundColor: 'rgba(70, 190, 138, 0.7)',
                 pointBackgroundColor: 'rgb(70, 190, 138)',
                 pointHoverBackgroundColor: 'rgb(70, 190, 138)',
@@ -67,6 +66,17 @@ module.exports= {
                 borderWidth: 1,
               }
             ]
+          },
+          options: {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }
+              ]
+            }
           }
         });
       });

@@ -11,14 +11,11 @@
         @media print {
             body * {
                 visibility: hidden;
-                size: landscape;
-                margin:0cm;
+                size: portrait;
             }
             #section-to-print, #section-to-print * {
                 visibility: visible;
-
             }
-
         }
 
     </style>

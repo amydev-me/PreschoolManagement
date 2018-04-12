@@ -16,12 +16,12 @@ use Data\Repositories\UserRepository;
 
 class DeleteTeacher extends BaseTeacherAction
 {
-    private $adminRepo;
 
-    public function __construct(TeacherRepository $repository, UserRepository $adminRepo, $data = null)
+
+    public function __construct(TeacherRepository $repository, $data = null)
     {
         parent::__construct($repository, $data);
-        $this->adminRepo = $adminRepo;
+
     }
 
     protected function perform()
@@ -36,7 +36,7 @@ class DeleteTeacher extends BaseTeacherAction
                 $img->delete();
             }
 
-            $this->adminRepo->removeUser($student['id'], 'teacher');
+
             return true;
         }
 
