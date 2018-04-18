@@ -48,9 +48,10 @@
                         <div class="pull-right">
                             {{--<button type="button" class="btn btn-success m-r-5 m-b-10"><i class="fa fa-floppy-o"></i></button>--}}
                             {{--<button type="button" class="btn btn-success m-r-5 m-b-10"><i class="fa fa-trash-o"></i></button>--}}
-                            <button  @click="print" class="btn btn-inverse m-r-5 m-b-10" ><i class="fa fa-print" ></i>Print</button>
-
+                            <button  @click="print" class="btn btn-inverse m-r-5 m-b-10" ><span>Print</span><i class="fa fa-print m-l-10" ></i></button>
+                            {{--<button @click="print" class="btn btn-inverse" id="sa-basic" > <span>Print</span> <i class="fa fa-print m-l-10"></i> </button>--}}
                             <button class="btn btn-purple" id="sa-basic" > <span>Send</span> <i class="fa fa-send m-l-10"></i> </button>
+                            {{--<button class="btn btn-purple" id="sa-basic" > <span>Send</span> <i class="fa fa-send m-l-10"></i> </button>--}}
                         </div>
                     </div>
                 </div>
