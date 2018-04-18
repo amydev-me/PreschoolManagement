@@ -67,7 +67,7 @@
                                 <div class="info">
                                     <a :href="goDetailView(student.id)">
                                         <h4>@{{student.fullName}}</h4>
-                                        <p class="text-muted">@{{student.grade.gradeName}}</p>
+                                        <p class="text-muted">@{{student.grade?student.grade.gradeName:''}}</p>
                                     </a>
                                 </div>
                             </div>
