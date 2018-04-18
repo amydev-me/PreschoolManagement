@@ -95,13 +95,14 @@
                                     </div>
                                     <div class="m-t-30" style="width: 40%;text-align: right;">
                                         <p><strong>Invoice Date: </strong> @{{ formatDate(payment.payment_date) }}</p>
+                                        <p v-if="payment.status != 'PAID'"><strong>Due Date: </strong> @{{ formatDate(payment.due_date) }}</p>
                                         <p class="m-t-10"><strong>Status: </strong>
                                             <span class="label label-success" style="background-color:#2eb398 " v-if="payment.status=='PAID'">@{{payment.status}}</span>
                                             <span class="label label-danger"  style="background-color: #FF6C60" v-if="!(payment.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>
                                             <span class="label label-warning" style="background-color:#ebc142 " v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
 
                                         </p>
-                                        <p><strong>Due Date: </strong> @{{ formatDate(payment.due_date) }}</p>
+
                                         {{--<p class="m-t-10"><strong>Order ID: </strong> #123456</p>--}}
                                     </div>
                             </div>
