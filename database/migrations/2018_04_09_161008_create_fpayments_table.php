@@ -19,7 +19,7 @@ class CreateFpaymentsTable extends Migration
             $table->double('amount')->default(0);
             $table->primary(['payment_id','fee_id']);
             $table->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
-            $table->foreign('fee_id')->references('id')->on('fees')->onDelete('cascade');
+            $table->foreign('fee_id')->references('id')->on('fees')->onDelete('restrict');
         });
     }
 

@@ -15,13 +15,6 @@
             </div>
             <div class="col-lg-3 col-sm-6">
                 <div class="widget-panel widget-style-2 white-bg">
-                    <i class="fa  fa-group text-warning"></i>
-                    <h2 class="m-0 counter">{{$guardiancount}}</h2>
-                    <div>Guardians</div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="widget-panel widget-style-2 white-bg">
                     <i class="fa  fa-group text-success"></i>
                     <h2 class="m-0 counter">{{$teachercount}}</h2>
                     <div>Teachers</div>

@@ -1,85 +1,151 @@
 const Datepicker = resolve => require(['../core/JQueryDatePicker'], resolve);
-let _asyncguardian=route.urls.guardian.asyncget;
+
 let _update=route.urls.student.update;
 module.exports= {
+ props:
+   {
+     isedit: {
+       default: false
+     },
+   },
+
   components: {Datepicker},
-
-
   data: function () {
     return {
       countries: [],
+      profile: null,
+      edu_one: null,
+      edu_two: null,
+      medical_files: null,
       student: {
         id: null,
-        academic_id:null,
-        guardian_id:null,
-        email: null,
+        academic_id: null,
+        grade_id: null,
         profile: null,
-        firstName:'',
-        lastName:'',
-        studentCode: null,
+        fullName: null,
+        otherName: null,
+        join_date: null,
+        em_name: null,
+        em_relation: null,
+        em_contact: null,
+        student_live: null
+      },
+      personal_info: {
+        student_id: null,
         dateofbirth: null,
         gender: 'Male',
-        phone: null,
-        nrc: null,
+        placeofbirth: null,
         nationality: null,
-        address: null,
-        join_date:null,
-        course_id:null,
-        history:null,
+        langhome: null,
+        religion: null
       },
-      guardians: [],
-      selected_guardian: null,
+      education: {
+        student_id: null,
+        previous_one: null,
+        one_date: null,
+        one_file: null,
+        previous_two: null,
+        two_date: null,
+        two_file: null,
+      },
+      sibling_info: {
+        student_id: null,
+        sb_one_name: null,
+        sb_one_gender: null,
+        sb_one_dob: null,
+        sb_one_school: null,
+        sb_two_name: null,
+        sb_two_gender: null,
+        sb_two_dob: null,
+        sb_two_school: null,
+        sb_three_name: null,
+        sb_three_gender: null,
+        sb_three_dob: null,
+        sb_three_school: null,
+      },
+      medical: {
+        student_id: null,
+        asthma: false,
+        asthma_remark: null,
+        allergies: false,
+        allergies_remark: null,
+        diabetes: false,
+        diabetes_remark: null,
+        epilepsy: false,
+        epilepsy_remark: null,
+        tuberculosis: false,
+        tuberculosis_remark: null,
+        others: null,
+        medication: null,
+        immunized: null,
+        immunized_remark: null,
+        immunized_file: null,
+        emotional: null,
+        disabilities: null,
+        behavioral: null,
+      },
+      guardian: {
+        student_id: null,
+        g_one_name: null,
+        g_one_relation: null,
+        g_one_email: null,
+        g_one_occupation: null,
+        g_one_address: null,
+        g_one_mobile: null,
+        g_one_home: null,
+        g_one_work: null,
+
+        g_two_name: null,
+        g_two_relation: null,
+        g_two_email: null,
+        g_two_occupation: null,
+        g_two_address: null,
+        g_two_mobile: null,
+        g_two_home: null,
+        g_two_work: null,
+      }
     }
   },
 
   methods: {
-    newHistory (event) {
+    inputFile (event,inputby) {
       let files = event.target.files;
       if (files.length) {
-        this.student.history = files[0];
-      }
-    },
-    newProfile (event) {
-      let files = event.target.files;
-      if (files.length) {
-        this.student.profile = files[0];
+        if(inputby=='profile'){
+          this.profile = files[0];
+        }else if(inputby=='edu_one'){
+          this.edu_one=files[0];
+        }
+        else if(inputby=='edu_two'){
+          this.edu_two=files[0];
+        }
+        else if(inputby=='medical'){
+          this.medical_files=files[0];
+        }
       }
     },
     formatDate (date) {
       return Helper.formatDate(date);
     },
-    asyncFindGuardian (query) {
-      if (query == '') {return;}
-      if (query == undefined) {return;}
-      axios.get(_asyncguardian + query).then(response => {
-        this.guardians = response.data;
-      });
-    },
+
     getDetail () {
       axios.get('/admin/student/get-detail?student_id=' + this.student.id).then(({data}) => {
         let student = data.student;
-
         this.student.academic_id = student.academic_id;
-        this.student.guardian_id = student.guardian_id;
-        this.student.studentCode = student.studentCode;
-        this.student.email = student.email;
+        this.student.grade_id =student.grade_id;
         this.student.profile = student.profile;
-        this.student.firstName = student.firstName;
-        this.student.lastName = student.lastName;
-        this.student.dateofbirth = this.formatDate(student.dateofbirth);
-        this.student.gender = student.gender;
-        this.student.phone = student.phone;
-        this.student.nrc = student.nrc;
-        this.student.nationality = student.nationality;
-        this.student.address = student.address;
-        this.student.join_date = this.formatDate(student.join_date);
-        this.student.meal_preferences = student.meal_preferences;
-        this.student.allergies = student.allergies;
-        this.student.history = student.history;
-        if (student.guardian != null) {
-          let guardian = student.guardian;
-          this.selected_guardian = {id: guardian.id, fullName: guardian.fullName, email: guardian.email};
-        }
+        this.student.fullName = student.fullName;
+        this.student.otherName = student.otherName;
+        this.student.join_date = student.join_date;
+        this.student.em_name = student.em_name;
+        this.student.em_relation = student.em_relation;
+        this.student.em_contact = student.em_contact;
+        this.student.student_live = student.student_live;
+        this.personal_info = student.student_personal_information;
+        this.education = student.student_background;
+        this.sibling_info = student.sibling_information;
+        this.medical = student.student_medical;
+        this.guardian = student.student_guardian;
       }).catch(error => {
         if (error.response.status == 401 || error.response.status == 419) {
           window.location.href = route.urls.login;
@@ -91,40 +157,47 @@ module.exports= {
     checkUrlParam () {
       let student_id = Helper.getUrlParameter('student_id');
       if (student_id != null) {
-
         this.student.id = student_id;
         this.getDetail();
       }
     },
 
     validateData (scope) {
+
       this.$validator.validateAll(scope).then(successsValidate => {
         if (successsValidate) {
-          this.performAction();
+          if(scope=='personal_info_form'){
+            $('#student_form a[href="#background_tab"]').tab('show');
+          }else if(scope=='background_form'){
+
+            $('#student_form a[href="#sibling_tab"]').tab('show');
+          }else if(scope=='sibling_form'){
+            $('#student_form a[href="#medical_tab"]').tab('show');
+          }
+          else if(scope=='medical_form'){
+            $('#student_form a[href="#em_tab"]').tab('show');
+          }
+          else if(scope=='emergency_form'){
+            $('#student_form a[href="#guardian_tab"]').tab('show');
+          }else{
+            this.performAction();
+          }
         }
       }).catch(error => {});
     },
     performAction () {
       let data = new FormData();
-      data.set('id', this.student.id);
-      data.set('guardian_id', this.selected_guardian.id);
-      data.set('email', this.student.email);
-      data.append('profile', this.student.profile);
-      data.set('firstName', this.student.firstName);
-      data.set('lastName', this.student.lastName);
-      data.set('fullName', this.student.firstName + ' ' + this.student.lastName);
-      data.set('dateofbirth', this.student.dateofbirth);
-      data.set('gender', this.student.gender);
-      data.set('phone', this.student.phone);
-      data.set('nrc', this.student.nrc);
-      data.set('nationality', this.student.nationality);
-      data.set('join_date', this.student.join_date);
-      data.set('benefit', this.student.benefit);
-      data.set('address', this.student.address);
-      data.set('meal_preferences', this.student.meal_preferences);
-      data.set('allergies', this.student.allergies);
-      data.set('history', this.student.history);
-      data.set('history', this.student.history);
+      data.set('student',JSON.stringify(this.student));
+      data.set('personal_info', JSON.stringify(this.personal_info));
+      data.set('education',JSON.stringify(this.education));
+      data.set('sibling_info', JSON.stringify(this.sibling_info));
+      data.set('medical', JSON.stringify(this.medical));
+      data.set('guardian', JSON.stringify(this.guardian));
+      data.append('profile', this.profile);
+      data.append('edu_one', this.edu_one);
+      data.append('edu_two', this.edu_two);
+      data.append('medical_files', this.medical_files);
+
       const config = {headers: {'Content-Type': 'multipart/form-data'}};
       axios.post(_update, data, config).then(response => {
 
@@ -151,6 +224,7 @@ module.exports= {
   },
   mounted () {
     this.countries = Helper.countries();
+
     this.checkUrlParam();
   }
 }

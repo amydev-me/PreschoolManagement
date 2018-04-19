@@ -25,9 +25,10 @@ class CreatePaymentsTable extends Migration
             $table->date('payment_date')->nullable();
             $table->date('due_date')->nullable();
             $table->string('status')->nullable();
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('set null');
-            $table->foreign('grade_id')->references('id')->on('grades')->onDelete('set null');
-            $table->foreign('term_id')->references('id')->on('terms')->onDelete('set null');
+            $table->double('total')->default(0);
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('restrict');
+            $table->foreign('grade_id')->references('id')->on('grades')->onDelete('restrict');
+            $table->foreign('term_id')->references('id')->on('terms')->onDelete('restrict');
             $table->timestamps();
         });
     }

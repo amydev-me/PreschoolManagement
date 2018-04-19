@@ -36,9 +36,6 @@ class StudentController extends Controller
     {
         $this->repository = $repo;
 
-
-
-
         $this->acaRepo = $acaRepo;
 
         $this->catRepo = $catRepo;
@@ -61,28 +58,6 @@ class StudentController extends Controller
 
     public function create(Request $request)
     {
-        $rules = [
-
-            'academic_id' => 'required',
-            'grade_id' => 'required',
-            'guardian_id' => 'required',
-            'join_date' => 'required',
-            'email' => 'required',
-            'firstName' => 'required|max:255',
-            'lastName' => 'required|max:255',
-            'phone' => 'required|max:255',
-            'gender' => 'required|max:6',
-            'dateofbirth' => 'required|max:255',
-            'nrc' => 'required|max:255',
-            'nationality' => 'required|max:255',
-            'meal_preferences' => 'required',
-            'allergies' => 'required'
-        ];
-
-        $validatedata = validator($request->all(), $rules);
-        if ($validatedata->fails()) {
-            return response()->json([$validatedata->errors()], 422);
-        }
         $action = new CreateStudent($this->repository, $request->all(), $request);
         $result = $action->invoke();
         return response()->json(['success' => $result]);
@@ -90,28 +65,7 @@ class StudentController extends Controller
 
     public function update(Request $request)
     {
-        $rules = [
 
-
-
-            'guardian_id' => 'required',
-            'join_date' => 'required',
-            'email' => 'required',
-            'firstName' => 'required|max:255',
-            'lastName' => 'required|max:255',
-            'phone' => 'required|max:255',
-            'gender' => 'required|max:6',
-            'dateofbirth' => 'required|max:255',
-            'nrc' => 'required|max:255',
-            'nationality' => 'required|max:255',
-            'meal_preferences' => 'required',
-            'allergies' => 'required'
-        ];
-
-        $validatedata = validator($request->all(), $rules);
-        if ($validatedata->fails()) {
-            return response()->json([$validatedata->errors()], 422);
-        }
         $action = new UpdateStudent($this->repository, $request->all(), $request);
         $result = $action->invoke();
         return response()->json(['success' => $result]);

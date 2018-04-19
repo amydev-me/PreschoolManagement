@@ -1,45 +1,105 @@
-const CreateGuardian = resolve => require(['../guardian/action'], resolve);
 const Datepicker = resolve => require(['../core/JQueryDatePicker'], resolve);
 let _create=route.urls.student.create;
-let _asyncguardian=route.urls.guardian.asyncget;
 let _getgrade=route.urls.grade.getgrade;
-let checkinguser=route.urls.checkuser;
 let getac=route.urls.get_ac;
 let indexpage=route.urls.student.indexpage;
+
 module.exports= {
-  components: {Datepicker,CreateGuardian},
+  components: {Datepicker},
   data: function () {
     return {
+      isedit:false,
       countries: [],
       selected_academic: null,
-      guardians: [],
-      selected_guardian: null,
+
       grades: [],
       selected_grade: null,
-
+      profile:null,
+      edu_one:null,
+      edu_two:null,
+      medical_files:null,
       student: {
         id: null,
-        guardian_id: null,
-        grade_id: null,
         academic_id: null,
+        grade_id: null,
         profile: null,
-        email: null,
-        firstName: null,
-        lastName: null,
         fullName: null,
-        dateofbirth: null,
-        gender: 'Male',
-        phone: null,
-        nrc: null,
-        nationality: null,
+        otherName:null,
         join_date: null,
-        benefit: ' ',
-        meal_preferences: null,
-        allergies: null,
-        address: null,
-        history: '',
-
+        em_name: null,
+        em_relation: null,
+        em_contact: null,
+        student_live: null
       },
+      personal_info:{
+        dateofbirth:null,
+        gender:'Male',
+        placeofbirth:null,
+        nationality:null,
+        langhome:null,
+        religion:null
+      },
+      education:{
+        previous_one:null,
+        one_date:null,
+        one_file:null,
+        previous_two:null,
+        two_date:null,
+        two_file:null,
+      },
+      sibling_info:{
+        sb_one_name:null,
+        sb_one_gender:null,
+        sb_one_dob:null,
+        sb_one_school:null,
+        sb_two_name:null,
+        sb_two_gender:null,
+        sb_two_dob:null,
+        sb_two_school:null,
+        sb_three_name:null,
+        sb_three_gender:null,
+        sb_three_dob:null,
+        sb_three_school:null,
+      },
+      medical:{
+        asthma:false,
+        asthma_remark:null,
+        allergies:false,
+        allergies_remark:null,
+        diabetes:false,
+        diabetes_remark:null,
+        epilepsy:false,
+        epilepsy_remark:null,
+        tuberculosis:false,
+        tuberculosis_remark:null,
+        others:null,
+        medication:null,
+        immunized:null,
+        immunized_remark:null,
+        immunized_file:null,
+        emotional:null,
+        disabilities:null,
+        behavioral:null,
+      },
+      guardian:{
+        g_one_name:null,
+        g_one_relation:null,
+        g_one_email:null,
+        g_one_occupation:null,
+        g_one_address:null,
+        g_one_mobile:null,
+        g_one_home:null,
+        g_one_work:null,
+
+        g_two_name:null,
+        g_two_relation:null,
+        g_two_email:null,
+        g_two_occupation:null,
+        g_two_address:null,
+        g_two_mobile:null,
+        g_two_home:null,
+        g_two_work:null,
+      }
     }
   },
   methods: {
@@ -49,27 +109,24 @@ module.exports= {
         this.selected_academic=data.active_academic;
       });
     },
-    newProfile (event) {
+    inputFile (event,inputby) {
       let files = event.target.files;
       if (files.length) {
-        this.student.profile = files[0];
-      }
-    },
-    newHistory (event) {
-      let files = event.target.files;
-      if (files.length) {
-        this.student.history = files[0];
+        if(inputby=='profile'){
+          this.profile = files[0];
+        }else if(inputby=='edu_one'){
+          this.edu_one=files[0];
+        }
+        else if(inputby=='edu_two'){
+          this.edu_two=files[0];
+        }
+        else if(inputby=='medical'){
+          this.medical_files=files[0];
+        }
       }
     },
     formatDate (date) {
       return Helper.formatDate(date);
-    },
-    asyncFindGuardian (query) {
-      if (query == '') {return;}
-      if (query == undefined) {return;}
-      axios.get(_asyncguardian + query).then(response => {
-        this.guardians = response.data;
-      });
     },
     getasyncdata () {
       axios.get(getac).then(({data}) => {
@@ -77,52 +134,48 @@ module.exports= {
       });
     },
 
-    asyncFindGuardian (query) {
-      if (query == '') {return;}
-      if (query == undefined) {return;}
-      axios.get(_asyncguardian + query).then(response => {
-        this.guardians = response.data;
-      });
-    },
-
     validateData (scope) {
+      if(scope=='personal_info_form'){
+        $('#student_form a[href="#background_tab"]').tab('show');
+      }else if(scope=='background_form'){
 
-      this.$validator.validateAll(scope).then(successsValidate => {
-        if (successsValidate) {
+        $('#student_form a[href="#sibling_tab"]').tab('show');
+      }else if(scope=='sibling_form'){
+        $('#student_form a[href="#medical_tab"]').tab('show');
+      }
+      else if(scope=='medical_form'){
+        $('#student_form a[href="#em_tab"]').tab('show');
+      }
+      else if(scope=='emergency_form'){
+        $('#student_form a[href="#guardian_tab"]').tab('show');
+      }else{
+        this.performAction();
+      }
 
-            this.performAction();
-
-        } else {
-          Notification.error('Invalid data.');
-        }
-      }).catch(error => {
-        Notification.error('Opps!Something went wrong.');
-      });
+      // this.$validator.validateAll(scope).then(successsValidate => {
+      //   if (successsValidate) {
+      //
+      //
+      //   }
+      // }).catch(error => {
+      //   Notification.error('Opps!Something went wrong.');
+      // });
     },
     performAction () {
+      this.student.academic_id=this.selected_academic.id;
+      this.student.grade_id=this.selected_grade.id;
 
       let data = new FormData();
-
-
-      data.set('academic_id', this.selected_academic.id);
-      data.set('guardian_id', this.selected_guardian.id);
-      data.set('grade_id', this.selected_grade.id);
-      data.append('profile', this.student.profile);
-      data.set('firstName', this.student.firstName);
-      data.set('lastName', this.student.lastName);
-      data.set('fullName', this.student.firstName + ' ' + this.student.lastName);
-      data.set('email', this.student.email);
-      data.set('dateofbirth', this.student.dateofbirth);
-      data.set('gender', this.student.gender);
-      data.set('phone', this.student.phone);
-      data.set('nrc', this.student.nrc);
-      data.set('nationality', this.student.nationality);
-      data.set('join_date', this.student.join_date);
-      data.set('benefit', this.student.benefit);
-      data.set('address', this.student.address);
-      data.set('meal_preferences', this.student.meal_preferences);
-      data.set('allergies', this.student.allergies);
-      data.append('history', this.student.history);
+      data.set('student',JSON.stringify(this.student));
+      data.set('personal_info', JSON.stringify(this.personal_info));
+      data.set('education',JSON.stringify(this.education));
+      data.set('sibling_info', JSON.stringify(this.sibling_info));
+      data.set('medical', JSON.stringify(this.medical));
+      data.set('guardian', JSON.stringify(this.guardian));
+      data.append('profile', this.profile);
+      data.append('edu_one', this.edu_one);
+      data.append('edu_two', this.edu_two);
+      data.append('medical_files', this.medical_files);
 
       const config = {headers: {'Content-Type': 'multipart/form-data'}};
       axios.post(_create, data, config).then(response => {
@@ -130,7 +183,7 @@ module.exports= {
         if (response.data.success == false) {
           Notification.error('Error occur while inserting data.');
         } else {
-          window.location.href = indexpage;
+          // window.location.href = indexpage;
         }
       }).catch(error => {
         if (error.response.status == 401 || error.response.status == 419) {
@@ -141,10 +194,6 @@ module.exports= {
           Notification.error('Error occur while inserting data.');
         }
       });
-    },
-    submitsuccess (value) {
-      this.selected_guardian = {id: value.id, fullName: value.fullName, email: value.email};
-      $('#guardian-modal').modal('hide');
     },
   },
   mounted () {

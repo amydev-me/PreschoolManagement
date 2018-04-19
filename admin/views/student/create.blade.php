@@ -3,18 +3,10 @@
 @section('page-title','Add Student Form')
 @section('style')
     <style>
-        body.modal-open {
-            overflow: hidden;
-            position: fixed;
-        }
         .input-group .form-control {
             position: unset !important;
         }
 
-
-        .input-group .form-control {
-            position: unset !important;
-        }
         .multiselect__option--group {
             background: #e3f2fd !important;
             color: #708690 !important;
@@ -25,258 +17,62 @@
             color: #708690 !important;
             font-weight: 800;
         }
+        #student_form>li>a{
+            background-color: white;
+        }
+        .nav>li {
 
-        </style>
+            margin-bottom: 10px;
+        }
+        .panel .panel-body{
+            padding-top: 0px;
+        }
+        .tab-content>.tab-pane{
+            padding: 0px 30px !important;
+        }
+
+
+    </style>
 @endsection
 @section('content')
     <create-student inline-template>
-        <div class="panel"  v-cloak>
-            <create-guardian @input="submitsuccess" inline-template>
-                <div ref="thismodel" id="guardian-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content" style="padding-bottom: 10px!important;">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add Guardian</h4>
-                            </div>
-                            <div class="modal-body">
+        <div>
+            <div class="col-sm-3">
+                <ul class="nav nav-pills nav-stacked" id="student_form">
 
-                                        <form class="form-horizontal animated bounceInRight"  @submit.prevent="validateData('guardian_personal_detail_form')" data-vv-scope="guardian_personal_detail_form">
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">Email :</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="email" v-model="guardian.email" v-validate="'required|email'" placeholder="Enter Email">
-                                                    <div  v-show="errors.has('guardian_personal_detail_form.email')"><span class="error">Required email.</span></div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">First Name :</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="firstName" v-model="guardian.firstName" v-validate="'required'" placeholder="Enter First Name">
-                                                    <div v-show="errors.has('guardian_personal_detail_form.firstName')"><span class="error">Required first name.</span></div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">Last name :</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="lastName" v-model="guardian.lastName" v-validate="'required'" placeholder="Enter Last Name">
-                                                    <div  v-show="errors.has('guardian_personal_detail_form.lastName')"><span class="error">Required last name.</span></div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">Relation :</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="realation" v-model="guardian.realation" v-validate="'required'" placeholder="Enter Relation">
-                                                    <div  v-show="errors.has('guardian_personal_detail_form.realation')"><span class="error">Required relation.</span></div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">Occupation :</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="occupation" v-model="guardian.occupation" v-validate="'required'" placeholder="Enter Occupation">
-                                                    <div v-show="errors.has('guardian_personal_detail_form.occupation')"><span class="error">Required occupation.</span></div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">Phone :</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="phone" v-model="guardian.phone" v-validate="'required'" placeholder="Enter Phone">
-                                                    <div  v-show="errors.has('guardian_personal_detail_form.phone')"><span class="error">Required phone.</span></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">Address :</label>
-                                                <div class="col-sm-9">
-                                                    <textarea rows="1" type="text" class="form-control" name="address" v-model="guardian.address" v-validate="'required'" placeholder="Enter Address"></textarea>
-                                                    <div  v-show="errors.has('guardian_personal_detail_form.address')"><span class="error">Required address.</span></div>
-                                                </div>
-                                            </div>
-
-                                            <div class="text-right">
-
-                                                <button type="submit" class="btn btn-primary">Save</button>
-                                            </div>
-                                        </form>
-
-                            </div>
+                    <li class="active">
+                        <a data-toggle="tab" href="#personal_tab">  <span id="number">1.</span> Personal Info</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#background_tab">   <span id="number">2.</span> Educational Background</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#sibling_tab">  <span id="number">3.</span> Siblings’ Info</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#medical_tab">  <span id="number">4.</span> Medical History</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#em_tab">  <span id="number">5.</span> Emergency Contact</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#guardian_tab">  <span id="number">6.</span> Guardians Info</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-9">
+                <div class="panel"  v-cloak>
+                    <div class="panel-body">
+                        <div class="tab-content active">
+                            @include('student.create-include.personal-info')
+                            @include('student.create-include.background')
+                            @include('student.create-include.siblings-info')
+                            @include('student.create-include.medical')
+                            @include('student.create-include.emergency-contact')
+                            @include('student.create-include.guardian')
                         </div>
                     </div>
                 </div>
-            </create-guardian>
-            <div class="panel-body">
-                <form class="form-horizontal  animated bounceInRight"  @submit.prevent="validateData('personal_detail_form')" data-vv-scope="personal_detail_form">
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Grade:</label>
-                        <div class="col-sm-10">
-                            <multiselect v-model="selected_grade" :options="grades" :multiple="false" group-values="grades"  v-validate="'required'" data-vv-scope="personal_detail_form" data-vv-name="grade"
-                                         group-label="categoryName" :group-select="false" placeholder="Select grade"
-                                         label="gradeName">
-                                <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
-                            </multiselect>
-                            <div v-show="errors.has('personal_detail_form.grade')"><span class="error">@{{ errors.first('personal_detail_form.grade') }}</span></div>
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="join_date">Join Date:</label>
-                        <div class="col-sm-10">
-                            <datepicker  v-model="student.join_date" v-validate="'required'" data-vv-scope="personal_detail_form" data-vv-name="join_date"></datepicker>
-                            <div v-show="errors.has('personal_detail_form.join_date')"><span class="error">@{{ errors.first('personal_detail_form.join_date') }}</span></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="firstName">First Name:</label>
-                        <div class="col-sm-10">
-                            <input type="text" id="firstName"  class="form-control"  v-model="student.firstName" name="firstName" v-validate="'required'" placeholder="Enter First Name">
-                            <div v-show="errors.has('personal_detail_form.firstName')"><span class="error">@{{ errors.first('personal_detail_form.firstName') }}</span></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="lastName">Last Name:</label>
-                        <div class="col-sm-10">
-                            <input type="text" id="lastName"  class="form-control"  v-model="student.lastName" name="lastName" v-validate="'required'" placeholder="Enter Last Name">
-                            <div v-show="errors.has('personal_detail_form.lastName')"><span class="error">@{{ errors.first('personal_detail_form.lastName') }}</span></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="email">Email:</label>
-                        <div class="col-sm-10">
-                            <input type="email" id="email"  class="form-control"  v-model="student.email" name="email" v-validate="'email'" placeholder="Enter Email">
-                            <div v-show="errors.has('personal_detail_form.email')"><span class="error">@{{ errors.first('personal_detail_form.email') }}</span></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="phone">Phone:</label>
-                        <div class="col-sm-10">
-                            <input type="text" id="phone"  class="form-control"  v-model="student.phone" name="phone" v-validate="'required'" placeholder="Enter Phone No">
-                            <div v-show="errors.has('personal_detail_form.phone')"><span class="error">@{{ errors.first('personal_detail_form.phone') }}</span></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="gender">Gender</label>
-                        <div class="radio-inline">
-                            <label class="cr-styled" for="male">
-                                <input type="radio" id="male" name="gender" value="Male" v-model="student.gender">
-                                <i class="fa"></i>
-                                Male
-                            </label>
-                        </div>
-                        <div class="radio-inline">
-                            <label class="cr-styled" for="female">
-                                <input type="radio" id="female" name="gender" value="Female" v-model="student.gender">
-                                <i class="fa"></i>
-                                Female
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="dateofbirth">Date Of Birth:</label>
-                        <div class="col-sm-10">
-                            <datepicker v-model="student.dateofbirth" v-validate="'required'" data-vv-scope="personal_detail_form" data-vv-name="dateofbirth"></datepicker>
-                            <div v-show="errors.has('personal_detail_form.dateofbirth')"><span class="error">@{{ errors.first('personal_detail_form.dateofbirth') }}</span></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="nrc">NRC/Passport:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nrc" v-model="student.nrc"  name="nrc" v-validate="'required'" placeholder="Enter NRC/Passport">
-                            <div v-show="errors.has('personal_detail_form.nrc')"><span class="error">@{{ errors.first('personal_detail_form.nrc') }}</span></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="nationality">Nationality:</label>
-                        <div class="col-sm-10">
-                            <multiselect
-                                    data-vv-scope="personal_detail_form"
-                                    v-validate="'required'"
-                                    data-vv-name="nationality"
-                                    v-model="student.nationality"
-                                    :options="countries"
-                                    placeholder="Type to search country"
-                                    open-direction="bottom"></multiselect>
-                            <div v-show="errors.has('personal_detail_form.nationality')"><span class="error">@{{ errors.first('personal_detail_form.nationality') }}</span></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="address">Address:</label>
-                        <div class="col-sm-10">
-                            <textarea id="address" class="form-control" rows="1" v-model="student.address" name="address" v-validate="'required'" placeholder="Enter Address"></textarea>
-                            <div v-show="errors.has('personal_detail_form.address')"><span class="error">@{{ errors.first('personal_detail_form.address') }}</span></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="meal_preferences">Meal Preferences:</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="1" v-model="student.meal_preferences" name="meal_preferences" v-validate="'required'" placeholder="Enter Meal Preferences"></textarea>
-                            <div v-show="errors.has('personal_detail_form.meal_preferences')"><span class="error">@{{ errors.first('personal_detail_form.meal_preferences') }}</span></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="allergies">Allergies:</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" id="allergies" rows="1" v-model="student.allergies" name="allergies" v-validate="'required'" placeholder="Enter Allergies"></textarea>
-                            <div v-show="errors.has('personal_detail_form.allergies')"><span class="error">@{{ errors.first('personal_detail_form.allergies') }}</span></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="guardian">Guardian</label>
-                        <div class="col-sm-10">
-                            <div class="row">
-                                <div class="col-sm-11">
-
-                                    <multiselect
-                                            label="fullName"
-                                            open-direction="bottom"
-                                            placeholder="Type to search guardian"
-                                            v-validate="'required'"
-                                            v-model="selected_guardian"
-                                            data-vv-name="guardian"
-                                            data-vv-scope="personal_detail_form"
-
-                                            :options="guardians"
-                                            :multiple="false"
-                                            :searchable="true"
-
-                                            @search-change="asyncFindGuardian"></multiselect>
-                                </div>
-                                <div class="col-sm-1 m-t-5">
-                                    <button style="height: 35px;" data-toggle="modal" data-target="#guardian-modal" type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
-                                </div>
-                            </div>
-                            <div  v-show="errors.has('personal_detail_form.guardian')"><span class="error">The guardian field is required.</span></div>
-                        </div>
-                    </div>
-                    <div class="form-group ">
-                        <label class="control-label col-sm-2" for="email">Profile:</label>
-                        <div class="col-sm-10 ">
-                            <div class="fileUpload btn btn-default">
-                                <span>Upload</span>
-                                <input type="file" class="upload "  @change="newProfile"  name="profile" v-validate="'image'"/>
-                            </div>
-                            <div v-show="errors.has('personal_detail_form.profile')"><span class="error">Profile image Required.</span></div>
-                        </div>
-                    </div>
-                    <div class="form-group ">
-                        <label class="control-label col-sm-2" for="email">History:</label>
-                        <div class="col-sm-10 ">
-                            <div class="fileUpload btn btn-default">
-                                <span>Upload</span>
-                                <input type="file" class="upload "  @change="newHistory"  name="history"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-right">
-
-                        <button type="submit" class="btn btn-primary" type="button">Save</button>
-                    </div>
-                </form>
             </div>
         </div>
     </create-student>

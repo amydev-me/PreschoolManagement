@@ -5,6 +5,39 @@
         .input-group .form-control {
             position: unset !important;
         }
+        .panel{
+            border:none;
+            box-shadow: none;
+        }
+        .panel-group .panel-heading+.panel-collapse>.list-group, .panel-group .panel-heading+.panel-collapse>.panel-body{
+            border-top:none !important;
+            margin-top: 0px !important;
+        }
+        .panel-group .panel .panel-heading a[data-toggle=collapse], .panel-group .panel .panel-heading .accordion-toggle{
+            color:#204d74;
+        }
+
+        .multiselect__option--group {
+            background: #e3f2fd !important;
+            color: #708690 !important;
+
+        }
+        .multiselect--disabled .multiselect__current, .multiselect--disabled .multiselect__select, .multiselect__option--disabled{
+            background: #e3f2fd !important;
+            color: #708690 !important;
+            font-weight: 800;
+        }
+        .panel .edit-panel{
+            padding-top: 0px;
+        }
+
+        .panel .panel-body .edit-panel{
+            padding-top: 0px;
+        }
+        .tab-content>.tab-pane .edit-tab{
+            padding-top: 0px;
+        }
+
     </style>
 @endsection
 @section('content')

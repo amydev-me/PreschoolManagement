@@ -3,9 +3,6 @@
 @section('payment','active')
 
 @section('style')
-
-
-
     <style>
         .page-title{
             padding:0px 0px 0px;
@@ -36,7 +33,6 @@
                 display:none;
             }
         }
-
     </style>
 @endsection
 @section('content')
@@ -46,12 +42,8 @@
                 <div class="col-md-12">
                     <div class="btn-toolbar" role="toolbar">
                         <div class="pull-right">
-                            {{--<button type="button" class="btn btn-success m-r-5 m-b-10"><i class="fa fa-floppy-o"></i></button>--}}
-                            {{--<button type="button" class="btn btn-success m-r-5 m-b-10"><i class="fa fa-trash-o"></i></button>--}}
                             <button  @click="print" class="btn btn-inverse m-r-5 m-b-10" ><span>Print</span><i class="fa fa-print m-l-10" ></i></button>
-                            {{--<button @click="print" class="btn btn-inverse" id="sa-basic" > <span>Print</span> <i class="fa fa-print m-l-10"></i> </button>--}}
                             <button class="btn btn-purple" id="sa-basic" > <span>Send</span> <i class="fa fa-send m-l-10"></i> </button>
-                            {{--<button class="btn btn-purple" id="sa-basic" > <span>Send</span> <i class="fa fa-send m-l-10"></i> </button>--}}
                         </div>
                     </div>
                 </div>
@@ -76,36 +68,32 @@
                             </div>
                             <hr style="margin-top: 20px;">
                             <div style="display: flex;flex-direction: row">
-                                    <div class="m-t-30"  style="width: 30%;margin-right: 30px !important;">
-                                        <h4 class="m-b-25">Invoice From</h4>
-                                        <address>
-                                            <strong>@{{ parentData.title }}</strong><br>
-                                            @{{ parentData.address }}<br>
-                                            <abbr title="Phone">P:</abbr>@{{ parentData.phone }}
-                                        </address>
+                                <div class="m-t-30"  style="width: 30%;margin-right: 30px !important;">
+                                    <h4 class="m-b-25">Invoice From</h4>
+                                    <address>
+                                        <strong>@{{ parentData.title }}</strong><br>
+                                        @{{ parentData.address }}<br>
+                                        <abbr title="Phone">P:</abbr>@{{ parentData.phone }}
+                                    </address>
 
-                                    </div>
-                                    <div class="m-t-30"  style="width: 30%">
-                                        <h4 class="m-b-25">Invoice To</h4>
-                                        <address>
-                                            <strong>@{{ student.fullName }}</strong><br>
-                                            @{{ student.address }}<br>
-                                            <abbr title="Phone">P:</abbr>@{{ student.phone }}
-                                        </address>
-
-                                    </div>
-                                    <div class="m-t-30" style="width: 40%;text-align: right;">
-                                        <p><strong>Invoice Date: </strong> @{{ formatDate(payment.payment_date) }}</p>
-                                        <p v-if="payment.status != 'PAID'"><strong>Due Date: </strong> @{{ formatDate(payment.due_date) }}</p>
-                                        <p class="m-t-10"><strong>Status: </strong>
-                                            <span class="label label-success" style="background-color:#2eb398 " v-if="payment.status=='PAID'">@{{payment.status}}</span>
-                                            <span class="label label-danger"  style="background-color: #FF6C60" v-if="!(payment.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>
-                                            <span class="label label-warning" style="background-color:#ebc142 " v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
-
-                                        </p>
-
-                                        {{--<p class="m-t-10"><strong>Order ID: </strong> #123456</p>--}}
-                                    </div>
+                                </div>
+                                <div class="m-t-30"  style="width: 30%">
+                                    <h4 class="m-b-25">Invoice To</h4>
+                                    <address>
+                                        <strong>@{{ student.fullName }}</strong><br>
+                                        @{{ student.address }}<br>
+                                        <abbr title="Phone">P:</abbr>@{{ student.phone}}
+                                    </address>
+                                </div>
+                                <div class="m-t-30" style="width: 40%;text-align: right;">
+                                    <p><strong>Invoice Date: </strong> @{{ formatDate(payment.payment_date) }}</p>
+                                    <p v-if="payment.status != 'PAID'"><strong>Due Date: </strong> @{{ formatDate(payment.due_date) }}</p>
+                                    <p class="m-t-10"><strong>Status: </strong>
+                                        <span class="label label-success" style="background-color:#2eb398 " v-if="payment.status=='PAID'">@{{payment.status}}</span>
+                                        <span class="label label-danger"  style="background-color: #FF6C60" v-if="!(payment.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>
+                                        <span class="label label-warning" style="background-color:#ebc142 " v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
+                                    </p>
+                                </div>
                             </div>
                             <div class="m-h-20"></div>
                             <div class="row">
@@ -121,21 +109,18 @@
                                             </thead>
                                             <tbody>
                                             <tr>
-
                                                 <td>1</td>
                                                 <td>
-                                                    <span>@{{grade.academic.academicName +' '+term.termName}}</span><br>
+                                                    <span>@{{grade.academic.academicName?grade.academic.academicName:'' +' '+term.termName}}</span><br>
 
-                                                    <span>@{{grade.gradeName+' ('+testFormat(term.start_date)+' - '+testFormat(term.end_date)+')'}}</span>
+                                                    <span>@{{grade.gradeName?grade.gradeName:''+' ('+testFormat(term.start_date)+' - '+testFormat(term.end_date)+')'}}</span>
                                                 </td>
-
                                                 <td style="text-align: right">@{{ formatNumber(payment.amount) }}</td>
                                             </tr>
                                             <tr v-for="fee,index in fees">
                                                 <td>@{{index+2 }}</td>
                                                 <td>@{{ fee.feeName+ (fee.description?(' ('+ fee.description +') '):'')}}</td>
                                                 <td style="text-align: right">@{{formatNumber(fee.pivot.amount) }}</td>
-
                                             </tr>
                                             <tr>
                                                 <td></td>
@@ -160,5 +145,4 @@
             </div>
         </div>
     </invoice-view>
-
 @endsection

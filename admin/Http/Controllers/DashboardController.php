@@ -29,9 +29,9 @@ class DashboardController extends Controller
         }
 
         $teachercount= Teacher::count();
-        $guardiancount=Guardian::count();
+//        $guardiancount=Guardian::count();
         $subjectcount=Subject::count();
-        return view('dashboard.index',compact('studentcount','guardiancount','teachercount','subjectcount'));
+        return view('dashboard.index',compact('studentcount','teachercount','subjectcount'));
     }
 
     public function yearlyStudents(){

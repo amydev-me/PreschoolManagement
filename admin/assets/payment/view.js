@@ -62,10 +62,11 @@ module.exports={
       axios.get('/admin/payment/get-detail?payment_id=' + this.payment.id).then(({data}) => {
 
         this.payment = data.payment;
-        this.student=data.student;
-        this.fees=data.fees;
-        this.term=data.term;
-        this.grade=data.grade;
+        if(data.student){this.student=data.student;}
+        if(data.fees){this.fees=data.fees;}
+        if(data.term){this.term=data.term;}
+        if(data.grade){this.grade=data.grade;}
+
       }).catch(error => {
         if (error.response.status == 401 || error.response.status == 419) {
           window.location.href = Helper.loginPage();
