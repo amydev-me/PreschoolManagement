@@ -44,8 +44,8 @@ module.exports={
     },
     getImage () {
 
-      if(this.parentData.logo=='null') return;
-      return '/image/business/' + this.parentData.logo;
+      if(this.parentData.invoice_logo=='null') return;
+      return '/image/business/' + this.parentData.invoice_logo;
     },
     checkUrlParam () {
       let payment_id = Helper.getUrlParameter('payment_id');

@@ -6,21 +6,21 @@
 
     <dashboard inline-template>
         <div class="row">
-            <div class="col-lg-3 col-sm-6">
+            <div class="col-sm-4">
                 <div class="widget-panel widget-style-2 white-bg">
                     <i class="fa fa-graduation-cap text-pink"></i>
                     <h2 class="m-0 counter">{{$studentcount}}</h2>
                     <div>Students</div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6">
+            <div class="col-sm-4">
                 <div class="widget-panel widget-style-2 white-bg">
                     <i class="fa  fa-group text-success"></i>
                     <h2 class="m-0 counter">{{$teachercount}}</h2>
                     <div>Teachers</div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6">
+            <div class="col-sm-4">
                 <div class="widget-panel widget-style-2 white-bg">
                     <i class="ion-ios7-bookmarks text-purple"></i>
                     <h2 class="m-0 counter">{{$subjectcount}}</h2>

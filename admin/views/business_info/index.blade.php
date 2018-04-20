@@ -34,14 +34,14 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="website">Website:</label>
             <div class="col-sm-10">
-                <input type="email" id="website"  class="form-control"  v-model="info.website" name="website"  placeholder="Enter Website Name">
+                <input type="text" id="website"  class="form-control"  v-model="info.website" name="website"  placeholder="Enter Website Name">
 
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="facebook">Facebook:</label>
             <div class="col-sm-10">
-                <input type="email" id="facebook"  class="form-control"  v-model="info.email" name="facebook"  placeholder="Enter Facebook Page">
+                <input type="text" id="facebook"  class="form-control"  v-model="info.facebook" name="facebook"  placeholder="Enter Facebook Page">
             </div>
         </div>
         <div class="form-group">
@@ -97,7 +97,7 @@
                     <span>Upload</span>
                     <input type="file" class="upload "  @change="newInvoice"  name="logo" v-validate="'image'"/>
                 </div>
-                <a @click="removelogo" v-show="showremove"> <span class="error"><i class="fa fa-remove"></i>Remove Logo</span></a>
+                <a @click="removeInvoiceLogo" v-show="showinvoice_remove"> <span class="error"><i class="fa fa-remove"></i>Remove Logo</span></a>
                 <div v-show="errors.has('logo')"><span class="error">Logo image Required.</span></div>
             </div>
         </div>

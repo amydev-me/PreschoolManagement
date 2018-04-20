@@ -18,10 +18,11 @@ module.exports= {
         footer: null,
         login_text: null,
         remove: false,
-        invoice_logo:null
+        invoice_logo:null,
+        remove_invoicelogo:false
       },
       showremove: false,
-
+      showinvoice_remove:false
     }
   },
 
@@ -52,6 +53,10 @@ module.exports= {
       this.showremove = false;
       this.info.remove = true;
     },
+    removeInvoiceLogo(){
+      this.showinvoice_remove = false;
+      this.info.remove_invoicelogo = true;
+    },
     performAction (url) {
       let data = new FormData();
       data.set('title', this.info.title);
@@ -66,7 +71,7 @@ module.exports= {
       data.append('invoice_logo', this.info.invoice_logo);
       data.set('footer', this.info.footer);
       data.set('login_text', this.info.login_text);
-
+      data.set('remove_invoicelogo', this.info.remove_invoicelogo);
       data.set('remove', this.info.remove);
       const config = {headers: {'Content-Type': 'multipart/form-data'}};
       axios.post(url, data, config).then(response => {
@@ -88,17 +93,24 @@ module.exports= {
           this.info.id = info.id;
           this.info.title = info.title;
           this.info.email = info.email;
+          this.info.website = info.website;
+          this.info.facebook = info.facebook;
           this.info.phone = info.phone;
           this.info.fax = info.fax;
           this.info.address = info.address;
           this.info.note = info.note;
           this.info.footer = info.footer;
           this.info.login_text = info.login_text;
-
+          this.info.invoice_logo=info.invoice_logo;
           if (info.logo == 'null') {
             this.showremove = false;
           } else {
             this.showremove = true;
+          }
+          if (info.invoice_logo == 'null') {
+            this.showinvoice_remove = false;
+          } else {
+            this.showinvoice_remove = true;
           }
         }
       });

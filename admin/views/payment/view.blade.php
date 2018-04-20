@@ -63,7 +63,7 @@
                             <div class="clearfix">
                                 <div class="pull-left">
                                     <h1 class="text-right">
-                                        <img v-show="parentData.logo!='null'" class="thumb-md" :src="getImage()">
+                                        <img v-show="parentData.invoice_logo!='null'" class="thumb-md" :src="getImage()">
                                     @{{ parentData.title }}
                                     </h1>
                                 </div>

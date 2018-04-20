@@ -25,26 +25,47 @@ class EditBusinessInfo extends BaseBusinessInfoAction
 
     protected function perform()
     {
-        $info = $this->_req->except('remove');
+        $info = $this->_req->except('remove','remove_invoicelogo');
 
         $_info = $this->repository->getInfo();
 
         if ($_info) {
 
-            if ($this->request()['remove'] == true) {
-                $this->removeImage($_info['logo']);
-                $_info['logo'] = null;
-            }
 
-            if ($this->_req->hasFile('logo')) {
-                $this->removeImage($_info['logo']);
-                $img = new BusinessImage($info['logo']);
-                $img->store();
-                $info['logo'] = $this->storeImage($info['logo']);
+                if ($this->_req->hasFile('logo')) {
+                    $this->removeImage($_info['logo']);
+                    $img = new BusinessImage($info['logo']);
+                    $img->store();
+                    $info['logo'] = $this->storeImage($info['logo']);
 
-            } else {
-                $info['logo'] = $_info['logo'];
-            }
+                }else{
+                    if ($this->request()['remove'] == true) {
+                        $this->removeImage($_info['logo']);
+                        $_info['logo'] = null;
+                    }
+                    $info['logo'] = $_info['logo'];
+                }
+
+
+
+                if ($this->_req->hasFile('invoice_logo')) {
+                    $this->removeImage($_info['invoice_logo']);
+                    $img = new BusinessImage($info['invoice_logo']);
+                    $img->store();
+                    $info['invoice_logo'] = $this->storeImage($info['invoice_logo']);
+                }
+                else{
+                    if ($this->request()['remove_invoicelogo'] == true) {
+                        $this->removeImage($_info['invoice_logo']);
+                        $_info['invoice_logo'] = null;
+                    }
+                    $info['invoice_logo'] = $_info['invoice_logo'];
+                }
+
+
+
+
+
 
             $this->repository->update($info, $_info['id']);
             return true;

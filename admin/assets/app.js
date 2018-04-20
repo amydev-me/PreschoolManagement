@@ -63,8 +63,11 @@ const app = new Vue({
         phone: null,
         address: null,
         email: null,
+        website:null,
+        facebook:null,
         fax: null,
         note: null,
+        invoice_logo:null,
         logo: null,
         footer: null
       }
@@ -83,13 +86,15 @@ const app = new Vue({
           this.info.id=info.id;
           this.info.title = info.title;
           this.info.email = info.email;
+          this.info.website = info.website;
+          this.info.facebook = info.facebook;
           this.info.phone = info.phone;
           this.info.fax = info.fax;
           this.info.address = info.address;
           this.info.note = info.note;
           this.info.footer = info.footer;
           this.info.logo = info.logo;
-
+            this.info.invoice_logo=info.invoice_logo;
         }
       });
     }
