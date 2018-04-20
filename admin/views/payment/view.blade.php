@@ -32,6 +32,11 @@
             #not-print{
                 display:none;
             }
+
+
+            status-color{
+                color: #ebc142;
+            }
         }
     </style>
 @endsection
@@ -57,44 +62,87 @@
                         <div class="panel-body" id="section-to-print">
                             <div class="clearfix">
                                 <div class="pull-left">
-                                    <h1 class="text-right"><img v-show="parentData.logo!='null'" class="thumb-md" :src="getImage()">@{{ parentData.title }}
+                                    <h1 class="text-right">
+                                        <img v-show="parentData.logo!='null'" class="thumb-md" :src="getImage()">
+                                    @{{ parentData.title }}
                                     </h1>
                                 </div>
-                                <div class="pull-right">
-                                    <h4>Invoice # <br>
-                                        <strong>@{{ payment.invoice }}</strong>
-                                    </h4>
-                                </div>
+                                {{--<div class="pull-left" style="width: 200px;">--}}
+                                    {{--<address>--}}
+                                        {{--<strong>@{{ parentData.title }}</strong>--}}
+                                        {{--<br>--}}
+                                        {{--@{{ parentData.address }}--}}
+                                        {{--<br>--}}
+                                        {{--<abbr title="Phone">P:</abbr>@{{ parentData.phone }}--}}
+                                    {{--</address>--}}
+                                    {{--<h4>Invoice # <br>--}}
+                                        {{--<strong>@{{ payment.invoice }}</strong>--}}
+                                    {{--</h4>--}}
+
+                                {{--</div>--}}
                             </div>
-                            <hr style="margin-top: 20px;">
-                            <div style="display: flex;flex-direction: row">
-                                <div class="m-t-30"  style="width: 30%;margin-right: 30px !important;">
-                                    <h4 class="m-b-25">Invoice From</h4>
-                                    <address>
-                                        <strong>@{{ parentData.title }}</strong><br>
-                                        @{{ parentData.address }}<br>
+
+                            <hr style="margin-top: 10px;">
+                            <div class="row">
+                                <div class="pull-left" style="margin-left: 30px;width: 200px;">
+                                    <address >
+                                        {{--<strong>@{{ parentData.title }}</strong>--}}
+                                        {{--<br>--}}
+                                        @{{ parentData.address }}
+                                        <br>
                                         <abbr title="Phone">P:</abbr>@{{ parentData.phone }}
                                     </address>
+                                    {{--<h4>Invoice # <br>--}}
+                                    {{--<strong>@{{ payment.invoice }}</strong>--}}
+                                    {{--</h4>--}}
 
                                 </div>
-                                <div class="m-t-30"  style="width: 30%">
-                                    <h4 class="m-b-25">Invoice To</h4>
-                                    <address>
-                                        <strong>@{{ student.fullName }}</strong><br>
-                                        @{{ student.address }}<br>
-                                        <abbr title="Phone">P:</abbr>@{{ student.phone}}
-                                    </address>
-                                </div>
-                                <div class="m-t-30" style="width: 40%;text-align: right;">
-                                    <p><strong>Invoice Date: </strong> @{{ formatDate(payment.payment_date) }}</p>
-                                    <p v-if="payment.status != 'PAID'"><strong>Due Date: </strong> @{{ formatDate(payment.due_date) }}</p>
-                                    <p class="m-t-10"><strong>Status: </strong>
-                                        <span class="label label-success" style="background-color:#2eb398 " v-if="payment.status=='PAID'">@{{payment.status}}</span>
-                                        <span class="label label-danger"  style="background-color: #FF6C60" v-if="!(payment.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>
-                                        <span class="label label-warning" style="background-color:#ebc142 " v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
-                                    </p>
+                                <div class="pull-right" style="display: flex;flex-direction: row;margin-right:20px;">
+                                    {{--<div class="m-t-30"  style="width: 30%;margin-right: 30px !important;">--}}
+                                    {{--<h4 class="m-b-25">Invoice From</h4>--}}
+                                    {{--<address>--}}
+                                    {{--<strong>@{{ parentData.title }}</strong>--}}
+                                    {{--<br>--}}
+                                    {{--@{{ parentData.address }}--}}
+                                    {{--<br>--}}
+                                    {{--<abbr title="Phone">P:</abbr>@{{ parentData.phone }}--}}
+                                    {{--</address>--}}
+                                    {{--<address>--}}
+                                    {{--<strong>@{{ parentData.title }}</strong><br>--}}
+                                    {{--@{{ parentData.address }}<br>--}}
+                                    {{--<abbr title="Phone">P:</abbr>@{{ parentData.phone }}--}}
+                                    {{--</address>--}}
+
+                                    {{--</div>--}}
+                                    {{--<div class="m-t-30"  style="width: 30%">--}}
+                                    {{--<h4 class="m-b-25">Invoice To</h4>--}}
+                                    {{--<address>--}}
+                                    {{--<strong>@{{ student.fullName }}</strong>--}}
+                                    {{--<br>--}}
+                                    {{--@{{ student.address }}<br>--}}
+                                    {{--<abbr title="Phone">P:</abbr>@{{ student.phone}}--}}
+                                    {{--</address>--}}
+                                    {{--</div>--}}
+                                    <div class="m-t-10">
+                                        <p><strong>Invoice Number &nbsp&nbsp&nbsp</strong>  <strong>@{{ payment.invoice }}</strong> </p>
+                                        <p><strong>Invoice Date &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong>   @{{ formatDate(payment.payment_date) }}</p>
+                                        <p v-if="payment.status != 'PAID'"><strong>Due Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>   @{{ formatDate(payment.due_date) }}</p>
+                                        <p class="m-t-10"><strong>Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                                            <span class="label label-success status-color" style="background-color:#2eb398 " v-if="payment.status=='PAID'">@{{payment.status}}</span>
+                                            <span class="label label-danger status-color"  style="background-color: #FF6C60" v-if="!(payment.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>
+                                            <span class="label label-warning status-color" style="background-color:#ebc142 " v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
+                                        </p>
+                                        {{--<p><strong>Invoice Date: </strong> @{{ formatDate(payment.payment_date) }}</p>--}}
+                                        {{--<p v-if="payment.status != 'PAID'"><strong>Due Date: </strong> @{{ formatDate(payment.due_date) }}</p>--}}
+                                        {{--<p class="m-t-10"><strong>Status: </strong>--}}
+                                        {{--<span class="label label-success" style="background-color:#2eb398 " v-if="payment.status=='PAID'">@{{payment.status}}</span>--}}
+                                        {{--<span class="label label-danger"  style="background-color: #FF6C60" v-if="!(payment.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>--}}
+                                        {{--<span class="label label-warning" style="background-color:#ebc142 " v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>--}}
+                                        {{--</p>--}}
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="m-h-20"></div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -111,9 +159,12 @@
                                             <tr>
                                                 <td>1</td>
                                                 <td>
-                                                    <span>@{{grade.academic.academicName?grade.academic.academicName:'' +' '+term.termName}}</span><br>
+                                                    <span>@{{grade.academic.academicName?grade.academic.academicName:''}}</span>
+                                                    <span>@{{ term.termName}}</span>
+                                                    <br>
 
-                                                    <span>@{{grade.gradeName?grade.gradeName:''+' ('+testFormat(term.start_date)+' - '+testFormat(term.end_date)+')'}}</span>
+                                                    <span>@{{grade.gradeName?grade.gradeName:''}}</span>
+                                                    <span>@{{ ' ('+testFormat(term.start_date)+' - '+testFormat(term.end_date)+')' }}</span>
                                                 </td>
                                                 <td style="text-align: right">@{{ formatNumber(payment.amount) }}</td>
                                             </tr>
@@ -124,21 +175,27 @@
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td></td>
-                                                <td style="text-align: right"></td>
+                                                <td style="text-align: right;"><strong>Total :</strong></td>
+                                                <td style="text-align: right;">@{{ formatNumber(payment.total) }}</td>
                                             </tr>
+                                            <tr >
+                                                <td style="border: none !important;"></td>
+                                                <td style="text-align: right;border: none !important;"><strong>Amount Paid :</strong></td>
+                                                <td style="text-align: right;border: none !important;">@{{ formatNumber(payment.receipt_amount) }}</td>
+                                            </tr>
+
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" style="border-radius: 0px;">
-                                <div class="col-md-3 col-md-offset-9">
-                                    <h3 class="text-right" style="margin-right: 10px;"><span>$</span> @{{ formatNumber(payment.total) }}</h3>
+                            {{--<div class="row" style="border-radius: 0px;">--}}
+                                {{--<div class="col-md-3 col-md-offset-9">--}}
+                                    {{--<h3 class="text-right" style="margin-right: 10px;"><span>$</span> @{{ formatNumber(payment.total) }}</h3>--}}
                                     {{--<hr style="text-align: right;width: 80%;">--}}
                                     {{--<p class="text-right" style="margin-right: 10px;">Receipt Amount: @{{ formatNumber(payment.total-payment.balance) }}</p>--}}
-                                </div>
-                            </div>
+                                {{--</div>--}}
+                            {{--</div>--}}
                         </div>
                     </div>
                 </div>
