@@ -20,6 +20,9 @@ class CreateBusinessInfo extends BaseBusinessInfoAction
         $img = new BusinessImage($this->request()['logo']);
         $img->store();
         $info['logo'] = $img->getStoredName();
+        $invoicelogo = new BusinessImage($this->request()['invoice_logo']);
+        $invoicelogo->store();
+        $info['invoice_logo'] = $invoicelogo->getStoredName();
         $info = $this->repository->create($info);
         if ($info) {
             return true;

@@ -108,6 +108,21 @@ module.exports= {
   },
 
   methods: {
+    edu_back(){
+      $('#student_form a[href="#personal_tab"]').tab('show');
+    },
+    sib_back(){
+      $('#student_form a[href="#background_tab"]').tab('show');
+    },
+    medican_back(){
+      $('#student_form a[href="#sibling_tab"]').tab('show');
+    },
+    em_back(){
+      $('#student_form a[href="#medical_tab"]').tab('show');
+    },
+    guardian_back(){
+      $('#student_form a[href="#em_tab"]').tab('show');
+    },
     inputFile (event,inputby) {
       let files = event.target.files;
       if (files.length) {

@@ -1,9 +1,31 @@
 <div class="tab-pane edit-tab active " id="personal_tab" >
     <form class="form-horizontal  animated bounceInRight"  @submit.prevent="validateData('personal_info_form')" data-vv-scope="personal_info_form" autocomplete="off">
+        <div class="form-group" v-if="!isedit" >
+            <label class="control-label">Year:</label>
+            <multiselect v-validate="'required'" data-vv-scope="personal_info_form" data-vv-name="academic"
+                    placeholder="Select year"
+                    v-model="selected_academic"
+                    label="academicName"
+                    :options="academics"
+                    :multiple="false"
+                    :searchable="false"
+                    :allow-empty="false"
+                    :show-labels="false"
+                    :internal-search="false"
+                    :custom-label="customLabel"
+                         open-direction="bottom"
+                    @input="selectedAcadmiceChange">
+            </multiselect>
+            <div v-show="errors.has('personal_info_form.academic')"><span class="error">@{{ errors.first('personal_info_form.academic') }}</span></div>
+        </div>
+
+
+
+
         <div class="form-group" v-if="!isedit">
             <label class="control-label">Grade:</label>
             <multiselect v-model="selected_grade" :options="grades" :multiple="false" group-values="grades"  v-validate="'required'" data-vv-scope="personal_info_form" data-vv-name="grade"
-                         group-label="categoryName" :group-select="false" placeholder="Select grade"
+                         group-label="categoryName" :group-select="false" placeholder="Select grade"   open-direction="bottom"
                          label="gradeName">
                 <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
             </multiselect>

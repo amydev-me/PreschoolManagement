@@ -6,6 +6,16 @@
 @section('style')
 
     <style>
+        .multiselect__option--group {
+            background: #e3f2fd !important;
+            color: #708690 !important;
+
+        }
+        .multiselect--disabled .multiselect__current, .multiselect--disabled .multiselect__select, .multiselect__option--disabled{
+            background: #e3f2fd !important;
+            color: #708690 !important;
+            font-weight: 800;
+        }
         select{
             min-width:auto !important;
         }

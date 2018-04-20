@@ -75,6 +75,7 @@
             <input type="text" class="form-control"  v-model="guardian.g_two_work" placeholder="Enter Work Number">
         </div>
         <div class="text-right">
+            <button  class="btn btn-primary" type="button" @click="guardian_back">Previous</button>
             <button type="submit" class="btn btn-primary" type="button">Save</button>
         </div>
     </form>

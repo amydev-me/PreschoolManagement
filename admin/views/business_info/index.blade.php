@@ -32,6 +32,19 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="control-label col-sm-2" for="website">Website:</label>
+            <div class="col-sm-10">
+                <input type="email" id="website"  class="form-control"  v-model="info.website" name="website"  placeholder="Enter Website Name">
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="facebook">Facebook:</label>
+            <div class="col-sm-10">
+                <input type="email" id="facebook"  class="form-control"  v-model="info.email" name="facebook"  placeholder="Enter Facebook Page">
+            </div>
+        </div>
+        <div class="form-group">
             <label class="control-label col-sm-2" for="fax">Fax:</label>
             <div class="col-sm-10">
                 <input type="text" id="fax"  class="form-control"  v-model="info.fax" name="fax"  placeholder="Enter Fax">
@@ -77,7 +90,17 @@
                 <div v-show="errors.has('logo')"><span class="error">Logo image Required.</span></div>
             </div>
         </div>
-
+        <div class="form-group ">
+            <label class="control-label col-sm-2" for="email">Invoice Logo:</label>
+            <div class="col-sm-10 ">
+                <div class="fileUpload btn btn-default">
+                    <span>Upload</span>
+                    <input type="file" class="upload "  @change="newInvoice"  name="logo" v-validate="'image'"/>
+                </div>
+                <a @click="removelogo" v-show="showremove"> <span class="error"><i class="fa fa-remove"></i>Remove Logo</span></a>
+                <div v-show="errors.has('logo')"><span class="error">Logo image Required.</span></div>
+            </div>
+        </div>
         <div class="text-right">
             <button type="submit" class="btn btn-primary">Save</button>
         </div>

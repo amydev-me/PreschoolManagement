@@ -19,11 +19,14 @@ class CreateBusinessInfosTable extends Migration
             $table->string('phone',255)->nullable();
             $table->mediumText('address')->nullable();
             $table->string('email',255)->nullable();
+            $table->string('website',255)->nullable();
+            $table->string('facebook',500)->nullable();
             $table->string('fax',255)->nullable();
             $table->string('footer',255)->nullable();
             $table->mediumText('note')->nullable();
             $table->string('login_text',500)->nullable();
             $table->string('logo',500)->nullable();
+            $table->string('invoice_logo',500)->nullable();
             $table->timestamps();
         });
     }

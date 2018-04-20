@@ -1,9 +1,10 @@
 const Datepicker = resolve => require(['../core/JQueryDatePicker'], resolve);
+const AcademicSelect = resolve => require(['../select_components/AcademicSelect'], resolve);
 let _create=route.urls.student.create;
 let _getgrade=route.urls.grade.getgrade;
 let getac=route.urls.get_ac;
 let indexpage=route.urls.student.indexpage;
-
+let asyncurl=route.urls.academic.asyncget;
 module.exports= {
   components: {Datepicker},
   data: function () {
@@ -11,7 +12,7 @@ module.exports= {
       isedit:false,
       countries: [],
       selected_academic: null,
-
+      academics:[],
       grades: [],
       selected_grade: null,
       profile:null,
@@ -103,12 +104,48 @@ module.exports= {
     }
   },
   methods: {
-    getGades () {
-      axios.get('/admin/category/get-with-category').then(({data}) => {
-        this.grades = data.grades;
-        this.selected_academic=data.active_academic;
+    edu_back(){
+      $('#student_form a[href="#personal_tab"]').tab('show');
+    },
+    sib_back(){
+      $('#student_form a[href="#background_tab"]').tab('show');
+    },
+    medican_back(){
+      $('#student_form a[href="#sibling_tab"]').tab('show');
+    },
+    em_back(){
+      $('#student_form a[href="#medical_tab"]').tab('show');
+    },
+    guardian_back(){
+      $('#student_form a[href="#em_tab"]').tab('show');
+    },
+    handleTab() {
+      $('.nav li').not('.active').addClass('disabled');
+      $('.nav li').not('.active').find('a').removeAttr("data-toggle");
+
+      $('button').click(function () {
+        /*enable next tab*/
+        $('.nav li.active').next('li').removeClass('disabled');
+        $('.nav li.active').next('li').find('a').attr("data-toggle", "tab");
       });
     },
+    customLabel ({ academicName, active_year }) {
+      return `${academicName}  ${active_year==1?'(Active)':''}`
+    },
+    asyncAcademicGet () {
+      axios.get(asyncurl).then(({data}) => {
+        this.academics = data;
+      });
+    },
+
+    selectedAcadmiceChange(value){
+      if(value==null){this.selected_grade=null;this.grades=[];return;}
+      axios.get('/admin/category/get-with-category-byacademic/'+value.id).then(({data}) => {
+        this.grades = data;
+      });
+    },
+
+
     inputFile (event,inputby) {
       let files = event.target.files;
       if (files.length) {
@@ -135,31 +172,29 @@ module.exports= {
     },
 
     validateData (scope) {
-      if(scope=='personal_info_form'){
-        $('#student_form a[href="#background_tab"]').tab('show');
-      }else if(scope=='background_form'){
+      this.$validator.validateAll(scope).then(successsValidate => {
+        if (successsValidate) {
 
-        $('#student_form a[href="#sibling_tab"]').tab('show');
-      }else if(scope=='sibling_form'){
-        $('#student_form a[href="#medical_tab"]').tab('show');
-      }
-      else if(scope=='medical_form'){
-        $('#student_form a[href="#em_tab"]').tab('show');
-      }
-      else if(scope=='emergency_form'){
-        $('#student_form a[href="#guardian_tab"]').tab('show');
-      }else{
-        this.performAction();
-      }
+          if(scope=='personal_info_form'){
+            $('#student_form a[href="#background_tab"]').tab('show');
+          }else if(scope=='background_form'){
 
-      // this.$validator.validateAll(scope).then(successsValidate => {
-      //   if (successsValidate) {
-      //
-      //
-      //   }
-      // }).catch(error => {
-      //   Notification.error('Opps!Something went wrong.');
-      // });
+            $('#student_form a[href="#sibling_tab"]').tab('show');
+          }else if(scope=='sibling_form'){
+            $('#student_form a[href="#medical_tab"]').tab('show');
+          }
+          else if(scope=='medical_form'){
+            $('#student_form a[href="#em_tab"]').tab('show');
+          }
+          else if(scope=='emergency_form'){
+            $('#student_form a[href="#guardian_tab"]').tab('show');
+          }else{
+            this.performAction();
+          }
+        }
+      }).catch(error => {
+        Notification.error('Opps!Something went wrong.');
+      });
     },
     performAction () {
       this.student.academic_id=this.selected_academic.id;
@@ -183,7 +218,7 @@ module.exports= {
         if (response.data.success == false) {
           Notification.error('Error occur while inserting data.');
         } else {
-          // window.location.href = indexpage;
+          window.location.href = indexpage;
         }
       }).catch(error => {
         if (error.response.status == 401 || error.response.status == 419) {
@@ -197,12 +232,10 @@ module.exports= {
     },
   },
   mounted () {
-    // this.handleTab();
+    this.handleTab();
+    this.asyncAcademicGet();
     this.student.dateofbirth = this.formatDate(new Date());
     this.student.join_date = this.formatDate(new Date());
     this.countries = Helper.countries();
-    this.getGades();
-    // this.getasyncdata();
   },
-
 }

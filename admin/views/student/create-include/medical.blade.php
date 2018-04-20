@@ -90,6 +90,7 @@
         </div>
 
         <div class="text-right">
+            <button  class="btn btn-primary" type="button" @click="medican_back">Previous</button>
             <button type="submit" class="btn btn-primary" type="button">Next</button>
         </div>
     </form>

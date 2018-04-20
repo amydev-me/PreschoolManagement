@@ -103,7 +103,7 @@ Route::middleware('web')->group(function() {
             Route::name('filter-name')->get('filter-name/{name}', 'CategoryController@filterByName');
             Route::name('async-get')->get('async-get', 'CategoryController@asyncget');
             Route::name('get-with-category')->get('get-with-category', 'CategoryController@getCategoryWithGrade');
-
+            Route::name('get-with-category-byacademic')->get('get-with-category-byacademic/{academic_id}', 'CategoryController@getCategoryWithGradeByAcademic');
         });
 
         Route::name('subject.')->prefix('subject')->group(function () {

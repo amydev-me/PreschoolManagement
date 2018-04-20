@@ -10,13 +10,15 @@ module.exports= {
         phone: null,
         address: null,
         email: null,
+        website:null,
+        facebook:null,
         fax: null,
         note: null,
         logo: null,
         footer: null,
         login_text: null,
         remove: false,
-
+        invoice_logo:null
       },
       showremove: false,
 
@@ -24,7 +26,12 @@ module.exports= {
   },
 
   methods: {
-
+    newInvoice (event) {
+      let files = event.target.files;
+      if (files.length) {
+        this.info.invoice_logo = files[0];
+      }
+    },
     newProfile (event) {
       let files = event.target.files;
       if (files.length) {
@@ -49,11 +56,14 @@ module.exports= {
       let data = new FormData();
       data.set('title', this.info.title);
       data.set('email', this.info.email);
+      data.set('website', this.info.website);
+      data.set('facebook', this.info.facebook);
       data.set('phone', this.info.phone);
       data.set('fax', this.info.fax);
       data.set('address', this.info.address);
       data.set('note', this.info.note);
       data.append('logo', this.info.logo);
+      data.append('invoice_logo', this.info.invoice_logo);
       data.set('footer', this.info.footer);
       data.set('login_text', this.info.login_text);
 
