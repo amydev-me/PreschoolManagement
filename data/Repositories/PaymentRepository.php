@@ -28,7 +28,7 @@ class PaymentRepository extends Repository
         $payment=Payment::where('id', $payment_id)->first();
         if($payment){
             $fees=$payment->fees;
-            $student=$payment->student()->select('id','fullName')->first();
+            $student=$payment->student()->with('student_guardian')->select('id','fullName')->first();
             $grade=$payment->grade()->with(['academic'=>function($q){
                 $q->select('id','academicName');
             }])->first();

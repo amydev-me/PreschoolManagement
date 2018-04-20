@@ -62,10 +62,19 @@
                         <div class="panel-body" id="section-to-print">
                             <div class="clearfix">
                                 <div class="pull-left">
-                                    <h1 class="text-right">
-                                        <img v-show="parentData.invoice_logo!='null'" class="thumb-md" :src="getImage()">
+                                    <h1 class="text-left">
+                                        <img v-show="parentData.invoice_logo!=null" class="thumb-md" :src="getImage()">
                                     @{{ parentData.title }}
                                     </h1>
+                                </div>
+                                <div class="pull-right" style="width: 200px;">
+                                    <address >
+                                        {{--<strong>@{{ parentData.title }}</strong>--}}
+                                        {{--<br>--}}
+                                        @{{ parentData.address }}
+                                        <br>
+                                        <abbr title="Phone">P:</abbr>@{{ parentData.phone }}
+                                    </address>
                                 </div>
                                 {{--<div class="pull-left" style="width: 200px;">--}}
                                     {{--<address>--}}
@@ -85,16 +94,14 @@
                             <hr style="margin-top: 10px;">
                             <div class="row">
                                 <div class="pull-left" style="margin-left: 30px;width: 200px;">
+                                    <h4 class="m-b-25">Invoice To</h4>
                                     <address >
-                                        {{--<strong>@{{ parentData.title }}</strong>--}}
-                                        {{--<br>--}}
-                                        @{{ parentData.address }}
+                                        <strong>@{{ student.fullName }}</strong>
                                         <br>
-                                        <abbr title="Phone">P:</abbr>@{{ parentData.phone }}
+                                        @{{ student.student_guardian.g_one_address }}
+                                        <br>
+                                        <abbr title="Phone">P:</abbr>@{{ student.student_guardian.g_one_mobile }}
                                     </address>
-                                    {{--<h4>Invoice # <br>--}}
-                                    {{--<strong>@{{ payment.invoice }}</strong>--}}
-                                    {{--</h4>--}}
 
                                 </div>
                                 <div class="pull-right" style="display: flex;flex-direction: row;margin-right:20px;">
@@ -175,7 +182,7 @@
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td style="text-align: right;"><h3>Total :</h3></td>
+                                                <td style="text-align: right;"><h3>Total </h3></td>
                                                 <td style="text-align: right;"><h3><span>$</span> @{{ formatNumber(payment.total) }}</h3></td>
                                             </tr>
                                             {{--<tr >--}}
@@ -193,13 +200,16 @@
                                     </div>
                                 </div>
                             </div>
-                            {{--<div class="row" style="border-radius: 0px;">--}}
-                                {{--<div class="col-md-3 col-md-offset-9">--}}
-                                    {{--<h3 class="text-right" style="margin-right: 10px;">Total:<span>$</span> @{{ formatNumber(payment.total) }}</h3>--}}
-                                    {{--<hr style="text-align: right;width: 80%;">--}}
-                                    {{--<p class="text-right" style="margin-right: 10px;">Receipt Amount: @{{ formatNumber(payment.total-payment.balance) }}</p>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
+                            <div class="row">
+                                <div style="margin-top:20px;margin-left: 10px;margin-right:10px;border:1px;border:1px solid #E3E5E6;">
+                                    <h4 style="margin-left: 10px;">Instruction</h4><br>
+                                    <ul style="margin-bottom: 10px;">
+                                        <li>A surcharge of 2% may be charged for late payment.</li>
+                                    </ul>
+
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
