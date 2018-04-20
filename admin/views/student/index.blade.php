@@ -38,9 +38,13 @@
                         <div class="col-sm-3 m-b-5">
                             <a href="{{route('admin.student.create')}}" class="btn btn-primary btn-sm m-t-15">  <i class="fa fa-plus"></i> Add New Student</a>
                         </div>
-                        {{--<div class="col-sm-offset-2 col-sm-2 m-t-10  m-b-5">--}}
-                            {{--<multiselect @input="selectedCategoryChange" :searchable="false"  v-model="selected_category" :options="categories" label="categoryName"   :show-labels="false" placeholder="Select category"></multiselect>--}}
-                        {{--</div>--}}
+                        <div class="col-sm-offset-3 col-sm-3 m-t-10  m-b-5">
+                            <multiselect v-model="selected_grade" :options="grades" :multiple="false" group-values="grades"
+                                         group-label="categoryName" :group-select="false" placeholder="Select grade"
+                                         label="gradeName"  @input="selectedGradeChange">
+                                <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
+                            </multiselect>
+                        </div>
 
                         {{--<div class="col-sm-2 m-t-10 m-b-5">--}}
                             {{--<multiselect @input="selectedGradeChange"  :searchable="false"   v-model="selected_grade" :options="grades" label="gradeName"   :show-labels="false" placeholder="Select grade"></multiselect>--}}

@@ -179,6 +179,7 @@ Route::middleware('web')->group(function() {
 
             Route::name('get-by-ac')->get('get-by-ac', 'StudentController@getByAC');
             Route::name('get-by-grade')->get('get-by-grade', 'StudentController@getbyGrade');
+            Route::name('get-studentby-grade')->get('get-studentby-grade', 'StudentController@getStudentByGrade');
             Route::name('get-file')->get('get-file', 'StudentController@getFile');
         });
     });

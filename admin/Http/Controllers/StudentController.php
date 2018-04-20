@@ -125,14 +125,19 @@ class StudentController extends Controller
     public function filterStudent(Request $request)
     {
         $academic = Session::get('academic');
-        $students = Student::with('grade')
+        $query = Student::with('grade')
             ->orWhere('studentCode', 'LIKE', $request->param . '%')
-            ->orWhere('fullName', 'LIKE', $request->param . '%')
-            ->orWhere('phone', 'LIKE', $request->param . '%')
-            ->orWhere('email', 'LIKE', $request->param . '%')
-            ->orWhere('nrc', 'LIKE', $request->param . '%')
-            ->where('academic_id', $academic->id)
-            ->paginate($this->pages);
+            ->orWhere('fullName', 'LIKE', $request->param . '%');
+//            ->orWhere('phone', 'LIKE', $request->param . '%')
+//            ->orWhere('email', 'LIKE', $request->param . '%')
+//            ->orWhere('nrc', 'LIKE', $request->param . '%')
+        if($academic){
+         $query->where('academic_id', $academic->id);
+        }
+
+
+
+         $students= $query->paginate($this->pages);
 
         return response()->json($students);
     }
@@ -152,6 +157,11 @@ class StudentController extends Controller
 
         $students = Student::where('academic_id', $request->academic_id)->paginate($this->pages);
         return response()->json(['students' => $students, 'grades' => $grades]);
+    }
+
+    public function getStudentByGrade(Request $request){
+        $students = Student::with('grade')->where('grade_id', $request->grade_id)->paginate($this->pages);
+        return response()->json($students);
     }
 
     public function getbyGrade(Request $request){

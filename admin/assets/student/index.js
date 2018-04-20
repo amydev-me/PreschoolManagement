@@ -23,6 +23,12 @@ module.exports= {
     }
   },
   methods: {
+    getGades () {
+      axios.get('/admin/category/get-with-category').then(({data}) => {
+        this.grades = data.grades;
+        this.active_academic = data.active_academic;
+      });
+    },
     goDetailView (id) {
       return '/admin/student/detail-view?student_id='+id;
     },
@@ -38,12 +44,11 @@ module.exports= {
       });
     },
     selectedGradeChange () {
-      if (this.selected_grade == null) return;
+    if (this.selected_grade == null) {
+      this.getDataByAcademic();return;
+    }
 
-      axios.get('/admin/student/get-by-acg?academic_id='
-        + this.selected_academic.id + '&category_id='
-        + this.selected_category.id
-        + '&grade_id=' + this.selected_grade.id
+      axios.get('/admin/student/get-studentby-grade?grade_id=' + this.selected_grade.id
         + '&page=' + this.pagination.current_page)
         .then(({data}) => {
           this.students = data.data;
@@ -78,6 +83,7 @@ module.exports= {
     }
   },
   mounted () {
+    this.getGades();
     this.getDataByAcademic();
   }
 }
