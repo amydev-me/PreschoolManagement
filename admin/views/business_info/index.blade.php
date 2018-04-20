@@ -2,7 +2,10 @@
 @section('page-title','Informations')
 @section('setup','active')
 @section('setting','active')
+@section('style')
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css')}}" />
 
+    @endsection
 @section('content')
     <div class="panel" v-cloak>
         <div class="panel-body">
@@ -72,6 +75,14 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="control-label col-sm-2" for="instruction">Instruction:</label>
+            <div class="col-sm-10">
+                <textarea class="wysihtml5 form-control" rows="9" id="instruction_text"></textarea>
+
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="control-label col-sm-2" for="login_text">Login Text:</label>
             <div class="col-sm-10">
                 <input type="text" id="login_text"  class="form-control"  v-model="info.login_text" name="login_text"  placeholder="Enter Login text">
@@ -109,4 +120,9 @@
     </business-info>
         </div>
     </div>
+@endsection
+@section('script')
+    <script type="text/javascript" src="{{URL::asset('assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js')}}"></script>
+    <script type="text/javascript" src="{{URL::asset('assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js')}}"></script>
+
 @endsection

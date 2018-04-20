@@ -69,7 +69,8 @@ const app = new Vue({
         note: null,
         invoice_logo:null,
         logo: null,
-        footer: null
+        footer: null,
+        instruction:null
       }
     }
   },
@@ -83,7 +84,7 @@ const app = new Vue({
         if(response.data.information !=null) {
 
           let info = response.data.information;
-          this.info.id=info.id;
+          this.info.id = info.id;
           this.info.title = info.title;
           this.info.email = info.email;
           this.info.website = info.website;
@@ -94,7 +95,8 @@ const app = new Vue({
           this.info.note = info.note;
           this.info.footer = info.footer;
           this.info.logo = info.logo;
-            this.info.invoice_logo=info.invoice_logo;
+          this.info.invoice_logo = info.invoice_logo;
+          this.info.instruction = info.instruction;
         }
       });
     }

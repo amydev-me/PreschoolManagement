@@ -19,7 +19,8 @@ module.exports= {
         login_text: null,
         remove: false,
         invoice_logo:null,
-        remove_invoicelogo:false
+        remove_invoicelogo:false,
+        instruction:null
       },
       showremove: false,
       showinvoice_remove:false
@@ -58,6 +59,7 @@ module.exports= {
       this.info.remove_invoicelogo = true;
     },
     performAction (url) {
+      this.info.instruction=$("#instruction_text").data("wysihtml5").editor.getValue();
       let data = new FormData();
       data.set('title', this.info.title);
       data.set('email', this.info.email);
@@ -73,6 +75,8 @@ module.exports= {
       data.set('login_text', this.info.login_text);
       data.set('remove_invoicelogo', this.info.remove_invoicelogo);
       data.set('remove', this.info.remove);
+      data.set('instruction', this.info.instruction);
+
       const config = {headers: {'Content-Type': 'multipart/form-data'}};
       axios.post(url, data, config).then(response => {
         console.log(response.data);
@@ -103,6 +107,8 @@ module.exports= {
           this.info.login_text = info.login_text;
           this.info.logo=info.logo;
           this.info.invoice_logo=info.invoice_logo;
+          this.info.instruction=info.instruction;
+            $("#instruction_text").data("wysihtml5").editor.setValue(info.instruction);
 
           if (info.logo == null) {
             this.showremove = false;
@@ -125,6 +131,18 @@ module.exports= {
     }
   },
   mounted () {
+    $('#instruction_text').wysihtml5({
+      "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+      "emphasis": true, //Italics, bold, etc. Default true
+      "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+      "html": false, //Button which allows you to edit the generated HTML. Default false
+      "link": true, //Button to insert a link. Default true
+      "image": false, //Button to insert an image. Default true,
+      "color": false, //Button to change color of font
+      "blockquote": true, //Blockquote
+      "stylesheets": false
+      });
+    // $('.wysihtml5').wysihtml5();
     this.asyncacademics();
   }
 }

@@ -34,7 +34,7 @@
             }
 
 
-            status-color{
+            .status-color{
                 color: #ebc142;
             }
         }
@@ -134,10 +134,10 @@
                                         <p><strong>Invoice Number &nbsp&nbsp&nbsp</strong>  <strong>@{{ payment.invoice }}</strong> </p>
                                         <p><strong>Invoice Date &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong>   @{{ formatDate(payment.payment_date) }}</p>
                                         <p v-if="payment.status != 'PAID'"><strong>Due Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>   @{{ formatDate(payment.due_date) }}</p>
-                                        <p class="m-t-10"><strong>Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
-                                            <span class="label label-success status-color" style="background-color:#2eb398 " v-if="payment.status=='PAID'">@{{payment.status}}</span>
-                                            <span class="label label-danger status-color"  style="background-color: #FF6C60" v-if="!(payment.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>
-                                            <span class="label label-warning status-color" style="background-color:#ebc142 " v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
+                                        <p class="status-color m-t-10"><strong>Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                                            <span class="status-color"  v-if="payment.status=='PAID'">@{{payment.status}}</span>
+                                            <span class="status-color"  v-if="!(payment.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>
+                                            <span class="status-color"  v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
                                         </p>
                                         {{--<p><strong>Invoice Date: </strong> @{{ formatDate(payment.payment_date) }}</p>--}}
                                         {{--<p v-if="payment.status != 'PAID'"><strong>Due Date: </strong> @{{ formatDate(payment.due_date) }}</p>--}}
@@ -200,12 +200,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" v-if="parentData.instruction !=null">
                                 <div style="margin-top:20px;margin-left: 10px;margin-right:10px;border:1px;border:1px solid #E3E5E6;">
                                     <h4 style="margin-left: 10px;">Instruction</h4><br>
-                                    <ul style="margin-bottom: 10px;">
-                                        <li>A surcharge of 2% may be charged for late payment.</li>
-                                    </ul>
+                                    <div style="margin-left: 20px;margin-bottom: 20px;" v-html="parentData.instruction">
+
+                                    </div>
 
 
                                 </div>

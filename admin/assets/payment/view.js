@@ -31,7 +31,27 @@ module.exports={
         id: null,
         fullName: null,
         phone:null,
-        address:null
+        address:null,
+
+        student_guardian:{
+          g_one_name:null,
+          g_one_relation:null,
+          g_one_email:null,
+          g_one_occupation:null,
+          g_one_address:null,
+          g_one_mobile:null,
+          g_one_home:null,
+          g_one_work:null,
+
+          g_two_name:null,
+          g_two_relation:null,
+          g_two_email:null,
+          g_two_occupation:null,
+          g_two_address:null,
+          g_two_mobile:null,
+          g_two_home:null,
+          g_two_work:null,
+        }
       },
       fees:[],
       parentData: this.$parent.info
