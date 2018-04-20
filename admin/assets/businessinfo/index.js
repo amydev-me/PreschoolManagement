@@ -75,8 +75,8 @@ module.exports= {
       data.set('remove', this.info.remove);
       const config = {headers: {'Content-Type': 'multipart/form-data'}};
       axios.post(url, data, config).then(response => {
-
-        window.location.href = '/';
+        console.log(response.data);
+        // window.location.href = '/';
 
       }).catch(error => {
         if (error.response.status == 401 || error.response.status == 419) {
@@ -101,13 +101,15 @@ module.exports= {
           this.info.note = info.note;
           this.info.footer = info.footer;
           this.info.login_text = info.login_text;
+          this.info.logo=info.logo;
           this.info.invoice_logo=info.invoice_logo;
-          if (info.logo == 'null') {
+
+          if (info.logo == null) {
             this.showremove = false;
           } else {
             this.showremove = true;
           }
-          if (info.invoice_logo == 'null') {
+          if (info.invoice_logo == null) {
             this.showinvoice_remove = false;
           } else {
             this.showinvoice_remove = true;

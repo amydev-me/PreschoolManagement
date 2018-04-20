@@ -175,15 +175,19 @@
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td style="text-align: right;"><strong>Total :</strong></td>
-                                                <td style="text-align: right;">@{{ formatNumber(payment.total) }}</td>
+                                                <td style="text-align: right;"><h3>Total :</h3></td>
+                                                <td style="text-align: right;"><h3><span>$</span> @{{ formatNumber(payment.total) }}</h3></td>
                                             </tr>
+                                            {{--<tr >--}}
+                                                {{--<td style="border: none !important;"></td>--}}
+                                                {{--<td style="text-align: right;border: none !important;"><strong>Amount Paid :</strong></td>--}}
+                                                {{--<td style="text-align: right;border: none !important;">@{{ formatNumber(payment.receipt_amount) }}</td>--}}
+                                            {{--</tr>--}}
                                             <tr >
-                                                <td style="border: none !important;"></td>
-                                                <td style="text-align: right;border: none !important;"><strong>Amount Paid :</strong></td>
-                                                <td style="text-align: right;border: none !important;">@{{ formatNumber(payment.receipt_amount) }}</td>
+                                            <td ></td>
+                                           <td></td>
+                                                <td></td>
                                             </tr>
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -191,7 +195,7 @@
                             </div>
                             {{--<div class="row" style="border-radius: 0px;">--}}
                                 {{--<div class="col-md-3 col-md-offset-9">--}}
-                                    {{--<h3 class="text-right" style="margin-right: 10px;"><span>$</span> @{{ formatNumber(payment.total) }}</h3>--}}
+                                    {{--<h3 class="text-right" style="margin-right: 10px;">Total:<span>$</span> @{{ formatNumber(payment.total) }}</h3>--}}
                                     {{--<hr style="text-align: right;width: 80%;">--}}
                                     {{--<p class="text-right" style="margin-right: 10px;">Receipt Amount: @{{ formatNumber(payment.total-payment.balance) }}</p>--}}
                                 {{--</div>--}}
