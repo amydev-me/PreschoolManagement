@@ -1,18 +1,14 @@
 const VuePagination = resolve => require(['../core/VuePagination'], resolve);
 const DeleteModal = resolve => require(['../core/DeleteModal'], resolve);
-const CategorySelect = resolve => require(['../select_components/CategorySelect'], resolve);
 const ActionGrade = resolve => require(['../grade_teacher/action'], resolve);
 let _getdata=route.urls.assign_teacher.getdata;
 let _remove=route.urls.assign_teacher.remove;
 let _getbycategorygrade=route.urls.assign_teacher.getbycategorygrade;
-let _getbycategory=route.urls.assign_teacher.getbycategory;
 
-let _asynccategory=route.urls.get_active_category;
-let _getgrade=route.urls.grade.getgrade;
 module.exports= {
 
   components: {
-    ActionGrade,VuePagination,DeleteModal,CategorySelect
+    ActionGrade,VuePagination,DeleteModal
   },
 
   data: function () {
@@ -30,9 +26,7 @@ module.exports= {
       },
       grades:[],
       selected_grade:null,
-      categories:[],
-      subjects:[],
-      selected_category:null,
+
       gradeteacher_id:null,
       grade_teachers: [],
       grade_teacher: {id: null, academic_id: null, grade_id: null, teacher_id: null, subject_id: null,academic:null,grade:null,subject:null,teacher:null},
@@ -40,50 +34,23 @@ module.exports= {
   },
 
   methods: {
-    getGrade(){
-      return axios.get(_getgrade + '?category_id=' + this.selected_category.id);
-    },
-    getByCategory(){
-      return axios.get(_getbycategory+this.selected_category.id);
-    },
-
-    selectedGradeChange(){
-      if (this.selected_grade == null) {
-        this.getData(_getdata);
-        return;
-      }
-      axios.get(_getbycategorygrade+'category_id='+this.selected_category.id+'&grade_id='+this.selected_grade.id).then(({data}) => {
-        this.grade_teachers = data.data;
-        this.pagination = data;
+    getGrades () {
+      axios.get('/admin/category/get-with-category').then(({data}) => {
+        this.grades = data.grades;
+        this.active_academic = data.active_academic;
       });
     },
-    selectedCategoryChange (value) {
-      this.selected_grade = null;
-      this.grades=[];
-      this.selected_category=value;
-      if (this.selected_category == null) {
-        this.getData(_getdata);
-        return;
-      }
-
-      axios.all([this.getGrade(), this.getByCategory()])
-        .then(axios.spread((grades, teachers) => {
-          this.grades = grades.data;
-          this.pagination = teachers.data;
-          this.grade_teachers = teachers.data.data;
-        }));
+    selectedGradeChange(value){
+      if(value==null){ this.getData(_getdata);return;}
+        axios.get(_getbycategorygrade+'grade_id='+this.selected_grade.id).then(({data}) => {
+          this.grade_teachers = data.data;
+          this.pagination = data;
+        });
     },
     getData(_url){
       axios.get(_url+this.pagination.current_page).then(({data})=>{
         this.pagination=data;
         this.grade_teachers=data.data;
-      });
-    },
-    asyncCategory () {
-      axios.get(_asynccategory).then(({data}) => {
-        this.active_academic = data.active;
-        this.categories = data.categories;
-        this.subjects = data.subjects;
       });
     },
     successperform(){
@@ -111,7 +78,7 @@ module.exports= {
   },
 
   mounted () {
-    this.asyncCategory();
+    this.getGrades();
     this.getData(_getdata);
   }
 }

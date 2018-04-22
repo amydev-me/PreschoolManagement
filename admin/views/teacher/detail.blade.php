@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('teacher','active')
+@section('teacher_setup','active')
 
 @section('content')
 

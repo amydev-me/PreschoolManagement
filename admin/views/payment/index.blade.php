@@ -1,8 +1,7 @@
-
 @extends('layout.app')
 @section('page-title','Invoice')
-
-@section('payment','active')
+@section('payment_setup','active')
+@section('payment-list','active')
 
 @section('content')
 

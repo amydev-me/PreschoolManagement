@@ -120,7 +120,7 @@ module.exports= {
         if (response.data.success == false) {
           Notification.error('Error occur while inserting data.');
         } else {
-          // window.location.href=indexpage;
+          window.location.href=indexpage;
         }
       }).catch(error => {
         if (error.response.status == 401 ||error.response.status==419) {

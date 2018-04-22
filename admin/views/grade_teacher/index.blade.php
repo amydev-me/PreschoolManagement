@@ -7,7 +7,7 @@
     <grade-teacher inline-template>
         <div class="panel" v-cloak>
             <delete-modal @input="successdelete" :inputid="gradeteacher_id" :inputurl="removeUrl"></delete-modal>
-            <action-grade :isedit="isedit" :subjects="subjects" :active_academic="active_academic"  :categories="categories" :grade_teacher="grade_teacher" @submit="successperform" inline-template>
+            <action-grade :isedit="isedit" :active_academic="active_academic"  :grades="grades" :grade_teacher="grade_teacher" @submit="successperform" inline-template>
                 <div ref="thismodel"  id="courseteacher-modal" class="modal fade modal-dialog-center" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog">
                                     <div class="modal-content">
@@ -18,32 +18,18 @@
                                         <form class="form-horizontal" role="form" @submit.prevent="submitdata">
                                             <div class="modal-body">
                                                 <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Category</label>
-                                                    <div class="col-sm-10">
-                                                        <multiselect  v-validate="'required'"
-                                                                      data-vv-name="course_id"
-                                                                     v-model="selected_category"
-                                                                      :options="categories"
-                                                                      label="categoryName"
-                                                                      :show-labels="false"
-                                                                      laceholder="Select categorys" @input="selectedCategoryChange"></multiselect>
 
-                                                    </div>
-                                                    <div class="col-sm-offset-2 col-sm-9" v-show="errors.has('course_id')"><span class="error">Required grade.</span></div>
-                                                </div>
-                                                <div class="form-group">
                                                     <label class="col-sm-2 control-label">Grade</label>
                                                     <div class="col-sm-10">
-                                                        <multiselect
-                                                                v-validate="'required'"
-                                                                data-vv-name="grade_id"
-                                                                v-model="selected_grade"
-                                                                :options="grades" label="gradeName"
-                                                                :show-labels="false"
-                                                                placeholder="Select grade"></multiselect>
-
+                                                        <multiselect v-model="selected_grade" :options="grades" :multiple="false" group-values="grades"
+                                                                     v-validate="'required'"
+                                                                     data-vv-name="grade"
+                                                                     group-label="categoryName" :group-select="false" placeholder="Select grade"
+                                                                     label="gradeName">
+                                                            <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
+                                                        </multiselect>
                                                     </div>
-                                                    <div class="col-sm-offset-2 col-sm-9" v-show="errors.has('grade_id')"><span class="error">Required grade.</span></div>
+                                                    <div class="col-sm-offset-2 col-sm-9" v-show="errors.has('grade')"><span class="error">Required grade.</span></div>
                                                 </div>
 
                                                 <div class="form-group">
@@ -92,32 +78,17 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="col-sm-3">
-                            <div class="m-b-30">
+                        <div class="col-sm-8 m-b-30">
                                 <a  @click="showAddModal" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#courseteacher-modal">  <i class="fa fa-plus"></i> Grade Teacher Allocation</a>
-                            </div>
                         </div>
-                        <div class="col-sm-9">
-                            <div class="col-sm-offset-2 col-sm-12 m-b-30">
-                                <div class="col-sm-5">
-                                    <label class="col-sm-3 control-label" style="text-align: right;margin-top:7px;">Category</label>
-                                    <div class="col-sm-9">
-                                        <category-select @input="selectedCategoryChange"></category-select>
-                                        {{--<multiselect @input="selectedCategoryChange"--}}
-                                                     {{--:searchable="false"--}}
-                                                     {{--v-model="selected_category"--}}
-                                                     {{--:options="categories"--}}
-                                                     {{--label="categoryName"--}}
-                                                     {{--:show-labels="false" placeholder="Select Category">--}}
-                                        {{--</multiselect>--}}
-                                    </div>
-                                </div>
-                                <div class="col-sm-7">
-                                    <label class="col-sm-2 control-label" style="text-align: right;margin-top:7px;">Grade</label>
-                                    <div class="col-sm-7">
-                                        <multiselect @input="selectedGradeChange" v-model="selected_grade" :options="grades"  placeholder="Select Grade" label="gradeName"></multiselect>
-                                    </div>
-                                </div>
+                        <div class="col-sm-4 m-b-30">
+                            <label class="col-sm-2 control-label" style="text-align: right;margin-top:7px;">Grade</label>
+                            <div class="col-sm-10">
+                                <multiselect v-model="selected_grade" :options="grades" :multiple="false" group-values="grades"
+                                             group-label="categoryName" :group-select="false" placeholder="Select grade"
+                                             label="gradeName"  @input="selectedGradeChange">
+                                    <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
+                                </multiselect>
                             </div>
                         </div>
                     </div>

@@ -16,8 +16,15 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="name">Name:</label>
             <div class="col-sm-10">
-                <input type="text" id="name"  class="form-control"  v-model="info.title" name="name" v-validate="'required'" placeholder="Enter Name">
+                <input type="text" id="name"  class="form-control"  v-model="info.title" name="business_type" v-validate="'required'" placeholder="Enter Name">
                 <div v-show="errors.has('name')"><span class="error">@{{ errors.first('name') }}</span></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Name:</label>
+            <div class="col-sm-10">
+                <input type="text" id="name"  class="form-control"  v-model="info.business_type"  placeholder="Enter Business Type">
+
             </div>
         </div>
         <div class="form-group">

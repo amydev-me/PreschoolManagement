@@ -62,19 +62,28 @@
                         <div class="panel-body" id="section-to-print">
                             <div class="clearfix">
                                 <div class="pull-left">
-                                    <h1 class="text-left">
-                                        <img v-show="parentData.invoice_logo!=null" class="thumb-md" :src="getImage()">
-                                    @{{ parentData.title }}
+                                    <img style="float: left;margin-top:15px;" v-show="parentData.invoice_logo!=null" class="thumb-md" :src="getImage()">
+                                    <h1 style="float: right;margin-left: 5px;">
+
+                                        @{{ parentData.title }}
+                                        <br>
+                                        <span style="font-size: 18px;margin-left: 2px;font-weight: 600;">  @{{ parentData.business_type }}</span>
                                     </h1>
                                 </div>
-                                <div class="pull-right" style="width: 200px;">
-                                    <address >
+                                <div class="pull-right" style="width: 250px;text-align: right;">
+        <address>
                                         {{--<strong>@{{ parentData.title }}</strong>--}}
                                         {{--<br>--}}
-                                        @{{ parentData.address }}
+
+                                       @{{ parentData.address }}
+
                                         <br>
-                                        <abbr title="Phone">P:</abbr>@{{ parentData.phone }}
-                                    </address>
+
+            <abbr title="Phone"></abbr>@{{ parentData.phone }}<br>
+                                       @{{ parentData.email }}
+                                        <br>
+                                        @{{ parentData.website }}
+        </address>
                                 </div>
                                 {{--<div class="pull-left" style="width: 200px;">--}}
                                     {{--<address>--}}

@@ -234,7 +234,7 @@ module.exports= {
   mounted () {
     this.handleTab();
     this.asyncAcademicGet();
-    this.student.dateofbirth = this.formatDate(new Date());
+    this.personal_info.dateofbirth = this.formatDate(new Date());
     this.student.join_date = this.formatDate(new Date());
     this.countries = Helper.countries();
   },

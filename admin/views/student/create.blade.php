@@ -1,5 +1,6 @@
 @extends('layout.app')
-@section('student','active')
+@section('student_setup','active')
+@section('add-student','active')
 @section('page-title','Add Student Form')
 @section('style')
     <style>

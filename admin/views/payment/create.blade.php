@@ -1,8 +1,8 @@
 
 @extends('layout.app')
 @section('page-title','Create Invoice')
-@section('setup','active')
-@section('grade','active')
+@section('payment_setup','active')
+@section('add-payment','active')
 @section('style')
     <style>
         .form-horizontal .control-label{
@@ -11,16 +11,7 @@
         .input-group .form-control {
             position: unset !important;
         }
-        .multiselect__option--group {
-            background: #e3f2fd !important;
-            color: #708690 !important;
 
-        }
-        .multiselect--disabled .multiselect__current, .multiselect--disabled .multiselect__select, .multiselect__option--disabled{
-            background: #e3f2fd !important;
-            color: #708690 !important;
-            font-weight: 800;
-        }
     </style>
 @endsection
 @section('content')

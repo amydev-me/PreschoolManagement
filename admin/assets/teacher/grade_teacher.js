@@ -17,8 +17,6 @@ components:{DeleteGrade},
 
       active_academic:null,
 
-      categories:[],
-      selected_category: null,
 
       grades: [],
       selected_grade: null,
@@ -29,26 +27,38 @@ components:{DeleteGrade},
     }
   },
   methods: {
+    asyncSubject(){
+      axios.get('/admin/subject/async-get').then(({data})=>{
+        this.subjects=data;
+      })
+    },
+    getGrades () {
+      axios.get('/admin/category/get-with-category').then(({data}) => {
+        this.grades = data.grades;
+        this.active_academic = data.active_academic;
+      });
+    },
     checkUrlParam () {
       let teacher_id = Helper.getUrlParameter('teacher_id');
       if (teacher_id != null) {
         this.teacher_id = teacher_id;
         this.getData();
-        this.asyncCategory();
+        // this.asyncCategory();
+        this.getGrades();
       }
     },
-    asyncCategory () {
-      axios.get(_asynccategory).then(({data}) => {
-        this.active_academic = data.active;
-        this.categories = data.categories;
-        this.subjects = data.subjects;
-      });
-    },
-    selectedCategoryChange(){
-      axios.get(_getgrade + '?category_id=' + this.selected_category.id).then(({data})=>{
-        this.grades=data;
-      });
-    },
+    // asyncCategory () {
+    //   axios.get(_asynccategory).then(({data}) => {
+    //     this.active_academic = data.active;
+    //     this.categories = data.categories;
+    //     this.subjects = data.subjects;
+    //   });
+    // },
+    // selectedCategoryChange(){
+    //   axios.get(_getgrade + '?category_id=' + this.selected_category.id).then(({data})=>{
+    //     this.grades=data;
+    //   });
+    // },
     getData(){
       axios.get(_getbyteacher+this.teacher_id).then(({data})=>{
         this.grade_teachers=data;
@@ -83,11 +93,10 @@ components:{DeleteGrade},
       this.performdata.id = null;
       this.performdata.grade_id = null;
       this.performdata.subject_id = null;
-      this.selected_category =null;
       this.selected_grade = null;
       this.selected_teacher = null;
       this.selected_subject = null;
-      this.grades=[];
+
       this.$validator.reset();
     },
 
@@ -128,6 +137,7 @@ components:{DeleteGrade},
     },
   },
   mounted () {
+  this.asyncSubject();
     this.checkUrlParam();
     $(this.$refs.thismodel).on("hidden.bs.modal", this.clearOnHidden);
   }

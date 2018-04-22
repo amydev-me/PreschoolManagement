@@ -12,33 +12,38 @@
                             </div>
                             <form class="form-horizontal" role="form" @submit.prevent="submitdata">
                                 <div class="modal-body">
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">Category</label>
-                                        <div class="col-sm-10">
-                                            <multiselect  v-validate="'required'"
-                                                          data-vv-name="course_id"
-                                                          v-model="selected_category"
-                                                          :options="categories"
-                                                          label="categoryName"
-                                                          :show-labels="false"
-                                                          laceholder="Select categorys" @input="selectedCategoryChange"></multiselect>
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="col-sm-2 control-label">Category</label>--}}
+                                        {{--<div class="col-sm-10">--}}
+                                            {{--<multiselect  v-validate="'required'"--}}
+                                                          {{--data-vv-name="course_id"--}}
+                                                          {{--v-model="selected_category"--}}
+                                                          {{--:options="categories"--}}
+                                                          {{--label="categoryName"--}}
+                                                          {{--:show-labels="false"--}}
+                                                          {{--laceholder="Select categorys" @input="selectedCategoryChange"></multiselect>--}}
 
-                                        </div>
-                                        <div class="col-sm-offset-2 col-sm-9" v-show="errors.has('course_id')"><span class="error">Required grade.</span></div>
-                                    </div>
+                                        {{--</div>--}}
+                                        {{--<div class="col-sm-offset-2 col-sm-9" v-show="errors.has('course_id')"><span class="error">Required grade.</span></div>--}}
+                                    {{--</div>--}}
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Grade</label>
                                         <div class="col-sm-10">
-                                            <multiselect
-                                                    v-validate="'required'"
-                                                    data-vv-name="grade_id"
-                                                    v-model="selected_grade"
-                                                    :options="grades" label="gradeName"
-                                                    :show-labels="false"
-                                                    placeholder="Select grade"></multiselect>
+                                            <multiselect v-model="selected_grade" :options="grades" :multiple="false" group-values="grades"
+                                                         group-label="categoryName" :group-select="false" placeholder="Select grade"
+                                                         label="gradeName">
+                                                <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
+                                            </multiselect>
+                                            {{--<multiselect--}}
+                                                    {{--v-validate="'required'"--}}
+                                                    {{--data-vv-name="grade_id"--}}
+                                                    {{--v-model="selected_grade"--}}
+                                                    {{--:options="grades" label="gradeName"--}}
+                                                    {{--:show-labels="false"--}}
+                                                    {{--placeholder="Select grade"></multiselect>--}}
 
                                         </div>
-                                        <div class="col-sm-offset-2 col-sm-9" v-show="errors.has('grade_id')"><span class="error">Required grade.</span></div>
+                                        {{--<div class="col-sm-offset-2 col-sm-9" v-show="errors.has('grade_id')"><span class="error">Required grade.</span></div>--}}
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Subject</label>

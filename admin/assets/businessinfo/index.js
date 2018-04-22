@@ -20,7 +20,8 @@ module.exports= {
         remove: false,
         invoice_logo:null,
         remove_invoicelogo:false,
-        instruction:null
+        instruction:null,
+        business_type:null
       },
       showremove: false,
       showinvoice_remove:false
@@ -76,11 +77,12 @@ module.exports= {
       data.set('remove_invoicelogo', this.info.remove_invoicelogo);
       data.set('remove', this.info.remove);
       data.set('instruction', this.info.instruction);
+      data.set('business_type', this.info.business_type);
 
       const config = {headers: {'Content-Type': 'multipart/form-data'}};
       axios.post(url, data, config).then(response => {
         console.log(response.data);
-        // window.location.href = '/';
+        window.location.href = '/';
 
       }).catch(error => {
         if (error.response.status == 401 || error.response.status == 419) {
@@ -95,19 +97,21 @@ module.exports= {
         if (response.data.information != null) {
           let info = response.data.information;
           this.info.id = info.id;
-          this.info.title = info.title;
-          this.info.email = info.email;
-          this.info.website = info.website;
-          this.info.facebook = info.facebook;
-          this.info.phone = info.phone;
-          this.info.fax = info.fax;
-          this.info.address = info.address;
-          this.info.note = info.note;
-          this.info.footer = info.footer;
-          this.info.login_text = info.login_text;
+          this.info.title = info.title=="null"?'':info.title;
+          this.info.email = info.email=="null"?'':info.email;
+          this.info.website = info.website=="null"?'':info.website;
+          this.info.facebook = info.facebook=="null"?'':info.facebook;
+          this.info.phone = info.phone=="null"?'':info.phone;
+          this.info.fax = info.fax=="null"?'':info.fax;
+          this.info.address = info.address=="null"?'':info.address;
+          this.info.note = info.note=="null"?'':info.note;
+          this.info.footer = info.footer=="null"?'':info.footer;
+          this.info.login_text = info.login_text=="null"?'':info.login_text;
           this.info.logo=info.logo;
           this.info.invoice_logo=info.invoice_logo;
-          this.info.instruction=info.instruction;
+          this.info.instruction=info.instruction=="null"?'':info.instruction;
+          this.info.business_type=info.business_type=="null"?'':info.business_type;
+
             $("#instruction_text").data("wysihtml5").editor.setValue(info.instruction);
 
           if (info.logo == null) {

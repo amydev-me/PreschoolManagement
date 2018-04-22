@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('student','active')
+@section('student_setup','active')
 @section('style')
     <style>
         .input-group .form-control {

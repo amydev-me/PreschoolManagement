@@ -1,5 +1,6 @@
 @extends('layout.app')
-{{--@section('teacher','active')--}}
+@section('teacher_setup','active')
+@section('add-teacher','active')
 @section('page-title','Add Teacher Form')
 
 @section('content')

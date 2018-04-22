@@ -106,34 +106,15 @@ class GradeTeacherController extends Controller
         return response()->json([]);
     }
 
-    public function getByCategory(Request $request){
-        $academic =Session::get('academic');
-        if ($academic) {
-            $grades = GradeTeacher::with(['academic','grade.category', 'grade', 'subject', 'teacher' =>
-                function ($q) {
-                $q->select('id', 'fullName', 'personal_email');
-            }])->whereHas('grade',
-                function($q) use($request){
-                    $q->where('category_id',$request->category_id);
-            })->where('academic_id', $academic->id)->paginate(20);
-            return response()->json($grades);
-        }
-        return response()->json([]);
-    }
-
     public function getByCategoryAndGrade(Request $request){
         $academic =Session::get('academic');
         if ($academic) {
             $grades = GradeTeacher::with(['academic','grade.category', 'grade', 'subject', 'teacher' =>
                 function ($q) {
                     $q->select('id', 'fullName', 'personal_email');
-                }])->whereHas('grade',
-                function($q) use($request){
-                    $q->where('category_id',$request->category_id);
-                })->where('academic_id', $academic->id)->where('grade_id',$request->grade_id)->paginate(20);
+                }])->where('grade_id',$request->grade_id)->paginate(20);
             return response()->json($grades);
         }
-
     }
 
     public function getGradeByTeacher(Request $request){

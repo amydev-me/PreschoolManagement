@@ -70,7 +70,8 @@ const app = new Vue({
         invoice_logo:null,
         logo: null,
         footer: null,
-        instruction:null
+        instruction:null,
+        business_type:null
       }
     }
   },
@@ -85,18 +86,21 @@ const app = new Vue({
 
           let info = response.data.information;
           this.info.id = info.id;
-          this.info.title = info.title;
-          this.info.email = info.email;
-          this.info.website = info.website;
-          this.info.facebook = info.facebook;
-          this.info.phone = info.phone;
-          this.info.fax = info.fax;
-          this.info.address = info.address;
-          this.info.note = info.note;
-          this.info.footer = info.footer;
-          this.info.logo = info.logo;
-          this.info.invoice_logo = info.invoice_logo;
-          this.info.instruction = info.instruction;
+          this.info.title = info.title=="null"?'':info.title;
+          this.info.email = info.email=="null"?'':info.email;
+          this.info.website = info.website=="null"?'':info.website;
+          this.info.facebook = info.facebook=="null"?'':info.facebook;
+          this.info.phone = info.phone=="null"?'':info.phone;
+          this.info.fax = info.fax=="null"?'':info.fax;
+          this.info.address = info.address=="null"?'':info.address;
+          this.info.note = info.note=="null"?'':info.note;
+          this.info.footer = info.footer=="null"?'':info.footer;
+          this.info.login_text = info.login_text=="null"?'':info.login_text;
+          this.info.logo=info.logo;
+          this.info.invoice_logo=info.invoice_logo;
+          this.info.instruction=info.instruction=="null"?'':info.instruction;
+          this.info.business_type=info.business_type=="null"?'':info.business_type;
+
         }
       });
     }

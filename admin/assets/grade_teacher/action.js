@@ -2,18 +2,18 @@ const CategorySelect = resolve => require(['../select_components/CategorySelect'
 let _create=route.urls.assign_teacher.create;
 let _update=route.urls.assign_teacher.update;
 let _asyncteacher=route.urls.teacher.asyncget;
-let _asynccategory=route.urls.get_active_category;
-let _getgrade=route.urls.grade.getgrade;
+
 
 module.exports= {
   componets:{CategorySelect},
-  props:['grade_teacher','isedit','categories','subjects','active_academic'],
+  props:['grade_teacher','isedit','grades','active_academic'],
   data: function () {
     return {
+      subjects:[],
 
       grade_teachers: [],
-      selected_category: null,
-      grades: [],
+      // selected_category: null,
+      // grades: [],
       selected_grade: null,
       teachers: [],
       selected_teacher: null,
@@ -22,18 +22,10 @@ module.exports= {
     }
   },
   methods: {
-    selectedCategoryChange () {
-      if (this.selected_category == null) return;
-      this.selected_grade = null;
-      axios.get(_getgrade + '?category_id=' + this.selected_category.id).then(({data}) => {
-        this.grades = data;
-      });
-    },
-    asyncGrade () {
-      axios.get(_asynccategory).then(response => {
-        this.grades = response.data;
-        this.active_academic = response.data.active_academic;
-      });
+    asyncSubject(){
+      axios.get('/admin/subject/async-get').then(({data})=>{
+        this.subjects=data;
+      })
     },
     asyncFindTeacher (query) {
       if (query == '') {return;}
@@ -82,25 +74,20 @@ module.exports= {
         this.selected_grade = this.grade_teacher.grade;
         this.selected_subject = this.grade_teacher.subject;
         this.selected_teacher = this.grade_teacher.teacher;
-        this.selected_category = this.grade_teacher.grade.category;
-        this.selectedCategoryChange();
       }
     },
     clearOnHidden(){
       this.performdata.id = null;
-      this.performdata.category_id = null;
       this.performdata.teacher_id = null;
       this.performdata.grade_id = null;
       this.performdata.subject_id = null;
-
-      this.selected_category =null;
       this.selected_grade = null;
       this.selected_teacher = null;
-      this.selected_subject = null;
       this.$validator.reset();
     }
   },
   mounted () {
+    this.asyncSubject();
     $(this.$refs.thismodel).on("hidden.bs.modal", this.clearOnHidden);
     $(this.$refs.thismodel).on("shown.bs.modal", this.showModal);
   }
