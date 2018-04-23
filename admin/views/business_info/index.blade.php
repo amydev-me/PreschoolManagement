@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="name">Name:</label>
+            <label class="control-label col-sm-2" for="name">Business Type:</label>
             <div class="col-sm-10">
                 <input type="text" id="name"  class="form-control"  v-model="info.business_type"  placeholder="Enter Business Type">
 
