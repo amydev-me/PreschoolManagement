@@ -1,17 +1,17 @@
 const datepicker = resolve => require(['../core/JQueryDatePicker'], resolve);
-const AcademicSelect = resolve => require(['../select_components/AcademicSelect'], resolve);
+// const AcademicSelect = resolve => require(['../select_components/AcademicSelect'], resolve);
 const CategorySelect = resolve => require(['../select_components/CategorySelect'], resolve);
 let create=route.urls.term.create;
 let update=route.urls.term.update;
 
 module.exports={
-  props:['term','isedit'],
-  components:{datepicker,AcademicSelect,CategorySelect},
+  props:['term','isedit','academics'],
+  components:{datepicker,CategorySelect},
   data:function () {
     return {
       selected_academic: null,
       selected_category:null,
-      academics: [],
+
       performdata: {
         id: null,
         termName: null,
@@ -24,6 +24,9 @@ module.exports={
     }
   },
   methods: {
+    customLabel ({ academicName, active_year }) {
+      return `${academicName}  ${active_year==1?'(Active)':''}`
+    },
     selectedCategoryChange(value){
       this.selected_category=value;
     },

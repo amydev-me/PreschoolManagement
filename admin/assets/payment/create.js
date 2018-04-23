@@ -52,9 +52,7 @@ module.exports={
 
     asyncstudentbygrade(query){
       if(query ==null)return;
-      axios.get('/admin/student/get-by-grade?grade_id='+this.selected_grade.id+'&fullName='+query).then(({data})=>{
-        this.students=data;
-      });
+
     },
     selectedTermChange(){
       if(this.selected_term ==null){
@@ -94,6 +92,10 @@ module.exports={
         this.terms=[];
         return;
       }
+
+      axios.get('/admin/student/get-by-grade?grade_id='+value.id).then(({data})=>{
+        this.students=data;
+      });
       axios.get('/admin/grade/get-terms?grade_id=' + value.id).then(({data}) => {
         this.terms = data;
       });

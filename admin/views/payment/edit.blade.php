@@ -35,7 +35,7 @@
                             <div class="col-sm-10">
                                 <multiselect v-model="selected_grade" :options="grades" :multiple="false" group-values="grades"
                                              group-label="categoryName" :group-select="false" placeholder="Select grade"
-                                             label="gradeName"  @input="selectedGradeChange" :disabled="true">
+                                             label="gradeName"   :disabled="true">
                                     <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
                                 </multiselect>
                             </div>
@@ -51,8 +51,7 @@
                                         :multiple="false"
                                         :searchable="true"
                                         :disabled="true"
-                                        :internal-search="false"
-                                        @search-change="asyncstudentbygrade">
+                                        :internal-search="false">
 
                                 </multiselect>
                             </div>
@@ -68,15 +67,17 @@
                                         :multiple="false"
                                         :allow-empty="false"
                                         :disabled="true"
-                                        :internal-search="false" @input="selectedTermChange">
+                                        :internal-search="false">
                                 </multiselect>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Term Fees :</label>
                             <div class="col-sm-10">
-                                <numeric-input  mask-type="currency"     v-model="performdata.amount"> </numeric-input>
-                                {{--<input type="text" class="form-control"  v-model="performdata.amount">--}}
+                                <div class="input-group">
+                                    <numeric-input  mask-type="currency"     v-model="performdata.amount"> </numeric-input>
+                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group" v-for="fee,index in fees">

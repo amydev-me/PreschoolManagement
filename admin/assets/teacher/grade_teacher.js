@@ -2,34 +2,31 @@ const DeleteGrade = resolve => require(['../core/DeleteModal'], resolve);
 let _create=route.urls.assign_teacher.create;
 let _update=route.urls.assign_teacher.update;
 let _remove=route.urls.assign_teacher.remove;
-let _asynccategory=route.urls.get_active_category;
-let _getgrade=route.urls.grade.getgrade;
 let _getbyteacher=route.urls.assign_teacher.getbyteacher;
 module.exports= {
-components:{DeleteGrade},
+  components: {DeleteGrade},
   data: function () {
     return {
-      removeUrl:_remove,
-      isedit:false,
-      teacher_id:null,
-      assign_id:null,
+      removeUrl: _remove,
+      isedit: false,
+      teacher_id: null,
+      assign_id: null,
       grade_teachers: [],
 
-      active_academic:null,
-
+      active_academic: null,
 
       grades: [],
       selected_grade: null,
 
-      subjects:[],
+      subjects: [],
       selected_subject: null,
       performdata: {id: null, academic_id: null, grade_id: null, teacher_id: null, subject_id: null},
     }
   },
   methods: {
-    asyncSubject(){
-      axios.get('/admin/subject/async-get').then(({data})=>{
-        this.subjects=data;
+    asyncSubject () {
+      axios.get('/admin/subject/async-get').then(({data}) => {
+        this.subjects = data;
       })
     },
     getGrades () {
@@ -43,30 +40,17 @@ components:{DeleteGrade},
       if (teacher_id != null) {
         this.teacher_id = teacher_id;
         this.getData();
-        // this.asyncCategory();
         this.getGrades();
       }
     },
-    // asyncCategory () {
-    //   axios.get(_asynccategory).then(({data}) => {
-    //     this.active_academic = data.active;
-    //     this.categories = data.categories;
-    //     this.subjects = data.subjects;
-    //   });
-    // },
-    // selectedCategoryChange(){
-    //   axios.get(_getgrade + '?category_id=' + this.selected_category.id).then(({data})=>{
-    //     this.grades=data;
-    //   });
-    // },
-    getData(){
-      axios.get(_getbyteacher+this.teacher_id).then(({data})=>{
-        this.grade_teachers=data;
+    getData () {
+      axios.get(_getbyteacher + this.teacher_id).then(({data}) => {
+        this.grade_teachers = data;
       });
     },
 
-    showEditModal(grade_teacher){
-      this.isedit=true;
+    showEditModal (grade_teacher) {
+      this.isedit = true;
       var temp = Object.assign({}, grade_teacher);
       this.assign_id = temp.id;
       this.active_academic = temp.academic;
@@ -76,20 +60,20 @@ components:{DeleteGrade},
       this.selected_category = temp.grade.category;
       $('#courseteacher-modal').modal('show');
     },
-    showAddModal(){
-      this.isedit=false;
+    showAddModal () {
+      this.isedit = false;
       $('#courseteacher-modal').modal('show');
     },
     showDeleteModal (id) {
-      this.assign_id =id;
+      this.assign_id = id;
       $('#deletegrade_modal').modal('show');
     },
-    successdelete(){
+    successdelete () {
       $('#deletegrade_modal').modal('hide');
-      this.assign_id=null;
+      this.assign_id = null;
       this.getData();
     },
-    clearOnHidden(){
+    clearOnHidden () {
       this.performdata.id = null;
       this.performdata.grade_id = null;
       this.performdata.subject_id = null;
@@ -113,7 +97,8 @@ components:{DeleteGrade},
 
     performAction (url) {
       this.performdata.id = this.assign_id;
-      this.performdata.teacher_id = this.teacher_id;;
+      this.performdata.teacher_id = this.teacher_id;
+      ;
       this.performdata.academic_id = this.active_academic.id;
       this.performdata.grade_id = this.selected_grade.id;
       this.performdata.subject_id = this.selected_subject.id;
@@ -137,7 +122,7 @@ components:{DeleteGrade},
     },
   },
   mounted () {
-  this.asyncSubject();
+    this.asyncSubject();
     this.checkUrlParam();
     $(this.$refs.thismodel).on("hidden.bs.modal", this.clearOnHidden);
   }

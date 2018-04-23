@@ -10,7 +10,20 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Year :</label>
                         <div class="col-sm-8">
-                            <academic-select  @input="selectedAcadmiceChange" :value="selected_academic" data-vv-name="academic" v-validate="'required'"></academic-select>
+                            <multiselect data-vv-name="academic" v-validate="'required'"
+                                    placeholder="Select year"
+                                    v-model="selected_academic"
+                                    label="academicName"
+                                    :options="academics"
+                                    :multiple="false"
+                                    :searchable="false"
+                                    :allow-empty="false"
+                                    :show-labels="false"
+                                    :internal-search="false"
+                                    :custom-label="customLabel"
+                                    @input="selectedAcadmiceChange">
+                            </multiselect>
+                            {{--<academic-select  @input="selectedAcadmiceChange" :value="selected_academic" data-vv-name="academic" v-validate="'required'"></academic-select>--}}
                             <div  v-show="errors.has('academic')"><span class="error">Required year.</span></div>
                         </div>
 

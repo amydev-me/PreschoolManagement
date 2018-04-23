@@ -16,6 +16,7 @@ Route::middleware('web')->group(function() {
     Route::name('get-academic-category')->get('get-academic-category', 'AsyncController@asyncAcademicAndCategory');
     /**
      * Get In Teacher Allocation
+     * Deprecated
      */
     Route::name('get-active-category')->get('get-active-category', 'AsyncController@asyncActiveAcademicAndCategory');
 

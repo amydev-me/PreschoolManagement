@@ -39,47 +39,6 @@ module.exports={
     formatNumber(number){
       return parseInt( number ).toLocaleString();
     },
-
-    asyncstudentbygrade(query){
-      if(query ==null)return;
-      axios.get('/admin/student/get-by-grade?grade_id='+this.selected_grade.id+'&fullName='+query).then(({data})=>{
-        this.students=data;
-      });
-    },
-    selectedTermChange(){
-      if(this.selected_term !=null){
-
-        this.performdata.amount=this.selected_term.pivot.amount;
-      }
-    },
-    getGades () {
-      axios.get('/admin/category/get-with-category').then(({data}) => {
-        this.grades = data.grades;
-        this.active_academic = data.active_academic;
-      });
-    },
-    feeCheckedChanged ( index) {
-      // var _total = 0;
-      // var result = this.fees.map(function (el) {
-      //
-      //   if (el.ischecked) {
-      //     _total = parseInt(el.amount)+_total;
-      //   }
-      // });
-      //
-      // this.total=parseInt(this.performdata.amount)+_total;
-
-    },
-    selectedGradeChange (value) {
-      if(value==null){
-        this.selected_student=null;
-        this.terms=[];
-        return;
-      }
-      axios.get('/admin/grade/get-terms?grade_id=' + value.id).then(({data}) => {
-        this.terms = data;
-      });
-    },
     submitdata(){
       this.$validator.validateAll().then(successsValidate => {
         if (successsValidate) {
@@ -98,7 +57,6 @@ module.exports={
       this.performdata.due_date=this.selected_term.due_date;
       this.performdata.total=this.total;
       if(this.total==this.performdata.receipt_amount) {
-
         this.performdata.status="PAID";
       }else{
         this.performdata.status="UNPAID";
@@ -154,15 +112,6 @@ module.exports={
         this.selected_grade={id:data.grade.id,gradeName:data.grade.gradeName,academic_id:data.grade.academic_id,category_id:data.grade.category_id,description:data.grade.description}
         this.selected_student={id:data.student.id,fullName:data.student.fullName};
         this.selected_term=data.term;
-        // axios.get('/admin/grade/get-terms?grade_id=' +  this.performdata.grade_id).then(response => {
-        //   this.terms = response.data;
-        //   var te=data.term;
-        //   var t= this.terms.find(function (el) {
-        //       return el.id==te.id;
-        //   });
-        //   this.selected_term=t;
-        //
-        // });
         var  _tempfees = data.fees;
         axios.get(get_fees).then(({data}) => {
           let _fees = data;
@@ -204,15 +153,12 @@ module.exports={
   },
   watch: {
     totalvalue (n, o) {
-
       this.total = n;
     }
   },
 
   mounted(){
     this.performdata.payment_date=this.formatDate(new Date());
-    // this.getGades();
-
     this. checkUrlParam ();
   },
 

@@ -7,8 +7,15 @@
         .page-title{
             padding:0px 0px 0px;
         }
+
         @media print {
+
+            aside.left-panel.collapsed{
+                display: none;
+            }
+            
             body * {
+                -webkit-print-color-adjust: exact;
                 visibility: hidden;
                 size: portrait;
             }
@@ -16,18 +23,14 @@
                 visibility: visible;
             }
 
-            aside {
+            aside.left-panel,footer,header {
                 display: none;
             }
-            .content{margin-left: 0px;}
-            footer {
-                display: none;
-            }
-            header {
-                display: none;
-            }
+
+            .content{margin-left: 0px !important;}
+
             @page {
-                margin: 0.5cm;
+                margin: 0.2cm;
             }
             #not-print{
                 display:none;
@@ -64,26 +67,18 @@
                                 <div class="pull-left">
                                     <img style="float: left;margin-top:15px;" v-show="parentData.invoice_logo!=null" class="thumb-md" :src="getImage()">
                                     <h1 style="float: right;margin-left: 5px;">
-
                                         @{{ parentData.title }}
                                         <br>
                                         <span style="font-size: 18px;margin-left: 2px;font-weight: 600;">  @{{ parentData.business_type }}</span>
                                     </h1>
                                 </div>
                                 <div class="pull-right" style="width: 250px;text-align: right;">
-        <address>
-                                        {{--<strong>@{{ parentData.title }}</strong>--}}
-                                        {{--<br>--}}
-
-                                       @{{ parentData.address }}
-
-                                        <br>
-
-            <abbr title="Phone"></abbr>@{{ parentData.phone }}<br>
-                                       @{{ parentData.email }}
-                                        <br>
+                                    <address>
+                                       @{{ parentData.address }}<br>
+                                        <abbr title="Phone"></abbr>@{{ parentData.phone }}<br>
+                                        @{{ parentData.email }}<br>
                                         @{{ parentData.website }}
-        </address>
+                                    </address>
                                 </div>
                                 {{--<div class="pull-left" style="width: 200px;">--}}
                                     {{--<address>--}}
@@ -139,14 +134,15 @@
                                     {{--<abbr title="Phone">P:</abbr>@{{ student.phone}}--}}
                                     {{--</address>--}}
                                     {{--</div>--}}
-                                    <div class="m-t-10">
+                                    <div class="m-t-10 " >
                                         <p><strong>Invoice Number &nbsp&nbsp&nbsp</strong>  <strong>@{{ payment.invoice }}</strong> </p>
                                         <p><strong>Invoice Date &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong>   @{{ formatDate(payment.payment_date) }}</p>
                                         <p v-if="payment.status != 'PAID'"><strong>Due Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>   @{{ formatDate(payment.due_date) }}</p>
-                                        <p class="status-color m-t-10"><strong>Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
-                                            <span class="status-color"  v-if="payment.status=='PAID'">@{{payment.status}}</span>
-                                            <span class="status-color"  v-if="!(payment.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>
-                                            <span class="status-color"  v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
+
+                                        <p class="m-t-10 "><strong>Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                                            <span class="label label-success"  style="background-color: #5cb85c !important;color:#fff !important;border-color:#5cb85c !important;" v-if="payment.status=='PAID'">@{{payment.status}}</span>
+                                            <span class="label label-danger"  style="background-color: #d9534f !important;color:#fff !important;border-color:#d9534f !important;"  v-if="!(payment.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>
+                                            <span class="label label-warning"   style="background-color: #f0ad4e !important;color:#fff !important;border-color:#f0ad4e !important;" v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
                                         </p>
                                         {{--<p><strong>Invoice Date: </strong> @{{ formatDate(payment.payment_date) }}</p>--}}
                                         {{--<p v-if="payment.status != 'PAID'"><strong>Due Date: </strong> @{{ formatDate(payment.due_date) }}</p>--}}
@@ -210,7 +206,7 @@
                                 </div>
                             </div>
                             <div class="row" v-if="parentData.instruction !=null">
-                                <div style="margin-top:20px;margin-left: 10px;margin-right:10px;border:1px;border:1px solid #E3E5E6;">
+                                <div style="margin-top:10px;margin-left: 10px;margin-right:10px;border:1px;border:1px solid #E3E5E6;">
                                     <h4 style="margin-left: 10px;">Instruction</h4><br>
                                     <div style="margin-left: 20px;margin-bottom: 20px;" v-html="parentData.instruction">
 

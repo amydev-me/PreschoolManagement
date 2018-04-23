@@ -1,5 +1,5 @@
 const Datepicker = resolve => require(['../core/JQueryDatePicker'], resolve);
-let checkinguser=route.urls.checkuser;
+
 let create=route.urls.teacher.create;
 let indexpage=route.urls.teacher.indexpage;
 module.exports= {
@@ -116,7 +116,7 @@ module.exports= {
 
       const config = { headers: { 'Content-Type': 'multipart/form-data' } };
       axios.post(create, data,config).then(response => {
-        console.log(response.data.success);
+
         if (response.data.success == false) {
           Notification.error('Error occur while inserting data.');
         } else {

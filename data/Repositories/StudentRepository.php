@@ -37,6 +37,6 @@ class StudentRepository extends Repository
     }
 
     public function getStudentByGrade($req){
-        return  Student::where('grade_id',$req['grade_id'])->where('fullName','LIKE',$req['fullName'].'%')->select(['id','fullName'])->get();
+        return  Student::where('grade_id',$req['grade_id'])->select(['id','fullName'])->get();
     }
 }

@@ -1,7 +1,6 @@
 const Datepicker = resolve => require(['../core/JQueryDatePicker'], resolve);
-const AcademicSelect = resolve => require(['../select_components/AcademicSelect'], resolve);
+
 let _create=route.urls.student.create;
-let _getgrade=route.urls.grade.getgrade;
 let getac=route.urls.get_ac;
 let indexpage=route.urls.student.indexpage;
 let asyncurl=route.urls.academic.asyncget;
@@ -199,7 +198,6 @@ module.exports= {
     performAction () {
       this.student.academic_id=this.selected_academic.id;
       this.student.grade_id=this.selected_grade.id;
-
       let data = new FormData();
       data.set('student',JSON.stringify(this.student));
       data.set('personal_info', JSON.stringify(this.personal_info));

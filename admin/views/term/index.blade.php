@@ -14,21 +14,29 @@
     <manage-term inline-template>
         <div class="panel" v-cloak>
             <delete-modal @input="successdelete" :inputid="term_id" :inputurl="removeUrl"></delete-modal>
-            <action  :term="term" :isedit="isedit" @success="successdata" inline-template>
+            <action  :term="term" :isedit="isedit" @success="successdata" :academics="academics" inline-template>
                 @include('term.create')
             </action>
             <div class="panel-body">
 
                 <div class="row">
-                    <div class="col-sm-6">
-                        <div class="m-b-30">
-                            <a   class="btn btn-primary btn-sm" @click="showAddModal">  <i class="fa fa-plus"></i> Add Term</a>
-                        </div>
+                    <div class="col-sm-8">
+                        <a   class="btn btn-primary btn-sm  m-b-30" @click="showAddModal">  <i class="fa fa-plus"></i> Add Term</a>
                     </div>
-                    <div class="col-sm-4 pull-right">
-                        <div class="form-group m-b-30 ">
-                            <academic-select @input="selectedAcadmiceChange" :value="active_academic"></academic-select>
-                        </div>
+                    <div class="col-sm-4 m-b-30">
+                        <multiselect
+                                placeholder="Select year"
+                                v-model="active_academic"
+                                label="academicName"
+                                :options="academics"
+                                :multiple="false"
+                                :searchable="false"
+                                :allow-empty="false"
+                                :show-labels="false"
+                                :internal-search="false"
+                                :custom-label="customLabel"
+                                @input="selectedAcadmiceChange">
+                        </multiselect>
                     </div>
                 </div>
                 <div class="row">
