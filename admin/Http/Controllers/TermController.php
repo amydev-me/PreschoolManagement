@@ -105,5 +105,4 @@ class TermController extends Controller
         $term = (new GetTermByCategory($this->repository,$request->all()))->invoke();
         return response()->json($term);
     }
-
 }

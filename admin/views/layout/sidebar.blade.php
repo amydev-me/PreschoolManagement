@@ -44,7 +44,7 @@
                     <li class="@yield('add-payment')"><a href="{{route('admin.payment.create')}}">Create Invoice</a></li>
                 </ul>
             </li>
-            {{--<li class="@yield('attendance')"><a href="{{route('admin.student.attendance.index')}}"><i class="fa  fa-outdent"></i> <span class="nav-label">Attendance</span></a></li>--}}
+            <li class="@yield('attendance')"><a href="{{route('admin.attendance.index')}}"><i class="fa  fa-outdent"></i> <span class="nav-label">Attendance</span></a></li>
 
 
         </ul>

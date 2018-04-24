@@ -44,9 +44,10 @@ module.exports= {
       });
     },
     selectedGradeChange () {
-    if (this.selected_grade == null) {
-      this.getDataByAcademic();return;
-    }
+      if (this.selected_grade == null) {
+        this.getDataByAcademic();
+        return;
+      }
 
       axios.get('/admin/student/get-studentby-grade?grade_id=' + this.selected_grade.id
         + '&page=' + this.pagination.current_page)

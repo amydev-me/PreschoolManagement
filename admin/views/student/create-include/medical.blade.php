@@ -46,12 +46,15 @@
                 <input type="text"  class="form-control"  v-model="medical.tuberculosis_remark"   placeholder="Enter Remark">
             </div>
         </div>
+
+
+
         <div class="form-group">
             <label class="control-label">Others :</label>
             <div class="input-group">
-                {{--<span class="input-group-addon">--}}
-                    {{--<input  type="checkbox" class="cr-styled" v-model="medical.asthma">--}}
-                {{--</span>--}}
+                <span class="input-group-addon">
+                    <input  type="checkbox" class="cr-styled" v-model="medical.others_check">
+                </span>
                 <input type="text"  class="form-control"  v-model="medical.others"   placeholder="Enter Remark">
             </div>
         </div>

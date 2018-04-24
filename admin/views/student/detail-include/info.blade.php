@@ -79,19 +79,21 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>@{{ student.student_background.previous_one }}</td>
-                                    <td>@{{ student.student_background.one_date }}
+                                    <td>@{{ student.student_background.previous_one }}
                                         <a  v-show="student.student_background.one_file!='null'&&student.student_background.one_file!=''" target="_blank" class="text-info" :href="getHistory(student.student_background.one_file)">
                                             <i class="fa fa-paperclip m-r-10 m-b-10"></i>
-                                        </a>
+                                        </a></td>
+                                    <td>@{{ student.student_background.one_date }}
+
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>@{{ student.student_background.previous_two }}</td>
-                                    <td>@{{ student.student_background.two_date }}
+                                    <td>@{{ student.student_background.previous_two }}
                                         <a  v-show="student.student_background.two_file!='null'&&student.student_background.two_file!=''" target="_blank" class="text-info" :href="getHistory(student.student_background.two_file)">
                                             <i class="fa fa-paperclip m-r-10 m-b-10"></i>
-                                        </a>
+                                        </a></td>
+                                    <td>@{{ student.student_background.two_date }}
+
                                     </td>
                                 </tr>
                                 </tbody>
@@ -188,8 +190,8 @@
                                     </tr>
                                     <tr>
                                         <td>Others</td>
-                                        <td style="text-align: center;">@{{ student.student_medical.asthma?'Yes':'No' }}</td>
-                                        <td>@{{ student.student_medical.asthma_remark }}</td>
+                                        <td style="text-align: center;">@{{ student.student_medical.others_check?'Yes':'No' }}</td>
+                                        <td>@{{ student.student_medical.others }}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">Does your child take regular medication?</td>
@@ -201,7 +203,11 @@
                                             copy of the immunization history)
                                         </td>
 
-                                        <td>@{{ student.student_medical.immunized_remark }}</td>
+                                        <td>@{{ student.student_medical.immunized_remark }}
+                                            <a  v-show="student.student_medical.two_file!='null'&&student.student_medical.immunized_file!=''" target="_blank" class="text-info" :href="getHistory(student.student_medical.immunized_file)">
+                                                <i class="fa fa-paperclip m-r-10 m-b-10"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">Does your child have special needs,

@@ -52,7 +52,7 @@ Vue.component('invoiceView', resolve => require(['./payment/view'], resolve));
 
 Vue.component('dashboard', resolve => require(['./dashboard/index'], resolve));
 
-// Vue.component('attendance', resolve => require(['./attendance/index'], resolve));
+Vue.component('attendance', resolve => require(['./attendance/index'], resolve));
 const app = new Vue({
   el: '#app',
   data: function () {

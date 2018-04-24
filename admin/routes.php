@@ -181,7 +181,13 @@ Route::middleware('web')->group(function() {
             Route::name('get-by-ac')->get('get-by-ac', 'StudentController@getByAC');
             Route::name('get-by-grade')->get('get-by-grade', 'StudentController@getbyGrade');
             Route::name('get-studentby-grade')->get('get-studentby-grade', 'StudentController@getStudentByGrade');
-            Route::name('get-file')->get('get-file', 'StudentController@getFile');
+            Route::name('get-file')->get('get-file/{name}', 'StudentController@getFile');
+        });
+        Route::name('attendance.')->prefix('attendance')->group(function () {
+            Route::name('index')->get('/', 'AttendanceController@index');
+            Route::name('get-attendances')->get('get-attendances', 'AttendanceController@getAttendance');
+            Route::name('get-attendances-bygrade')->get('get-attendances-bygrade', 'AttendanceController@getAttendanceByGradeTerm');
+            Route::name('create')->post('create', 'AttendanceController@create');
         });
     });
 });

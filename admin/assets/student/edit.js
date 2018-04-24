@@ -76,6 +76,7 @@ module.exports= {
         tuberculosis: false,
         tuberculosis_remark: null,
         others: null,
+        others_check:null,
         medication: null,
         immunized: null,
         immunized_remark: null,
