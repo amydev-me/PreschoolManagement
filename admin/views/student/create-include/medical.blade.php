@@ -13,9 +13,9 @@
             <label class="control-label">Allergies :</label>
             <div class="input-group">
                 <span class="input-group-addon">
-                    <input  type="checkbox" class="cr-styled" v-model="medical.asthma">
+                    <input  type="checkbox" class="cr-styled" v-model="medical.allergies">
                 </span>
-                <input type="text"  class="form-control"  v-model="medical.firstName"   placeholder="Enter Remark">
+                <input type="text"  class="form-control"  v-model="medical.allergies_remark"   placeholder="Enter Remark">
             </div>
         </div>
 
@@ -23,27 +23,27 @@
             <label class="control-label">Diabetes :</label>
             <div class="input-group">
                 <span class="input-group-addon">
-                    <input  type="checkbox" class="cr-styled" v-model="medical.asthma">
+                    <input  type="checkbox" class="cr-styled" v-model="medical.diabetes">
                 </span>
-                <input type="text"  class="form-control"  v-model="medical.firstName"   placeholder="Enter Remark">
+                <input type="text"  class="form-control"  v-model="medical.diabetes_remark"   placeholder="Enter Remark">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label">Epilepsy :</label>
             <div class="input-group">
                 <span class="input-group-addon">
-                    <input  type="checkbox" class="cr-styled" v-model="medical.asthma">
+                    <input  type="checkbox" class="cr-styled" v-model="medical.epilepsy">
                 </span>
-                <input type="text"  class="form-control"  v-model="medical.firstName"   placeholder="Enter Remark">
+                <input type="text"  class="form-control"  v-model="medical.epilepsy_remark"   placeholder="Enter Remark">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label">Tuberculosis :</label>
             <div class="input-group">
                 <span class="input-group-addon">
-                    <input  type="checkbox" class="cr-styled" v-model="medical.asthma">
+                    <input  type="checkbox" class="cr-styled" v-model="medical.tuberculosis">
                 </span>
-                <input type="text"  class="form-control"  v-model="medical.firstName"   placeholder="Enter Remark">
+                <input type="text"  class="form-control"  v-model="medical.tuberculosis_remark"   placeholder="Enter Remark">
             </div>
         </div>
         <div class="form-group">
