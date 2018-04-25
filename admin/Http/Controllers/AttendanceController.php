@@ -65,4 +65,9 @@ class AttendanceController extends Controller
             return response()->json(['attendances'=>$attendances,'assign'=>false]);
         }
     }
+
+    public function attendanceChart($student_id)
+    {
+        return Attendance::where('student_id', $student_id)->groupBy('status', 'student_id')->orderby('status', 'desc')->select(DB::raw('count(*) as total'))->get()->pluck('total');
+    }
 }

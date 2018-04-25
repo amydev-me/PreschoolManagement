@@ -1,5 +1,4 @@
 const Datepicker = resolve => require(['../core/JQueryDatePicker'], resolve);
-
 let _create=route.urls.student.create;
 let getac=route.urls.get_ac;
 let indexpage=route.urls.student.indexpage;
