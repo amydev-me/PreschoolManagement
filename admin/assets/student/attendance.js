@@ -28,20 +28,52 @@ module.exports= {
       }
     },
     createPieChart(){
-      axios.get('/admin/attendance/attend_chart/'+this.student_id).then(response => {
+      axios.get('/admin/attendance/attend_chart/'+this.student_id).then(({data}) => {
+
+        var tmpdata=[];
+        var tmplabels=[];
+        var tmpcolors=[];
+
+        if(data.present.total !=0){
+          tmplabels.push('Presence');
+          tmpcolors.push('rgb(5,155,255)');
+          tmpdata.push(data.present.total);
+
+        }else{
+          tmplabels.push('Presence');
+          tmpcolors.push('rgb(5,155,255)');
+        }
+
+        if(data.absence.total !=0){
+          tmplabels.push('Absence');
+          tmpcolors.push('rgb(255,99,132)');
+          tmpdata.push(data.absence.total);
+
+        }else{
+          tmplabels.push('Absence');
+          tmpcolors.push('rgb(255,99,132)');
+        }
+
+        if(data.leave.total !=0){
+          tmplabels.push('Leave');
+          tmpcolors.push('#FFC233');
+          tmpdata.push(data.leave.total);
+
+        }else{
+          tmplabels.push('Leave');
+          tmpcolors.push('#FFC233');
+        }
 
         new Chart('attendance-chart', {
           type: 'pie',
           data: {
-            labels: ['Presence','Leave','Absence'],
+            labels: tmplabels,
             datasets: [
               {
 
-                data: response.data,
-                backgroundColor: ['rgb(5,155,255)','#FFC233','rgb(255,99,132)'],
-
-                borderColor: ['rgb(5,155,255)','#FFC233','rgb(255,99,132)'],
-
+                data: tmpdata,
+                backgroundColor: tmpcolors,
+                borderColor: tmpcolors,
                 borderWidth: 1,
               }
             ]

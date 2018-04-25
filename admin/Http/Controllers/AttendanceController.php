@@ -68,6 +68,9 @@ class AttendanceController extends Controller
 
     public function attendanceChart($student_id)
     {
-        return Attendance::where('student_id', $student_id)->groupBy('status', 'student_id')->orderby('status', 'desc')->select(DB::raw('count(*) as total'))->get()->pluck('total');
+        $present= Attendance::where('student_id', $student_id)->where('status','P')->select(DB::raw('count(*) as total'))->first();
+        $absence=Attendance::where('student_id', $student_id)->where('status','A')->select(DB::raw('count(*) as total'))->first();
+        $leave=Attendance::where('student_id', $student_id)->where('status','L')->select(DB::raw('count(*) as total'))->first();
+        return response()->json(['present'=>$present,'absence'=>$absence,'leave'=>$leave]);
     }
 }
