@@ -2,13 +2,21 @@ module.exports= {
 
   data: function () {
     return {
-      // attendances: [],
+      student_id:null,
       attv:null
     }
   },
   methods: {
+    checkUrlParam () {
+      let student_id = Helper.getUrlParameter('student_id');
+      if (student_id != null) {
+
+        this.student_id = student_id;
+       this.getData();
+      }
+    },
     getData(){
-      axios.get('/admin/attendance/detail/1').then(({data}) => {
+      axios.get('/admin/attendance/detail/'+this.student_id).then(({data}) => {
         let infos = data;
 
         this.attv=infos;
@@ -79,6 +87,6 @@ module.exports= {
     }
   },
   mounted () {
-    this.getData();
+    this.checkUrlParam();
   }
 }
