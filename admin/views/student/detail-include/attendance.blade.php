@@ -4,11 +4,13 @@
                 <attendance-chart>
                 </attendance-chart>
             </div>
-            <div class="row">
+            <div class="row m-t-30">
+                <h3>Attendance Details</h3>
+                <hr>
                 <attendance-detail inline-template>
                         <div class="col-md-12 col-sm-12 col-xs-12 ">
                             <div class="table-responsive m-t-10 m-b-10" v-for="a,key in attv">
-                                <h3>@{{ key }}</h3>
+                                <h4>@{{ key }}</h4>
                                 <table class="table table-bordered m-b-10" id="datatable-normal" >
                                     <caption></caption>
                                     <thead>
