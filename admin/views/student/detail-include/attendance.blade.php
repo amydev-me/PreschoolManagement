@@ -6,10 +6,10 @@
             </div>
             <div class="row">
                 <attendance-detail inline-template>
-                        <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12 col-sm-12 col-xs-12 ">
                             <div class="table-responsive m-t-10 m-b-10" v-for="a,key in attv">
                                 <h3>@{{ key }}</h3>
-                                <table class="table table-bordered" id="datatable-normal" >
+                                <table class="table table-bordered m-b-10" id="datatable-normal" >
                                     <caption></caption>
                                     <thead>
                                     <tr>
