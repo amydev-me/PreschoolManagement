@@ -4,91 +4,108 @@
                 <attendance-chart>
                 </attendance-chart>
             </div>
+
             <div class="row m-t-30">
-                <h3>Attendance Details</h3>
-                <hr>
                 <attendance-detail inline-template>
                         <div class="col-md-12 col-sm-12 col-xs-12 ">
-                            <div class="table-responsive m-t-10 m-b-10" v-for="a,key in attv">
-                                <h4>@{{ key }}</h4>
-                                <table class="table table-bordered m-b-10" id="datatable-normal" >
-                                    <caption></caption>
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>1</th>
-                                        <th>2</th>
-                                        <th>3</th>
-                                        <th>4</th>
-                                        <th>5</th>
-                                        <th>6</th>
-                                        <th>7</th>
-                                        <th>8</th>
-                                        <th>9</th>
-                                        <th>10</th>
-                                        <th>11</th>
-                                        <th>12</th>
-                                        <th>13</th>
-                                        <th>14</th>
-                                        <th>15</th>
-                                        <th>16</th>
-                                        <th>17</th>
-                                        <th>18</th>
-                                        <th>19</th>
-                                        <th>20</th>
-                                        <th>21</th>
-                                        <th>22</th>
-                                        <th>23</th>
-                                        <th>24</th>
-                                        <th>25</th>
-                                        <th>26</th>
-                                        <th>27</th>
-                                        <th>28</th>
-                                        <th>29</th>
-                                        <th>30</th>
-                                        <th>31</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    <tr v-for="att in attv[key]">
-                                         <td style="font-weight: 800;">@{{ att.monthname }}</td>
-                                         <td style="font-weight: 800;" >@{{ att.d1 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d2 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d3 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d4 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d5 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d6 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d7 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d8 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d9 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d10 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d11 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d12 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d13 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d14 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d15 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d16 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d17 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d18 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d19 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d20 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d21}}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d22 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d23 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d24 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d25 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d26 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d27 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d28 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d29 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d30 }}</td>
-                                           <td style="font-weight: 800;text-align:center;">@{{ att.d31 }}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-
+                            <div class="row">
+                                <h3 class="pull-left">Attendance Details</h3>
+                                <div class="btn-group pull-right m-t-15" data-toggle="buttons">
+                                    <label class="btn btn-primary active" @click="checkboxchecked('P')">
+                                        <input type="radio" name="status"    > Present
+                                    </label>
+                                    <label class="btn btn-primary" @click="checkboxchecked('A')">
+                                        <input type="radio" name="status"    > Absent
+                                    </label>
+                                    <label class="btn btn-primary" @click="checkboxchecked('L')">
+                                        <input type="radio" name="status"    > Leave
+                                    </label>
+                                </div>
                             </div>
+                            <hr>
+                            <div class="row">
+                                <div class="table-responsive m-t-10 m-b-10" v-for="a,key in attv">
+                                    <h4>@{{ key }}</h4>
+                                    <table class="table table-bordered m-b-10" id="datatable-normal" >
+                                        <caption></caption>
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>1</th>
+                                            <th>2</th>
+                                            <th>3</th>
+                                            <th>4</th>
+                                            <th>5</th>
+                                            <th>6</th>
+                                            <th>7</th>
+                                            <th>8</th>
+                                            <th>9</th>
+                                            <th>10</th>
+                                            <th>11</th>
+                                            <th>12</th>
+                                            <th>13</th>
+                                            <th>14</th>
+                                            <th>15</th>
+                                            <th>16</th>
+                                            <th>17</th>
+                                            <th>18</th>
+                                            <th>19</th>
+                                            <th>20</th>
+                                            <th>21</th>
+                                            <th>22</th>
+                                            <th>23</th>
+                                            <th>24</th>
+                                            <th>25</th>
+                                            <th>26</th>
+                                            <th>27</th>
+                                            <th>28</th>
+                                            <th>29</th>
+                                            <th>30</th>
+                                            <th>31</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr v-for="att in attv[key]">
+                                            <td style="font-weight: 800;">@{{ att.monthname }}</td>
+                                            <td style="font-weight: 800;" >@{{ att.d1 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d2 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d3 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d4 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d5 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d6 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d7 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d8 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d9 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d10 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d11 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d12 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d13 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d14 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d15 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d16 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d17 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d18 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d19 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d20 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d21}}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d22 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d23 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d24 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d25 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d26 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d27 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d28 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d29 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d30 }}</td>
+                                            <td style="font-weight: 800;text-align:center;">@{{ att.d31 }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+
                         </div>
                 </attendance-detail>
             </div>

@@ -3,7 +3,9 @@ module.exports= {
   data: function () {
     return {
       student_id:null,
-      attv:null
+      attv:null,
+      copyarr:null,
+      originarr:[]
     }
   },
   methods: {
@@ -12,13 +14,13 @@ module.exports= {
       if (student_id != null) {
 
         this.student_id = student_id;
-       this.getData();
+       this.getData('/admin/attendance/detail?student_id='+student_id+'&status=P');
       }
     },
-    getData(){
-      axios.get('/admin/attendance/detail/'+this.student_id).then(({data}) => {
+    getData(url){
+      axios.get(url).then(({data}) => {
         let infos = data;
-
+        this.orange=infos;
         this.attv=infos;
 
         for (var  termkey in infos) {
@@ -81,9 +83,14 @@ module.exports= {
             }
 
             this.attv[termkey]=tmpArr;
+
           }
         }
+
       });
+    },
+    checkboxchecked(status){
+      this.getData('/admin/attendance/detail?student_id='+this.student_id+'&status='+status);
     }
   },
   mounted () {

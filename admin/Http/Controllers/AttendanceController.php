@@ -75,8 +75,8 @@ class AttendanceController extends Controller
         return response()->json(['present'=>$present,'absence'=>$absence,'leave'=>$leave]);
     }
 
-    public function getDetail($student_id){
-        $attendances=Attendance::where('student_id', $student_id)->get()->groupBy(['term.termName','attendance_year','attendance_month_name']);
+    public function getDetail(Request $request){
+        $attendances=Attendance::where('student_id', $request->student_id)->where('status',$request->status)->get()->groupBy(['term.termName','attendance_year','attendance_month_name']);
 
         return response()->json($attendances);
     }

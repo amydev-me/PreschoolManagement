@@ -37,9 +37,28 @@
         .tab-content>.tab-pane .edit-tab{
             padding-top: 0px;
         }
+        .btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary{
+            background-color:red;
+            border-color:red;
+            color:white;
+        }
+        .btn-primary.active.focus{
+            background-color:red;
+            border-color:red;
+            color:white;
+        }
+        .btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.dropdown-toggle.btn-primary.focus, .open>.dropdown-toggle.btn-primary:focus, .open>.dropdown-toggle.btn-primary:hover{
+            background-color:red;
+            border-color:red !important;
+            color:white;
+        }
+        .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus{
+            outline: none;
+        }
 
     </style>
 @endsection
+
 @section('content')
     <detail-student inline-template>
         <div v-cloak>
