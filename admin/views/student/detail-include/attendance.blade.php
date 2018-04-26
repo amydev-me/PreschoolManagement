@@ -6,6 +6,10 @@
             </div>
 
             <div class="row m-t-30">
+
+
+
+
                 <attendance-detail inline-template>
                         <div class="col-md-12 col-sm-12 col-xs-12 ">
                             <div class="row">
@@ -31,74 +35,74 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>1</th>
-                                            <th>2</th>
-                                            <th>3</th>
-                                            <th>4</th>
-                                            <th>5</th>
-                                            <th>6</th>
-                                            <th>7</th>
-                                            <th>8</th>
-                                            <th>9</th>
-                                            <th>10</th>
-                                            <th>11</th>
-                                            <th>12</th>
-                                            <th>13</th>
-                                            <th>14</th>
-                                            <th>15</th>
-                                            <th>16</th>
-                                            <th>17</th>
-                                            <th>18</th>
-                                            <th>19</th>
-                                            <th>20</th>
-                                            <th>21</th>
-                                            <th>22</th>
-                                            <th>23</th>
-                                            <th>24</th>
-                                            <th>25</th>
-                                            <th>26</th>
-                                            <th>27</th>
-                                            <th>28</th>
-                                            <th>29</th>
-                                            <th>30</th>
-                                            <th>31</th>
+                                            <th style="min-width: 38px;text-align:center;">1</th>
+                                            <th style="min-width: 38px;text-align:center;">2</th>
+                                            <th style="min-width: 38px;text-align:center;">3</th>
+                                            <th style="min-width: 38px;text-align:center;">4</th>
+                                            <th style="min-width: 38px;text-align:center;">5</th>
+                                            <th style="min-width: 38px;text-align:center;">6</th>
+                                            <th style="min-width: 38px;text-align:center;">7</th>
+                                            <th style="min-width: 38px;text-align:center;">8</th>
+                                            <th style="min-width: 38px;text-align:center;">9</th>
+                                            <th style="min-width: 38px;text-align:center;">10</th>
+                                            <th style="min-width: 38px;text-align:center;">11</th>
+                                            <th style="min-width: 38px;text-align:center;">12</th>
+                                            <th style="min-width: 38px;text-align:center;">13</th>
+                                            <th style="min-width: 38px;text-align:center;">14</th>
+                                            <th style="min-width: 38px;text-align:center;">15</th>
+                                            <th style="min-width: 38px;text-align:center;">16</th>
+                                            <th style="min-width: 38px;text-align:center;">17</th>
+                                            <th style="min-width: 38px;text-align:center;">18</th>
+                                            <th style="min-width: 38px;text-align:center;">19</th>
+                                            <th style="min-width: 38px;text-align:center;">20</th>
+                                            <th style="min-width: 38px;text-align:center;">21</th>
+                                            <th style="min-width: 38px;text-align:center;">22</th>
+                                            <th style="min-width: 38px;text-align:center;">23</th>
+                                            <th style="min-width: 38px;text-align:center;">24</th>
+                                            <th style="min-width: 38px;text-align:center;">25</th>
+                                            <th style="min-width: 38px;text-align:center;">26</th>
+                                            <th style="min-width: 38px;text-align:center;">27</th>
+                                            <th style="min-width: 38px;text-align:center;">28</th>
+                                            <th style="min-width: 38px;text-align:center;">29</th>
+                                            <th style="min-width: 38px;text-align:center;">30</th>
+                                            <th style="min-width: 38px;text-align:center;">31</th>
                                         </tr>
                                         </thead>
                                         <tbody>
 
                                         <tr v-for="att in attv[key]">
                                             <td style="font-weight: 800;">@{{ att.monthname }}</td>
-                                            <td style="font-weight: 800;" >@{{ att.d1 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d2 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d3 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d4 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d5 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d6 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d7 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d8 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d9 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d10 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d11 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d12 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d13 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d14 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d15 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d16 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d17 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d18 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d19 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d20 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d21}}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d22 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d23 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d24 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d25 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d26 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d27 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d28 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d29 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d30 }}</td>
-                                            <td style="font-weight: 800;text-align:center;">@{{ att.d31 }}</td>
+                                            <td :style="getStyle(att.d1)"></td>
+                                            <td :style="getStyle(att.d2)"></td>
+                                            <td :style="getStyle(att.d3)"></td>
+                                            <td :style="getStyle(att.d3)"></td>
+                                            <td :style="getStyle(att.d4)"></td>
+                                            <td :style="getStyle(att.d6)"></td>
+                                            <td :style="getStyle(att.d7)"></td>
+                                            <td :style="getStyle(att.d8)"></td>
+                                            <td :style="getStyle(att.d9)"></td>
+                                            <td :style="getStyle(att.d10)"></td>
+                                            <td :style="getStyle(att.d11)"></td>
+                                            <td :style="getStyle(att.d12)"></td>
+                                            <td :style="getStyle(att.d13)"></td>
+                                            <td :style="getStyle(att.d14)"></td>
+                                            <td :style="getStyle(att.d15)"></td>
+                                            <td :style="getStyle(att.d16)"></td>
+                                            <td :style="getStyle(att.d17)"></td>
+                                            <td :style="getStyle(att.d18)"></td>
+                                            <td :style="getStyle(att.d19)"></td>
+                                            <td :style="getStyle(att.d20)"></td>
+                                            <td :style="getStyle(att.d21)"></td>
+                                            <td :style="getStyle(att.d22)"></td>
+                                            <td :style="getStyle(att.d23)"></td>
+                                            <td :style="getStyle(att.d24)"></td>
+                                            <td :style="getStyle(att.d25)"></td>
+                                            <td :style="getStyle(att.d26)"></td>
+                                            <td :style="getStyle(att.d27)"></td>
+                                            <td :style="getStyle(att.d28)"></td>
+                                            <td :style="getStyle(att.d29)"></td>
+                                            <td :style="getStyle(att.d30)"></td>
+                                            <td :style="getStyle(att.d31)"></td>
                                         </tr>
                                         </tbody>
                                     </table>

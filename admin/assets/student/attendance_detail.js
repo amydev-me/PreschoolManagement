@@ -89,6 +89,16 @@ module.exports= {
 
       });
     },
+    getStyle(status){
+      console.log(status);
+      if(status=='P'){
+        return 'background-color:#059BFF;'
+      }else if(status=='L'){
+        return 'background-color:#FFC233;'
+      }else if(status=='A'){
+        return 'background-color:#FF6384;'
+      }
+    },
     checkboxchecked(status){
       this.getData('/admin/attendance/detail?student_id='+this.student_id+'&status='+status);
     }
