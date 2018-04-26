@@ -189,6 +189,7 @@ Route::middleware('web')->group(function() {
             Route::name('get-attendances-bygrade')->get('get-attendances-bygrade', 'AttendanceController@getAttendanceByGradeTerm');
             Route::name('create')->post('create', 'AttendanceController@create');
             Route::name('attend_chart')->get('attend_chart/{id}', 'AttendanceController@attendanceChart');
+            Route::name('detail')->get('detail/{student_id}', 'AttendanceController@getDetail');
         });
     });
 });

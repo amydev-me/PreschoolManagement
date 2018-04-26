@@ -1,11 +1,12 @@
 const EditComponent=resolve => require(['./edit'], resolve);
 const DeleteModal = resolve => require(['../core/DeleteModal'], resolve);
 const AttendanceChart=resolve => require(['./attendance'], resolve);
+const AttendanceDetail=resolve => require(['./attendance_detail'], resolve);
 let _studentImage=route.urls.student_image;
 let _remove=route.urls.student.remove;
 let _indexpage=route.urls.student.indexpage;
 module.exports={
-  components:{EditComponent,DeleteModal,AttendanceChart},
+  components:{EditComponent,DeleteModal,AttendanceChart,AttendanceDetail},
   data:function () {
     return {
       student_id:null,

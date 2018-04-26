@@ -10,6 +10,7 @@ namespace Admin\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Data\Models\Attendance;
 use Data\Models\Student;
 use Illuminate\Http\Request;
@@ -72,5 +73,11 @@ class AttendanceController extends Controller
         $absence=Attendance::where('student_id', $student_id)->where('status','A')->select(DB::raw('count(*) as total'))->first();
         $leave=Attendance::where('student_id', $student_id)->where('status','L')->select(DB::raw('count(*) as total'))->first();
         return response()->json(['present'=>$present,'absence'=>$absence,'leave'=>$leave]);
+    }
+
+    public function getDetail($student_id){
+        $attendances=Attendance::where('student_id', $student_id)->get()->groupBy(['term.termName','attendance_year','attendance_month_name']);
+
+        return response()->json($attendances);
     }
 }

@@ -1,11 +1,17 @@
 var moment= require('moment');
 
 module.exports={
-  getMonth(date){
-     return moment(date).format('MMMM');
+  getMonths(date){
+    return moment(date).format('MM');
+  },
+  getMonthName(date){
+    return moment(date).format('MMMM');
+  },
+  getYears(date){
+    return moment(date).format('YYYY');
   },
   getDay(date){
-    return date.getDate();
+    return moment(date).format('DD');
   },
   loginPage() {
        return '/login';

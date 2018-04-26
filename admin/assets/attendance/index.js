@@ -89,13 +89,17 @@ module.exports= {
     formatDate (date) {
       return Helper.formatDate(date);
     },
-
-    getMounth () {
-      return Helper.getMonth(new Date());
+    getMonthName(date){
+      return Helper.getMonthName(date);
     },
-
-    getDay () {
-      return Helper.getDay(new Date());
+    getMounth (date) {
+      return Helper.getMonths(date);
+    },
+    getFormatYear (date) {
+      return Helper.getYears(date);
+    },
+    getDay (date) {
+      return Helper.getDay(date);
     },
 
     selectAll (ischeck) {
@@ -121,8 +125,11 @@ module.exports= {
         v.grade_id = v.grade_id;
         v.term_id=that.selected_term.id;
         v.attend_date = that.filter_date;
-        v.attendance_month = that.getMounth();
-        v.attendance_day = that.getDay();
+        v.attendance_month = that.getMounth(that.filter_date);
+        v.attendance_month_name=that.getMonthName(that.filter_date);
+        v.attendance_day = that.getDay(that.filter_date);
+        v.attendance_year=that.getFormatYear(that.filter_date);
+
         v.status=v.status;
         delete v.id;
       });
