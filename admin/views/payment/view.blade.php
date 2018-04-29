@@ -51,7 +51,7 @@
                     <div class="btn-toolbar" role="toolbar">
                         <div class="pull-right">
                             <button  @click="print" class="btn btn-inverse m-r-5 m-b-10" ><span>Print</span><i class="fa fa-print m-l-10" ></i></button>
-                            <button class="btn btn-purple" id="sa-basic" > <span>Send</span> <i class="fa fa-send m-l-10"></i> </button>
+                            <a class="btn btn-purple" id="sa-basic" :href="'/admin/invoice?payment_id='+payment.id"> <span>Send</span> <i class="fa fa-send m-l-10"></i> </a>
                         </div>
                     </div>
                 </div>

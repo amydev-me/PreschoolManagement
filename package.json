@@ -23,5 +23,8 @@
         "vee-validate": "^2.0.6",
         "vue": "^2.5.7",
         "vue-multiselect": "^2.1.0"
+    },
+    "dependencies": {
+        "print-js": "^1.0.40"
     }
 }

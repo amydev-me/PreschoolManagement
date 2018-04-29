@@ -63,4 +63,16 @@ class PaymentController extends Controller
         $result = $action->invoke();
         return response()->json(['success' => $result]);
     }
+
+    public function getByStudent(Request $request){
+        $student_id=$request->student_id;
+        $payments=Payment::with(['student' => function ($q) {
+            $q->select('id', 'fullName');
+        }, 'term' => function ($q) {
+            $q->select('id', 'termName');
+        }, 'grade'])->whereHas('student',function($q) use($student_id){
+            $q->where('id',$student_id);
+        })->get();
+        return response()->json($payments);
+    }
 }

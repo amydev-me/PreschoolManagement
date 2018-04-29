@@ -22,16 +22,11 @@ module.exports= {
         let infos = data;
         this.orange=infos;
         this.attv=infos;
-
         for (var  termkey in infos) {
           if (infos.hasOwnProperty(termkey)) {
-              var s={};
-              var tmpArr=[];
+              var s={};              var tmpArr=[];
             for (var yearkey in infos[termkey]) {
-
-
               for(var monthkey in infos[termkey][yearkey]){
-
                 var d_day = {
                   monthname: monthkey,
                   d1: null, d2: null, d3: null, d4: null, d5: null,
@@ -78,19 +73,14 @@ module.exports= {
                   }
                 });
                 tmpArr.push(d_day);
-                // this.attendances.push(d_day);
               }
             }
-
             this.attv[termkey]=tmpArr;
-
           }
         }
-
       });
     },
     getStyle(status){
-      console.log(status);
       if(status=='P'){
         return 'background-color:#059BFF;'
       }else if(status=='L'){

@@ -2,11 +2,12 @@ const EditComponent=resolve => require(['./edit'], resolve);
 const DeleteModal = resolve => require(['../core/DeleteModal'], resolve);
 const AttendanceChart=resolve => require(['./attendance'], resolve);
 const AttendanceDetail=resolve => require(['./attendance_detail'], resolve);
+const PaymentList=resolve => require(['./payment'], resolve);
 let _studentImage=route.urls.student_image;
 let _remove=route.urls.student.remove;
 let _indexpage=route.urls.student.indexpage;
 module.exports={
-  components:{EditComponent,DeleteModal,AttendanceChart,AttendanceDetail},
+  components:{EditComponent,DeleteModal,AttendanceChart,AttendanceDetail,PaymentList},
   data:function () {
     return {
       student_id:null,
@@ -116,6 +117,7 @@ module.exports={
     checkUrlParam () {
       let student_id = Helper.getUrlParameter('student_id');
       if (student_id != null) {
+        this.student_id=student_id;
         this.student.id = student_id;
         this.getDetail();
       }
@@ -138,11 +140,11 @@ module.exports={
       }
     },
     showDeleteModal () {
-      this.student_id = this.student.id;
-      $('#deleteModal').modal('show');
+
+      $('#student_deletemodal').modal('show');
     },
     successdelete () {
-      $('#deleteModal').modal('hide');
+      $('#student_deletemodal').modal('hide');
       Notification.success('Success');
       window.location.href = _indexpage;
     },
@@ -151,9 +153,22 @@ module.exports={
       axios.get('/admin/student/get-detail?student_id=' + this.student.id).then(({data}) => {
         let student = data.student;
 
-       this.student=student;
+        this.student.academic_id = student.academic_id;
+        this.student.grade_id =student.grade_id;
+        this.student.profile = student.profile;
+        this.student.fullName = student.fullName;
+        this.student.otherName = student.otherName;
+        this.student.join_date = student.join_date;
+        this.student.em_name = student.em_name;
+        this.student.em_relation = student.em_relation;
+        this.student.em_contact = student.em_contact;
+        this.student.student_live = student.student_live;
+        if(student.student_personal_information !=null)this.personal_info = student.student_personal_information;
+        if(student.student_background !=null)this.education = student.student_background;
+        if( student.sibling_information !=null)this.sibling_info = student.sibling_information;
+        if(student.student_medical !=null)this.medical = student.student_medical;
+        if(student.student_guardian !=null)this.guardian = student.student_guardian;
         if(student.grade !=null) {
-
           this.gradeName=student.grade.gradeName;
         }
 

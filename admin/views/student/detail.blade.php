@@ -85,14 +85,14 @@
                             <ul class="nav nav-tabs profile-tabs">
                                 <li class="active"><a data-toggle="tab" href="#aboutme">About Me</a></li>
                                 <li class=""><a data-toggle="tab" href="#edit-profile" @click="editview=true">Settings</a></li>
-                                {{--<li class=""><a data-toggle="tab" href="#payment-info" @click="paymentinfo=true">Payment</a></li>--}}
+                                <li class=""><a data-toggle="tab" href="#payment-info">Payment</a></li>
                                 <li class=""><a data-toggle="tab" href="#attendance">Attendance</a></li>
 
                             </ul>
                             <div class="tab-content m-0">
                                 @include('student.detail-include.info')
                                 @include('student.detail-include.edit')
-                                {{--@include('student.payment_index')--}}
+                                @include('student.detail-include.payment')
                                 @include('student.detail-include.attendance')
                             </div>
                         </div>

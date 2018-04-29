@@ -26,21 +26,33 @@ class DeleteStudent extends BaseStudentAction
 
     protected function perform()
     {
-        $student = Student::find($this->request()['id']);
+        $student = Student::with('student_personal_information','student_background','student_medical')->find($this->request()['id']);
+
         if ($student) {
             $this->repository->removeStudent($student);
             $img = new StudentImage($student['profile']);
+
             if ($img->checkfile()) {
 
                 $img->delete();
             }
-            $history = new StudentFile($student['history']);
-            if ($history->checkfile()) {
-                $history->delete();
-            }
+
+            $this->deleteFile($student->student_background['edu_one']);
+            $this->deleteFile($student->student_background['edu_two']);
+            $this->deleteFile($student->student_medical['medical_files']);
             return true;
         }
 
         return false;
+    }
+
+    private function deleteFile($_file){
+        if($_file){
+            $history = new StudentFile($_file);
+            if ($history->checkfile()) {
+                $history->delete();
+            }
+        }
+
     }
 }

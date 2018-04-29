@@ -1,15 +1,10 @@
 <div id="attendance" class="tab-pane">
         <div class="user-profile-content">
             <div class="row">
-                <attendance-chart>
-                </attendance-chart>
+                <attendance-chart></attendance-chart>
             </div>
 
             <div class="row m-t-30">
-
-
-
-
                 <attendance-detail inline-template>
                         <div class="col-md-12 col-sm-12 col-xs-12 ">
                             <div class="row">
@@ -70,8 +65,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-
-                                            <tr v-for="att in attv[key]">
+                                                <tr v-for="att in attv[key]">
                                                 <td style="font-weight: 800;">@{{ att.monthname }}</td>
                                                 <td :style="getStyle(att.d1)"></td>
                                                 <td :style="getStyle(att.d2)"></td>
@@ -108,11 +102,8 @@
                                             </tbody>
                                         </table>
                                     </div>
-
-
                                 </div>
                             </div>
-
                         </div>
                 </attendance-detail>
             </div>

@@ -58,17 +58,6 @@ Route::middleware('web')->group(function() {
             Route::name('index')->get('/', 'BusinessInfoController@index');
             Route::name('detail')->get('detail', 'BusinessInfoController@getDetail');
         });
-        Route::name('payment.')->prefix('payment')->group(function () {
-            Route::view('/','payment.index')->name('index');
-            Route::view('create','payment.create')->name('create');
-            Route::view('edit','payment.edit')->name('edit');
-            Route::view('view','payment.view')->name('view');
-            Route::name('create')->post('create', 'PaymentController@create');
-            Route::name('get-data')->get('get-data', 'PaymentController@getData');
-            Route::name('get-detail')->get('get-detail', 'PaymentController@getDetail');
-            Route::name('update')->post('update', 'PaymentController@update');
-            Route::name('delete')->get('delete/{id}', 'PaymentController@delete');
-        });
 
         Route::name('term.')->prefix('term')->group(function () {
             Route::name('index')->get('/', 'TermController@index');
@@ -182,6 +171,7 @@ Route::middleware('web')->group(function() {
             Route::name('get-by-grade')->get('get-by-grade', 'StudentController@getbyGrade');
             Route::name('get-studentby-grade')->get('get-studentby-grade', 'StudentController@getStudentByGrade');
             Route::name('get-file')->get('get-file/{name}', 'StudentController@getFile');
+            Route::name('get-student')->get('get-student', 'StudentController@getStudentGrade');
         });
         Route::name('attendance.')->prefix('attendance')->group(function () {
             Route::name('index')->get('/', 'AttendanceController@index');
@@ -191,5 +181,20 @@ Route::middleware('web')->group(function() {
             Route::name('attend_chart')->get('attend_chart/{id}', 'AttendanceController@attendanceChart');
             Route::name('detail')->get('detail', 'AttendanceController@getDetail');
         });
+
+        Route::name('payment.')->prefix('payment')->group(function () {
+            Route::view('/','payment.index')->name('index');
+            Route::view('create','payment.create')->name('create');
+            Route::view('edit','payment.edit')->name('edit');
+            Route::view('view','payment.view')->name('view');
+            Route::name('create')->post('create', 'PaymentController@create');
+            Route::name('get-data')->get('get-data', 'PaymentController@getData');
+            Route::name('get-detail')->get('get-detail', 'PaymentController@getDetail');
+            Route::name('update')->post('update', 'PaymentController@update');
+            Route::name('delete')->get('delete/{id}', 'PaymentController@delete');
+            Route::name('by_student')->get('by_student', 'PaymentController@getByStudent');
+            Route::name('export_pdf')->get('export_pdf', 'MailController@getDetail');
+        });
+        Route::name('invoice')->get('invoice', 'MailController@getDetail');
     });
 });

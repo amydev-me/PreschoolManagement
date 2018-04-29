@@ -1,213 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
-    <meta name="author" content="Coderthemes">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" href="{{URL::asset('img/logo.png')}}">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/invoice.css">
 
-    <title>UNIVERSITY OF OXFORD</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
-
-    <!--Icon-fonts css-->
-    <link href="{{URL::asset('css/myfonts.css')}}" rel="stylesheet" />
-
-    <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{URL::asset('css/bootstrap-reset.css')}}" rel="stylesheet">
-
-    <!--Animation css-->
-    <link href="{{URL::asset('css/animate.css')}}" rel="stylesheet">
-
-    <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/form-wizard/jquery.steps.css')}}" />
-    <link href="{{URL::asset('css/csstyles.css')}}" rel="stylesheet">
-    <link href="{{URL::asset('css/helper.css')}}" rel="stylesheet">
-    <style>
-        .page-title{
-            padding:0px 0px 0px;
-        }
-        @media print {
-            body * {
-                visibility: hidden;
-                size: portrait;
-            }
-            #section-to-print, #section-to-print * {
-                visibility: visible;
-            }
-            header, aside {
-                display:none;
-            }
-        }
-        body, article {
-            width: 100%;
-            margin: 0;
-            padding: 0;
-        }
-
-        @page :left {
-            margin: 0.5cm;
-        }
-
-        @page :right {
-            margin: 0.8cm;
-        }
-        /*@page {*/
-            /*margin-left: 2cm;*/
-            /*margin-right: 2cm;*/
-        /*}*/
-
-    </style>
 </head>
 <body >
-
-<div id="app">
-    <invoice-view inline-template>
-        <div class="wraper container-fluid" v-cloak>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="btn-toolbar" role="toolbar">
-                        <div class="pull-right">
-                            {{--<button type="button" class="btn btn-success m-r-5 m-b-10"><i class="fa fa-floppy-o"></i></button>--}}
-                            {{--<button type="button" class="btn btn-success m-r-5 m-b-10"><i class="fa fa-trash-o"></i></button>--}}
-                            <button @click="print" class="btn btn-inverse m-r-5 m-b-10"><i class="fa fa-print"></i>Print</button>
-
-                            <button class="btn btn-purple" id="sa-basic"> <span>Send</span> <i class="fa fa-send m-l-10"></i> </button>
-                        </div>
-                    </div>
+<div style="display: block" class="bb">
+    <div class="clearfix">
+            <div class="logostyle">
+                <div style="float: left;">
+                <img src="{{storage_path().'/app/images/business/'.$info->invoice_logo}}" style="width: 64px;height: 64px;float:left;">
+                </div>
+                <div style="float: right;">
+                    <h1 style="margin-top: 0px;margin-left:5px;padding: 0px;">
+                        {{ $info->title }}<span style="font-size: 18px;margin-left: 5px;font-weight: 600;">Preschool</span>
+                    </h1>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default" >
-                        <!-- <div class="panel-heading">
-                            <h4>Invoice</h4>
-                        </div> -->
-                        <div class="panel-body" id="section-to-print">
-                            <div class="clearfix">
-                                <div class="pull-left">
-                                    <h1 class="text-right"><img v-show="parentData.logo!='null'" class="thumb-md" :src="getImage()">@{{ parentData.title }}
-                                    </h1>
-                                </div>
-                                <div class="pull-right">
-                                    <h4>Invoice # <br>
-                                        <strong>@{{ payment.invoice }}</strong>
-                                    </h4>
-                                </div>
-                            </div>
-                            <hr style="margin-top: 20px;">
-                            <div style="display: flex;flex-direction: row">
-
-
-                                <div class="m-t-30"  style="width: 30%;margin-right: 30px !important;">
-                                    <h4 class="m-b-25">Invoice From</h4>
-                                    <address>
-                                        <strong>@{{ parentData.title }}</strong><br>
-                                        @{{ parentData.address }}<br>
-                                        <abbr title="Phone">P:</abbr>@{{ parentData.phone }}
-                                    </address>
-
-                                </div>
-                                <div class="m-t-30"  style="width: 30%">
-                                    <h4 class="m-b-25">Invoice To</h4>
-                                    <address>
-                                        <strong>@{{ student.fullName }}</strong><br>
-                                        @{{ student.address }}<br>
-                                        <abbr title="Phone">P:</abbr>@{{ student.phone }}
-                                    </address>
-
-                                </div>
-                                <div class="m-t-30" style="width: 40%;text-align: right;">
-                                    <p><strong>Date: </strong> @{{ formatDate(payment.payment_date) }}</p>
-                                    <p class="m-t-10"><strong>Status: </strong>
-                                        <span class="label label-success" v-if="payment.status=='PAID'">@{{payment.status}}</span>
-                                        <span class="label label-danger"  v-if="!(payment.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>
-                                        <span class="label label-warning" v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
-
-                                    </p>
-                                    {{--<p class="m-t-10"><strong>Order ID: </strong> #123456</p>--}}
-                                </div>
-
-                            </div>
-                            <div class="m-h-50"></div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table m-t-30">
-                                            <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Description</th>
-                                                <th style="text-align: right">Amount</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-
-                                                <td>1</td>
-                                                <td>
-                                                    <span>@{{grade.academic.academicName +' '+term.termName}}</span><br>
-
-                                                    <span>@{{grade.gradeName+' ('+testFormat(term.start_date)+' - '+testFormat(term.end_date)+')'}}</span>
-                                                </td>
-
-                                                <td style="text-align: right">@{{ formatNumber(payment.amount) }}</td>
-                                            </tr>
-                                            <tr v-for="fee,index in fees">
-                                                <td>@{{index+2 }}</td>
-                                                <td>@{{ fee.feeName+ (fee.description?(' ('+ fee.description +') '):'')}}</td>
-                                                <td style="text-align: right">@{{formatNumber(fee.pivot.amount) }}</td>
-
-                                            </tr>
-                                            <tr>
-
-
-                                                <td></td>
-                                                <td></td>
-
-                                                <td style="text-align: right"></td>
-
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" style="border-radius: 0px;">
-                                <div class="col-md-3 col-md-offset-9">
-                                    <h3 class="text-right" style="margin-right: 10px;"><span>$</span> @{{ formatNumber(payment.total) }}</h3>
-                                    <hr style="width: 50%;text-align: right;">
-
-                                    {{--<p class="text-right" style="margin-right: 10px;">Receipt Amount: @{{ formatNumber(payment.total-payment.balance) }}</p>--}}
-
-
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
+            <div class="infostyle">
+                    {{ $info->address }}<br>
+                <abbr title="Phone">P:</abbr>{{ $info->phone }}<br>
+                    {{ $info->email }}<br>
+                    {{ $info->website }}
             </div>
+
+    </div>
+    <hr class="linestyle">
+    <div class="clearfix">
+        <div class="parentstyle">
+            Invoice To <br>
+            {{$guardian->name}}
+            <br>
+            {{$guardian->email}}
+                <br>
+            {{$guardian->address}}
+                <br>
+                <abbr title="Phone">P:</abbr>   {{$guardian->phone}}
+
         </div>
-    </invoice-view>
+        <div class="invoiceinfo">
+            <p>
+           Invoice Number:  {{$payment->invoice}}
+            </p>
+
+            <br>
+            <p>
+           Invoice Date: {{$payment->payment_date->format('Y-m-d')}}
+            </p>
+
+            <br>
+            @if($payment->status !='PAID')
+            <p >
+           Due Date: {{$payment->due_date->format('Y-m-d')}}
+            </p>
+            @endif
+
+            <br>
+            <p>
+            Status:
+                @if($payment->status =='PAID')
+                    <span class="label label-success">PAID</span>
+                @elseif( !($payment->status =='UNPAID' && $payment->due_date< \Carbon\Carbon::today()))
+                            <span class="label label-danger">UNPAID</span>
+                @elseif( ($payment->status =='UNPAID' && $payment->due_date< \Carbon\Carbon::today()))
+                    <span class="label label-warning">OVERDUE</span>
+                @endif
+            </p>
+
+        </div>
+
+    </div>
+    <table class="table m-t-30">
+        <thead>
+        <tr>
+            <th style="width:5%;">#</th>
+            <th style="width: 75%;">Description</th>
+            <th style="text-align: right;width: 20%;">Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>
+                <span>{{$payment->grade->academic->academicName}}</span>
+                <span>{{$payment->term->termName}}</span>
+                <br>
+
+                <span>{{$payment->grade->gradeName}}</span>
+                <span>({{$payment->term->start_date->format('F d,Y') .'-'.$payment->term->end_date->format('F d,Y')}})</span>
+            </td>
+            <td style="text-align: right">{{number_format($payment->amount)}}</td>
+        </tr>
+        @foreach($payment->fees as $index=>$fee )
+        <tr>
+                <td>{{$index+2 }}</td>
+                <td>{{ $fee->feeName. ($fee->description?(' ('. $fee->description .') '):'')}}</td>
+                <td style="text-align: right">{{number_format($fee->pivot->amount) }}</td>
+
+        </tr>
+        @endforeach
+        <tr>
+            <td></td>
+            <td style="text-align: right;"><h3>Total </h3></td>
+            <td style="text-align: right;"><h3><span>$</span>{{number_format($payment->total)}}</h3></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <div class="row">
+        <div style="margin-top:10px;margin-left: 10px;margin-right:10px;border:1px;border:1px solid #E3E5E6;">
+            <h4 style="margin-left: 10px;">Instruction</h4><br>
+            <div style="margin-left: 20px;margin-bottom: 20px;">
+                {!! $info->instruction !!}
+            </div>
+
+
+        </div>
+    </div>
 </div>
-<script src="{{URL::asset('js/jquery-3.1.1.min.js')}}"></script>
-<script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
-<script src="{{URL::asset('js/manifest.js')}}" type="text/javascript"></script>
-<script src="{{URL::asset('js/vendor.js')}}" type="text/javascript"></script>
-<script src="{{URL::asset('js/app.js')}}" type="text/javascript"></script>
-<script src="{{URL::asset('js/pace.min.js')}}" type="text/javascript"></script>
-<script src="{{URL::asset('js/wow.min.js')}}"></script>
-<script src="{{URL::asset('js/jquery.nicescroll.js')}}" type="text/javascript"></script>
-<script src="{{URL::asset('js/common.js')}}" type="text/javascript"></script>
-@yield('script')
 </body>
 </html>
 
 
-{{--<div class="hidden-print">--}}
-{{--<div class="pull-right">--}}
-{{--<button @click="print" class="btn btn-inverse" style="margin-right: 30px;"><i class="fa fa-print"></i> Print</button>--}}
-{{--</div>--}}
-{{--</div>--}}

@@ -157,11 +157,11 @@ module.exports= {
         this.student.em_relation = student.em_relation;
         this.student.em_contact = student.em_contact;
         this.student.student_live = student.student_live;
-        this.personal_info = student.student_personal_information;
-        this.education = student.student_background;
-        this.sibling_info = student.sibling_information;
-        this.medical = student.student_medical;
-        this.guardian = student.student_guardian;
+        if(student.student_personal_information !=null)this.personal_info = student.student_personal_information;
+        if(student.student_background !=null)this.education = student.student_background;
+        if( student.sibling_information !=null)this.sibling_info = student.sibling_information;
+        if(student.student_medical !=null)this.medical = student.student_medical;
+        if(student.student_guardian !=null)this.guardian = student.student_guardian;
       }).catch(error => {
         if (error.response.status == 401 || error.response.status == 419) {
           window.location.href = route.urls.login;

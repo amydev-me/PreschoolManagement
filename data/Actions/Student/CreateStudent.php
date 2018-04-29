@@ -48,7 +48,7 @@ class CreateStudent extends BaseStudentAction
             $student->profile = $this->storeImage();
             $_student = $this->repository->create((array)$student);
             if ($_student) {
-
+//
                 $personal_info->student_id = $_student['id'];
                 $education->student_id = $_student['id'];
                 $education->one_file = $this->storeFile('edu_one');

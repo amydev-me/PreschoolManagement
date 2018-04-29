@@ -71,7 +71,7 @@ module.exports= {
         epilepsy_remark:null,
         tuberculosis:false,
         tuberculosis_remark:null,
-        others_check:null,
+        others_check:false,
         others:null,
         medication:null,
         immunized:null,
