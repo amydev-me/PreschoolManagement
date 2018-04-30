@@ -15,6 +15,30 @@
                             <a   class="btn btn-primary btn-sm" :href="'/admin/payment/create'">  <i class="fa fa-plus"></i>Add a invoice</a>
                         </div>
                     </div>
+                    <div class="col-sm-6" style="text-align:right;">
+
+                        <div class="radio-inline">
+                            <label class="cr-styled" for="example-radio4">
+                                <input type="radio" id="example-radio4" name="status-filter" v-model="status" value="paid" @change="loaddata">
+                                <i class="fa"></i>
+                                PAID
+                            </label>
+                        </div>
+                        <div class="radio-inline">
+                            <label class="cr-styled" for="example-radio5">
+                                <input type="radio" id="example-radio5" name="status-filter" v-model="status" value="unpaid" @change="loaddata">
+                                <i class="fa"></i>
+                                UNPAID
+                            </label>
+                        </div>
+                        <div class="radio-inline">
+                            <label class="cr-styled" for="example-radio6">
+                                <input type="radio" id="example-radio6" name="status-filter" v-model="status" value="overdue" @change="loaddata">
+                                <i class="fa"></i>
+                                OVERDUE
+                            </label>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -65,7 +89,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        {{--<vue-pagination  :length.number="pagination.last_page" v-model="pagination.current_page" @input="searchClick"></vue-pagination>--}}
+                        <vue-pagination  :length.number="pagination.last_page" v-model="pagination.current_page" @input="loaddata"></vue-pagination>
                     </div>
                 </div>
             </div>

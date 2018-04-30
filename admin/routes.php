@@ -194,6 +194,9 @@ Route::middleware('web')->group(function() {
             Route::name('delete')->get('delete/{id}', 'PaymentController@delete');
             Route::name('by_student')->get('by_student', 'PaymentController@getByStudent');
             Route::name('export_pdf')->get('export_pdf', 'MailController@getDetail');
+            Route::name('get-paid')->get('get-paid', 'PaymentController@getPaidInvoice');
+            Route::name('get-unpaid')->get('get-unpaid', 'PaymentController@getUnpaidInvoice');
+            Route::name('get-overdue')->get('get-overdue', 'PaymentController@getOverDueInvoice');
         });
         Route::name('invoice')->get('invoice', 'MailController@getDetail');
     });

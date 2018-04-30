@@ -10,6 +10,7 @@ namespace Admin\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Data\Actions\Payment\CreatePayment;
 use Data\Actions\Payment\DeletePayment;
 use Data\Actions\Payment\GetPaymentDetail;
@@ -34,7 +35,8 @@ class PaymentController extends Controller
         return response()->json(['success' => $result]);
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $action = new UpdatePayment($this->repository, $request->all());
         $result = $action->invoke();
         return response()->json(['success' => $result]);
@@ -50,9 +52,10 @@ class PaymentController extends Controller
         return response()->json($payments);
     }
 
-    public function getDetail(Request $request){
-        $action=new GetPaymentDetail($this->repository,$request->all());
-        $result= $action->invoke();
+    public function getDetail(Request $request)
+    {
+        $action = new GetPaymentDetail($this->repository, $request->all());
+        $result = $action->invoke();
         return response()->json($result);
     }
 
@@ -64,15 +67,55 @@ class PaymentController extends Controller
         return response()->json(['success' => $result]);
     }
 
-    public function getByStudent(Request $request){
-        $student_id=$request->student_id;
-        $payments=Payment::with(['student' => function ($q) {
+    public function getByStudent(Request $request)
+    {
+        $student_id = $request->student_id;
+        $payments = Payment::with(['student' => function ($q) {
             $q->select('id', 'fullName');
         }, 'term' => function ($q) {
             $q->select('id', 'termName');
-        }, 'grade'])->whereHas('student',function($q) use($student_id){
-            $q->where('id',$student_id);
+        }, 'grade'])->whereHas('student', function ($q) use ($student_id) {
+            $q->where('id', $student_id);
         })->get();
+        return response()->json($payments);
+    }
+
+    public function getPaidInvoice()
+    {
+        $payments = Payment::with(['student' => function ($q) {
+            $q->select('id', 'fullName');
+        }, 'term' => function ($q) {
+            $q->select('id', 'termName');
+        }, 'grade'])
+        ->where('status','PAID')
+        ->orderByDesc('payment_date')
+        ->paginate(20);
+        return response()->json($payments);
+    }
+
+    public function getUnpaidInvoice(){
+        $payments = Payment::with(['student' => function ($q) {
+            $q->select('id', 'fullName');
+        }, 'term' => function ($q) {
+            $q->select('id', 'termName');
+        }, 'grade'])
+            ->where('status','UNPAID')
+            ->where('due_date','>',Carbon::today())
+            ->orderByDesc('payment_date')
+            ->paginate(20);
+        return response()->json($payments);
+    }
+
+    public function getOverDueInvoice(){
+        $payments = Payment::with(['student' => function ($q) {
+            $q->select('id', 'fullName');
+        }, 'term' => function ($q) {
+            $q->select('id', 'termName');
+        }, 'grade'])
+            ->where('status','UNPAID')
+            ->where('due_date','<',Carbon::today())
+            ->orderByDesc('payment_date')
+            ->paginate(20);
         return response()->json($payments);
     }
 }

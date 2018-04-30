@@ -10,14 +10,14 @@
                             <div class="row">
                                 <h3 class="pull-left">Attendance Details</h3>
                                 <div class="btn-group pull-right m-t-15" data-toggle="buttons">
-                                    <label class="btn btn-primary active" @click="checkboxchecked('P')">
-                                        <input type="radio" name="status"    > Present
+                                    <label class="btn btn-primary attstatus active" @click="checkboxchecked('P')">
+                                        <input type="radio" name="status"   class="attstatus" > Present
                                     </label>
-                                    <label class="btn btn-primary" @click="checkboxchecked('A')">
-                                        <input type="radio" name="status"    > Absent
+                                    <label class="btn btn-primary attstatus" @click="checkboxchecked('A')">
+                                        <input type="radio" name="status"   class="attstatus" > Absent
                                     </label>
-                                    <label class="btn btn-primary" @click="checkboxchecked('L')">
-                                        <input type="radio" name="status"    > Leave
+                                    <label class="btn btn-primary attstatus" @click="checkboxchecked('L')">
+                                        <input type="radio" name="status"> Leave
                                     </label>
                                 </div>
                             </div>

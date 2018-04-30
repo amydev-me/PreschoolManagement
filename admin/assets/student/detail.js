@@ -98,18 +98,7 @@ module.exports={
           g_two_work: null
         }
       },
-      guardian:{
-        id:null,
-        firstName: null,
-        lastName: null,
-        fullName:null,
-        email: null,
-        phone: null,
-        relation: null,
-        occupation: null,
 
-        address: null
-      },
       terms:[]
     }
   },
@@ -167,7 +156,7 @@ module.exports={
         if(student.student_background !=null)this.education = student.student_background;
         if( student.sibling_information !=null)this.sibling_info = student.sibling_information;
         if(student.student_medical !=null)this.medical = student.student_medical;
-        if(student.student_guardian !=null)this.guardian = student.student_guardian;
+        if(student.student_guardian !=null)this.student.student_guardian = student.student_guardian;
         if(student.grade !=null) {
           this.gradeName=student.grade.gradeName;
         }
