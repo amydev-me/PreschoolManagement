@@ -47,7 +47,7 @@ class MailController extends Controller
         }
 
 
-    return $toMails;
+
         $filename = $payment->invoice . '_1.pdf';
         $student = new \stdClass();
         $student->name = $_student['fullName'];
