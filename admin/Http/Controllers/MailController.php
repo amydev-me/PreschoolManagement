@@ -53,14 +53,14 @@ class MailController extends Controller
         $student->name = $_student['fullName'];
         $student->grade = $_student->grade['gradeName'];
         $pdf = PDF::loadView('payment.viewok', compact('info', 'payment', 'student'))->stream($filename);;
-        foreach ( $toMails as $mail){
-            Mail::send('test', [], function ($message) use ($filename, $mail, $pdf) {
-                $message->to($mail);
-                $message->subject('Central Park Invoice');
-                $message->from('info@schoolapp.axiom.com.mm','Central Park');
-                $message->attachData($pdf, $filename, ['mime' => 'application/pdf']);
-            });
-        }
+        Mail::send('test', [], function ($message) use ($filename, $pdf,$toMails) {
+
+            $message->to($toMails);
+            $message->subject('Central Park Invoice');
+            $message->from('info@schoolapp.axiom.com.mm','Central Park');
+            $message->attachData($pdf, $filename, ['mime' => 'application/pdf']);
+        });
+        return redirect()->back();
 //        foreach ( $toMails as $mail){
 //        Mail::queue(new ClientMail($pdf,$filename,$mail));
 //            Mail::queue('test', [], function ($message) use ($filename, $toMails, $pdf) {
