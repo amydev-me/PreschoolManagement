@@ -31,13 +31,13 @@
     <div class="clearfix">
         <div class="parentstyle">
             Invoice To <br>
-            {{$guardian->name}}
+            {{$student->name}}
             <br>
-            {{$guardian->email}}
-                <br>
-            {{$guardian->address}}
-                <br>
-                <abbr title="Phone">P:</abbr>   {{$guardian->phone}}
+            {{$student->grade}}
+                {{--<br>--}}
+            {{--{{$guardian->address}}--}}
+                {{--<br>--}}
+                {{--<abbr title="Phone">P:</abbr>   {{$guardian->phone}}--}}
 
         </div>
         <div class="invoiceinfo">

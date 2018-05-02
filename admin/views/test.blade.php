@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html>
+<head></head>
+<body>
+<h1>Invoice Form Central Park</h1>
+<b>Hello,</b>
 
-
-</head>
-<body >
-    <div>
-        <h1>Central Park Invoice </h1>
-    </div>
 </body>
 </html>
-
-
