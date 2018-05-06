@@ -21,7 +21,10 @@ module.exports= {
         invoice_logo:null,
         remove_invoicelogo:false,
         instruction:null,
-        business_type:null
+        business_type:null,
+        email_subject:null,
+        email_password:null,
+        email_text:null
       },
       showremove: false,
       showinvoice_remove:false
@@ -61,6 +64,7 @@ module.exports= {
     },
     performAction (url) {
       this.info.instruction=$("#instruction_text").data("wysihtml5").editor.getValue();
+      this.info.email_text=$("#email_text").data("wysihtml5").editor.getValue();
       let data = new FormData();
       data.set('title', this.info.title);
       data.set('email', this.info.email);
@@ -78,7 +82,9 @@ module.exports= {
       data.set('remove', this.info.remove);
       data.set('instruction', this.info.instruction);
       data.set('business_type', this.info.business_type);
-
+      data.set('email_subject', this.info.email_subject);
+      data.set('email_password', this.info.email_password);
+      data.set('email_text', this.info.email_text);
       const config = {headers: {'Content-Type': 'multipart/form-data'}};
       axios.post(url, data, config).then(response => {
         console.log(response.data);
@@ -111,7 +117,13 @@ module.exports= {
           this.info.invoice_logo=info.invoice_logo;
           this.info.instruction=info.instruction=="null"?'':info.instruction;
           this.info.business_type=info.business_type=="null"?'':info.business_type;
+          this.info.email_subject=info.email_subject=="null"?'':info.email_subject;
+          this.info.email_password=info.email_password=="null"?'':info.email_password;
+          this.info.email_text=info.email_text=="null"?'':info.email_text;
 
+
+
+          $("#email_text").data("wysihtml5").editor.setValue(info.email_text);
             $("#instruction_text").data("wysihtml5").editor.setValue(info.instruction);
 
           if (info.logo == null) {
@@ -146,6 +158,17 @@ module.exports= {
       "blockquote": true, //Blockquote
       "stylesheets": false
       });
+    $('#email_text').wysihtml5({
+      "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+      "emphasis": true, //Italics, bold, etc. Default true
+      "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+      "html": false, //Button which allows you to edit the generated HTML. Default false
+      "link": true, //Button to insert a link. Default true
+      "image": false, //Button to insert an image. Default true,
+      "color": false, //Button to change color of font
+      "blockquote": true, //Blockquote
+      "stylesheets": false
+    });
     // $('.wysihtml5').wysihtml5();
     this.asyncacademics();
   }

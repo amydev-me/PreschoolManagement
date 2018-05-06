@@ -1,8 +1,6 @@
 <html>
 <head></head>
 <body>
-<h1>Invoice Form Central Park</h1>
-<b>Hello,</b>
-
+{!! $info->email_text !!}
 </body>
 </html>

@@ -1,5 +1,5 @@
-<div class="tab-pane fade animated bounceInRight" id="employee_detail">
-    <form class="form-horizontal"  @submit.prevent="validateData('employee_form')" data-vv-scope="employee_form" autocomplete="off">
+<div class="tab-pane" id="employee_detail">
+    <form class="form-horizontal animated bounceInRight"  @submit.prevent="validateData('employee_form')" data-vv-scope="employee_form" autocomplete="off">
         <div class="form-group">
             <label class="control-label col-sm-2" for="biography">Biography:</label>
             <div class="col-sm-10">

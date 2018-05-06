@@ -35,6 +35,7 @@ module.exports= {
     getoverdueinvoice(){
       axios.get('/admin/payment/get-overdue?page='+this.pagination.current_page).then(({data})=>{
         this.payments=data.data;
+
         this.pagination=data;
       });
     },

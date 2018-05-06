@@ -10,6 +10,8 @@ namespace Admin\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
+
+use App\Jobs\SendInvoiceEmail;
 use Data\Models\BusinessInfo;
 use Data\Models\Payment;
 use Data\Repositories\PaymentRepository;
@@ -46,23 +48,28 @@ class MailController extends Controller
             }
         }
 
+        $filename = $payment->invoice . '.pdf';
 
-
-        $filename = $payment->invoice . '_1.pdf';
         $student = new \stdClass();
         $student->name = $_student['fullName'];
         $student->grade = $_student->grade['gradeName'];
-        $pdf = PDF::loadView('payment.viewok', compact('info', 'payment', 'student'))->stream($filename);;
-        Mail::send('test', [], function ($message) use ($filename, $pdf,$toMails) {
+
+        $pdf = PDF::loadView('payment.viewok', compact('info', 'payment', 'student'))->stream($filename);
+
+
+        Mail::send('test', ['info'=>$info], function ($message) use ($filename, $pdf,$toMails,$info) {
 
             $message->to($toMails);
-            $message->subject('Central Park Invoice');
+            $message->subject($info->email_subject);
             $message->from('info@schoolapp.axiom.com.mm','Central Park');
             $message->attachData($pdf, $filename, ['mime' => 'application/pdf']);
         });
         return redirect()->back();
+    }
+}
+
 //        foreach ( $toMails as $mail){
-//        Mail::queue(new ClientMail($pdf,$filename,$mail));
+//        Mail::queue(new ClientMail($data));
 //            Mail::queue('test', [], function ($message) use ($filename, $toMails, $pdf) {
 //                $message->from('info@schoolapp.axiom.com.mm','Central Park');
 //
@@ -71,9 +78,6 @@ class MailController extends Controller
 //
 //            });
 //        }
-
-
-
 //        if ($_guardian['g_two_email']) {
 //            if (filter_var($_guardian['g_two_email'], FILTER_VALIDATE_EMAIL)) {
 //                $filename = $payment->invoice . '_2.pdf';
@@ -95,10 +99,13 @@ class MailController extends Controller
 //
 //            }
 //        }
-    }
-}
-
-
+//        $data=new \stdClass();
+//        $data->pdf=$pdf;
+//        $data->filename=$filename;
+//        $data->emails=$toMails;
+//        $data->title=$info->title;
+//        dispatch(new SendInvoiceEmail());
+//        $this->dispatch((new SendInvoiceEmail()));
 //        return $pdf->download($payment->invoice.'_1.pdf');
 //        PDF::loadView('payment.viewok')->save($cvfilePath);
 //                    Mail::send('test', [], function ($message) use ($filename, $filepath) {
