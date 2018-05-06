@@ -85,16 +85,12 @@
                             <div class="col-sm-10 ">
                                 <div class="fileUpload btn btn-default">
                                     <span>Upload</span>
-                                    <input type="file" class="upload "  @change="newProfile"  name="logo" v-validate="'image'"/>
+                                    <input type="file" class="upload "  @change="newProfile"  name="logo" v-validate="'image|dimensions:32,32'"/>
                                 </div>
                                 <a @click="removelogo" v-show="showremove"> <span class="error"><i class="fa fa-remove"></i>Remove Logo</span></a>
-                                <div v-show="errors.has('logo')"><span class="error">Logo image Required.</span></div>
+                                <div v-show="errors.has('logo')"><span class="error">@{{ errors.first('logo')}}</span></div>
                             </div>
                         </div>
-
-
-
-
 
                         <div class="m-t-30">
                             <hr>
@@ -112,10 +108,10 @@
                             <div class="col-sm-10 ">
                                 <div class="fileUpload btn btn-default">
                                     <span>Upload</span>
-                                    <input type="file" class="upload "  @change="newInvoice"  name="logo" v-validate="'image'"/>
+                                    <input type="file" class="upload "  @change="newInvoice"  name="invoice_logo" v-validate="'image|dimensions:64,64'"/>
                                 </div>
                                 <a @click="removeInvoiceLogo" v-show="showinvoice_remove"> <span class="error"><i class="fa fa-remove"></i>Remove Logo</span></a>
-                                <div v-show="errors.has('logo')"><span class="error">Logo image Required.</span></div>
+                                <div v-show="errors.has('invoice_logo')"><span class="error">@{{ errors.first('invoice_logo')}}</span></div>
                             </div>
                         </div>
 
@@ -153,7 +149,9 @@
                                 <div v-show="errors.has('email_password')"><span class="error">@{{ errors.first('email_password') }}</span></div>
                             </div>
                         </div>
-
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
                     </form>
               </div>
         </business-info>
