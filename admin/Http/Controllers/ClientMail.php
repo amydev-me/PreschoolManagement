@@ -48,6 +48,7 @@ class ClientMail extends Mailable
         }
         return $this
             ->from($this->info->email, $title)
+            ->subject( $subject)
             ->to($this->tomails)
             ->attach($this->file)
             ->view('test', ['info' => $this->info]);
