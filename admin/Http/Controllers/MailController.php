@@ -76,7 +76,7 @@ class MailController extends Controller
                 $message->from('info@schoolapp.axiom.com.mm');
                 $message->to($toMails);
                 $message->subject($subject);
-                $message->from($info->email,$info->titile);
+                $message->from($info->email,$title);
                 $message->attachData($pdf, $filename, ['mime' => 'application/pdf']);
             });
         }
