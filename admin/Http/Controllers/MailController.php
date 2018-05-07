@@ -109,7 +109,7 @@ class MailController extends Controller
         $student->name = $_student['fullName'];
         $student->grade = $_student->grade['gradeName'];
 
-        $pdf = PDF::loadView('payment.viewok', compact('info', 'payment', 'student'))->save($filename);
+
 //            ->stream($filename);
         config(['mail.username'=>$info->email]);
         config(['mail.password'=>$info->email_password]);
