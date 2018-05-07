@@ -199,5 +199,6 @@ Route::middleware('web')->group(function() {
             Route::name('get-overdue')->get('get-overdue', 'PaymentController@getOverDueInvoice');
         });
         Route::name('invoice')->get('invoice', 'MailController@getDetail');
+        Route::name('send-overdue')->get('send-overdue', 'MailController@sendOverdue');
     });
 });

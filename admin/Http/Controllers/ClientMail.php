@@ -18,14 +18,17 @@ class ClientMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-
+    private $info,$file,$tomails;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($info,$file,$tomails)
     {
+        $this->info=$info;
+        $this->file=$file;
+        $this->tomails=$tomails;
     }
 
     /**
@@ -35,6 +38,18 @@ class ClientMail extends Mailable
      */
     public function build()
     {
-        return $this->from('info@schoolapp.axiom.com.mm','Central Park Preschool')->view('test');
+        $subject = 'Invoice';
+        $title = '';
+        if ($this->info->subject) {
+            $subject = $this->info->subject;
+        }
+        if ($this->info->title) {
+            $title = $this->info->title;
+        }
+        return $this
+            ->from($this->info->email, $title)
+            ->to($this->tomails)
+            ->attach($this->file)
+            ->view('test', ['info' => $this->info]);
     }
 }

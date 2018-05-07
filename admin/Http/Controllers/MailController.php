@@ -11,6 +11,7 @@ namespace Admin\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
+use Carbon\Carbon;
 use Data\Models\BusinessInfo;
 use Data\Models\Payment;
 use Data\Repositories\PaymentRepository;
@@ -26,6 +27,57 @@ class MailController extends Controller
     public function __construct(PaymentRepository $payRepo)
     {
         $this->payRepo = $payRepo;
+    }
+    public function sendOverdue()
+    {
+        $info = BusinessInfo::first();
+        config(['mail.username' => $info->email]);
+        config(['mail.password' => $info->email_password]);
+        config(['mail.encryption' => $info->email_encryption]);
+        config(['mail.port' => $info->email_port]);
+        config(['mail.host' => $info->email_host]);
+
+        $payments = Payment::with('fees', 'term', 'student', 'grade', 'grade.academic', 'student.student_guardian')
+            ->where('status', 'UNPAID')->where('due_date', '<', Carbon::today())->get();
+        try {
+            foreach ($payments as $payment) {
+                if (!$payment) return;
+                if (!$payment->student) return;
+                $toMails = [];
+                $_student = $payment->student;
+                $_guardian = $payment->student->student_guardian;
+                if ($_guardian['g_one_email']) {
+                    if (filter_var($_guardian['g_one_email'], FILTER_VALIDATE_EMAIL)) {
+                        array_push($toMails, $_guardian['g_one_email']);
+                    }
+                }
+                if ($_guardian['g_two_email']) {
+                    if (filter_var($_guardian['g_two_email'], FILTER_VALIDATE_EMAIL)) {
+                        array_push($toMails, $_guardian['g_two_email']);
+                    }
+                }
+
+                $filepath = storage_path() . '/app/tmp/';
+                $filename = $filepath . $payment->invoice . '.pdf';
+
+                $student = new \stdClass();
+                $student->name = $_student['fullName'];
+                $student->grade = $_student->grade['gradeName'];
+
+                if (count($toMails) > 0) {
+                    if (!$info->email) redirect()->back();
+                    $pdf = PDF::loadView('payment.viewok', compact('info', 'payment', 'student'))->save($filename);
+                    Mail::queue(new ClientMail($info, $filename, $toMails));
+                    if (!Mail::failures()) {
+                        unlink($filename);
+                    }
+                }
+            }
+            return redirect()->back();
+        } catch (\Exception $exception) {
+            return redirect()->back();
+        }
+
     }
 
     public function getDetail(Request $request)
@@ -48,13 +100,17 @@ class MailController extends Controller
             }
         }
 
-        $filename = $payment->invoice . '.pdf';
+//        $filename = $payment->invoice . '.pdf';
+        $filepath=storage_path().'/app/tmp/';
+        $filename =$filepath. $payment->invoice . '.pdf';
+
 
         $student = new \stdClass();
         $student->name = $_student['fullName'];
         $student->grade = $_student->grade['gradeName'];
 
-        $pdf = PDF::loadView('payment.viewok', compact('info', 'payment', 'student'))->stream($filename);
+        $pdf = PDF::loadView('payment.viewok', compact('info', 'payment', 'student'))->save($filename);
+//            ->stream($filename);
         config(['mail.username'=>$info->email]);
         config(['mail.password'=>$info->email_password]);
         config(['mail.encryption'=>$info->email_encryption]);
@@ -63,22 +119,31 @@ class MailController extends Controller
 
         if(count($toMails)>0){
             if(!$info->email) redirect()->back();
+            $pdf = PDF::loadView('payment.viewok', compact('info', 'payment', 'student'))->save($filename);
 
-            Mail::send('test', ['info'=>$info], function ($message) use ($filename, $pdf,$toMails,$info) {
-                $subject='Invoice';
-                $title='';
-                if($info->subject){
-                    $subject=$info->subject;
-                }
-                if($info->title){
-                    $title=$info->title;
-                }
-                $message->from('info@schoolapp.axiom.com.mm');
-                $message->to($toMails);
-                $message->subject($subject);
-                $message->from($info->email,$title);
-                $message->attachData($pdf, $filename, ['mime' => 'application/pdf']);
-            });
+            Mail::queue(new ClientMail($info,$filename,$toMails));
+            if(!Mail::failures()){
+                //Unlink the attachement file from local
+                unlink($filename);
+
+                //delete file from storage
+                //Storage::delete($filePath);//Uncomment this, if using storage
+            }
+//                'test', ['info'=>$info], function ($message) use ($filename, $pdf,$toMails,$info) {
+//                $subject='Invoice';
+//                $title='';
+//                if($info->subject){
+//                    $subject=$info->subject;
+//                }
+//                if($info->title){
+//                    $title=$info->title;
+//                }
+//
+//                $message->to($toMails);
+//                $message->subject($subjec t);
+//                $message->from($info->email,$title);
+//                $message->attachData($pdf, $filename, ['mime' => 'application/pdf']);
+//            });
         }
 
         return redirect()->back();
