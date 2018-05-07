@@ -38,8 +38,8 @@ mix.js([
   .mix.autoload({ jQuery: 'jquery', $: 'jquery', jquery: 'jquery' })
   .webpackConfig({
     output: {
-      // chunkFilename: mix.inProduction() ? 'js/chunks/[name].[chunkhash].js' : 'chunks/[name].js',
-      chunkFilename: `js/[name].chunk.js`,
+      chunkFilename: mix.inProduction() ? 'js/chunks/[name].[chunkhash].js' : 'chunks/[name].js',
+      // chunkFilename: `js/[name].chunk.js`,
       publicPath: '/',
     },
   })
