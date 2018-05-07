@@ -40,8 +40,8 @@ class ClientMail extends Mailable
     {
         $subject = 'Invoice';
         $title = '';
-        if ($this->info->subject) {
-            $subject = $this->info->subject;
+        if ($this->info->email_subject) {
+            $subject = $this->info->email_subject;
         }
         if ($this->info->title) {
             $title = $this->info->title;
