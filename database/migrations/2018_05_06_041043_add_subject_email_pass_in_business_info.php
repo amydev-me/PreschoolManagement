@@ -15,7 +15,7 @@ class AddSubjectEmailPassInBusinessInfo extends Migration
     {
         Schema::table('business_infos', function (Blueprint $table) {
             $table->string('email_subject', 500)->nullable();
-            $table->string('email_password', 255)->nullable();
+
             $table->mediumText('email_text')->nullable();
         });
     }

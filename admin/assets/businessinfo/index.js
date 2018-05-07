@@ -22,6 +22,9 @@ module.exports= {
         remove_invoicelogo:false,
         instruction:null,
         business_type:null,
+        email_host:'smtp.mailtrap.io',
+        email_port:2525,
+        email_encryption:'ssl',
         email_subject:null,
         email_password:null,
         email_text:null
@@ -44,8 +47,9 @@ module.exports= {
         this.info.logo = files[0];
       }
     },
-    submit () {
-      this.$validator.validateAll().then(successsValidate => {
+
+    submit (scope) {
+      this.$validator.validateAll(scope).then(successsValidate => {
         if (successsValidate) {
           let url = this.info.id == null ? '/api/info/create' : '/api/info/edit';
           this.performAction(url);
@@ -67,7 +71,7 @@ module.exports= {
       this.info.email_text=$("#email_text").data("wysihtml5").editor.getValue();
       let data = new FormData();
       data.set('title', this.info.title);
-      data.set('email', this.info.email);
+
       data.set('website', this.info.website);
       data.set('facebook', this.info.facebook);
       data.set('phone', this.info.phone);
@@ -82,13 +86,17 @@ module.exports= {
       data.set('remove', this.info.remove);
       data.set('instruction', this.info.instruction);
       data.set('business_type', this.info.business_type);
+      data.set('email', this.info.email);
       data.set('email_subject', this.info.email_subject);
       data.set('email_password', this.info.email_password);
       data.set('email_text', this.info.email_text);
+      data.set('email_host', this.info.email_host);
+      data.set('email_port', this.info.email_port);
+      data.set('email_encryption', this.info.email_encryption);
       const config = {headers: {'Content-Type': 'multipart/form-data'}};
       axios.post(url, data, config).then(response => {
-        console.log(response.data);
-        window.location.href = '/';
+        // console.log(response.data);
+        // window.location.href = '/';
 
       }).catch(error => {
         if (error.response.status == 401 || error.response.status == 419) {
@@ -104,7 +112,7 @@ module.exports= {
           let info = response.data.information;
           this.info.id = info.id;
           this.info.title = info.title=="null"?'':info.title;
-          this.info.email = info.email=="null"?'':info.email;
+
           this.info.website = info.website=="null"?'':info.website;
           this.info.facebook = info.facebook=="null"?'':info.facebook;
           this.info.phone = info.phone=="null"?'':info.phone;
@@ -117,10 +125,17 @@ module.exports= {
           this.info.invoice_logo=info.invoice_logo;
           this.info.instruction=info.instruction=="null"?'':info.instruction;
           this.info.business_type=info.business_type=="null"?'':info.business_type;
+
+
+          this.info.email = info.email=="null"?'':info.email;
           this.info.email_subject=info.email_subject=="null"?'':info.email_subject;
           this.info.email_password=info.email_password=="null"?'':info.email_password;
           this.info.email_text=info.email_text=="null"?'':info.email_text;
-
+          this.info.email_subject=info.email_subject=="null"?'':info.email_subject;
+          this.info.email_text=info.email_text=="null"?'':info.email_text;
+          this.info.email_host=info.email_host=="null"?'':info.email_host;
+          this.info.email_port=info.email_port=="null"?'':info.email_port;
+          this.info.email_encryption=info.email_encryption=="null"?'':info.email_encryption;
 
 
           $("#email_text").data("wysihtml5").editor.setValue(info.email_text);
@@ -139,12 +154,6 @@ module.exports= {
         }
       });
     },
-    asyncacademics () {
-      axios.get(_asyncacademic).then(({data}) => {
-        this.academics = data;
-        this.getDetail();
-      });
-    }
   },
   mounted () {
     $('#instruction_text').wysihtml5({
@@ -169,7 +178,7 @@ module.exports= {
       "blockquote": true, //Blockquote
       "stylesheets": false
     });
-    // $('.wysihtml5').wysihtml5();
-    this.asyncacademics();
+    // $('.wysihtml5').wysihtml5(); this.asyncacademics();
+    this.getDetail();
   }
 }

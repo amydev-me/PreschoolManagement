@@ -11,12 +11,12 @@ namespace Admin\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
-use App\Jobs\SendInvoiceEmail;
 use Data\Models\BusinessInfo;
 use Data\Models\Payment;
 use Data\Repositories\PaymentRepository;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
@@ -55,15 +55,32 @@ class MailController extends Controller
         $student->grade = $_student->grade['gradeName'];
 
         $pdf = PDF::loadView('payment.viewok', compact('info', 'payment', 'student'))->stream($filename);
+        config(['mail.username'=>$info->email]);
+        config(['mail.password'=>$info->email_password]);
+        config(['mail.encryption'=>$info->email_encryption]);
+        config(['mail.port'=>$info->email_port]);
+        config(['mail.host'=>$info->email_host]);
 
+        if(count($toMails)>0){
+            if(!$info->email) redirect()->back();
 
-        Mail::send('test', ['info'=>$info], function ($message) use ($filename, $pdf,$toMails,$info) {
+            Mail::send('test', ['info'=>$info], function ($message) use ($filename, $pdf,$toMails,$info) {
+                $subject='Invoice';
+                $title='';
+                if($info->subject){
+                    $subject=$info->subject;
+                }
+                if($info->title){
+                    $title=$info->title;
+                }
+                $message->from('info@schoolapp.axiom.com.mm');
+                $message->to($toMails);
+                $message->subject($subject);
+                $message->from($info->email,$info->titile);
+                $message->attachData($pdf, $filename, ['mime' => 'application/pdf']);
+            });
+        }
 
-            $message->to($toMails);
-            $message->subject($info->email_subject);
-            $message->from('info@schoolapp.axiom.com.mm','Central Park');
-            $message->attachData($pdf, $filename, ['mime' => 'application/pdf']);
-        });
         return redirect()->back();
     }
 }

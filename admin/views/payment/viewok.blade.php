@@ -20,10 +20,10 @@
                 </div>
             </div>
             <div class="infostyle">
-                    {{ $info->address }}<br>
-                <abbr title="Phone">P:</abbr>{{ $info->phone }}<br>
-                    {{ $info->email }}<br>
-                    {{ $info->website }}
+                    {{ $info->address?$info->address:'' }}<br>
+                <abbr title="Phone">P:</abbr>{{ $info->phone?$info->phone:''}}<br>
+                    {{ $info->email ?$info->email:''}}<br>
+                    {{ $info->website ?$info->website:''}}
             </div>
 
     </div>

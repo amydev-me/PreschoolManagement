@@ -25,50 +25,52 @@ class EditBusinessInfo extends BaseBusinessInfoAction
 
     protected function perform()
     {
-        $info = $this->_req->except('remove','remove_invoicelogo');
+        $info = $this->_req->except('remove', 'remove_invoicelogo');
 
         $_info = $this->repository->getInfo();
 
         if ($_info) {
 
-                if ($this->request()['remove'] =='true') {
-                    $this->removeImage($_info['logo']);
-                    $_info['logo'] = null;
+            if ($this->request()['remove'] == 'true') {
+                $this->removeImage($_info['logo']);
+                $_info['logo'] = null;
 
-                }
-                if ($this->request()['remove_invoicelogo']=='true') {
-                    $this->removeImage($_info['invoice_logo']);
-                    $_info['invoice_logo'] = null;
-                }
+            }
+            if ($this->request()['remove_invoicelogo'] == 'true') {
+                $this->removeImage($_info['invoice_logo']);
+                $_info['invoice_logo'] = null;
+            }
 
-                if ($this->_req->hasFile('logo')) {
-                    $this->removeImage($_info['logo']);
-                    $img = new BusinessImage($info['logo']);
-                    $img->store();
-                    $info['logo'] = $this->storeImage($info['logo']);
+            if ($this->_req->hasFile('logo')) {
+                $this->removeImage($_info['logo']);
+                $img = new BusinessImage($info['logo']);
+                $img->store();
+                $info['logo'] = $this->storeImage($info['logo']);
 
-                }else{
+            } else {
 
-                    $info['logo'] = $_info['logo'];
-                }
+                $info['logo'] = $_info['logo'];
+            }
 
-                if ($this->_req->hasFile('invoice_logo')) {
-                    $this->removeImage($_info['invoice_logo']);
-                    $img = new BusinessImage($info['invoice_logo']);
-                    $img->store();
-                    $info['invoice_logo'] = $this->storeImage($info['invoice_logo']);
-                }
-                else{
+            if ($this->_req->hasFile('invoice_logo')) {
+                $this->removeImage($_info['invoice_logo']);
+                $img = new BusinessImage($info['invoice_logo']);
+                $img->store();
+                $info['invoice_logo'] = $this->storeImage($info['invoice_logo']);
+            } else {
 
-                    $info['invoice_logo'] = $_info['invoice_logo'];
-                }
-
-
-
-
+                $info['invoice_logo'] = $_info['invoice_logo'];
+            }
 
 
             $this->repository->update($info, $_info['id']);
+
+
+            config(['mail.username' => $info['email']]);
+            config(['mail.password' => $info['email_password']]);
+            config(['mail.encryption' =>$info['email_encryption']]);
+            config(['mail.port' => $info['email_port']]);
+            config(['mail.host' =>$info['email_host']]);
             return true;
         }
 

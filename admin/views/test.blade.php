@@ -1,6 +1,9 @@
 <html>
 <head></head>
 <body>
-{!! $info->email_text !!}
+    @if($info->email_text)
+        {!! $info->email_text !!}
+        @endif
+
 </body>
 </html>
