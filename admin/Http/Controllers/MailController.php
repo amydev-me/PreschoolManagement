@@ -39,7 +39,7 @@ class MailController extends Controller
 
         $payments = Payment::with('fees', 'term', 'student', 'grade', 'grade.academic', 'student.student_guardian')
             ->where('status', 'UNPAID')->where('due_date', '<', Carbon::today())->get();
-        try {
+//        try {
             foreach ($payments as $payment) {
                 if (!$payment) return;
                 if (!$payment->student) return;
@@ -74,9 +74,9 @@ class MailController extends Controller
                 }
             }
             return redirect()->back();
-        } catch (\Exception $exception) {
-            return redirect()->back();
-        }
+//        } catch (\Exception $exception) {
+//            return redirect()->back();
+//        }
 
     }
 
@@ -99,18 +99,11 @@ class MailController extends Controller
                 array_push($toMails,$_guardian['g_two_email']);
             }
         }
-
-//        $filename = $payment->invoice . '.pdf';
         $filepath=storage_path().'/app/tmp/';
         $filename =$filepath. $payment->invoice . '.pdf';
-
-
         $student = new \stdClass();
         $student->name = $_student['fullName'];
         $student->grade = $_student->grade['gradeName'];
-
-
-//            ->stream($filename);
         config(['mail.username'=>$info->email]);
         config(['mail.password'=>$info->email_password]);
         config(['mail.encryption'=>$info->email_encryption]);
@@ -123,76 +116,10 @@ class MailController extends Controller
 
             Mail::queue(new ClientMail($info,$filename,$toMails));
             if(!Mail::failures()){
-                //Unlink the attachement file from local
                 unlink($filename);
-
-                //delete file from storage
-                //Storage::delete($filePath);//Uncomment this, if using storage
             }
-//                'test', ['info'=>$info], function ($message) use ($filename, $pdf,$toMails,$info) {
-//                $subject='Invoice';
-//                $title='';
-//                if($info->subject){
-//                    $subject=$info->subject;
-//                }
-//                if($info->title){
-//                    $title=$info->title;
-//                }
-//
-//                $message->to($toMails);
-//                $message->subject($subjec t);
-//                $message->from($info->email,$title);
-//                $message->attachData($pdf, $filename, ['mime' => 'application/pdf']);
-//            });
         }
 
         return redirect()->back();
     }
 }
-
-//        foreach ( $toMails as $mail){
-//        Mail::queue(new ClientMail($data));
-//            Mail::queue('test', [], function ($message) use ($filename, $toMails, $pdf) {
-//                $message->from('info@schoolapp.axiom.com.mm','Central Park');
-//
-//                $message->to('moesat68@googlemail.com','yarohkado@gmail.com');
-//                $message->subject('HI');
-//
-//            });
-//        }
-//        if ($_guardian['g_two_email']) {
-//            if (filter_var($_guardian['g_two_email'], FILTER_VALIDATE_EMAIL)) {
-//                $filename = $payment->invoice . '_2.pdf';
-//                $guardian = new \stdClass();
-//                $guardian->name = $_guardian['g_two_name'];
-//                $guardian->email = $_guardian['g_two_email'];
-//                $guardian->address = $_guardian['g_two_address'];
-//                $guardian->phone = $_guardian['g_two_mobile'] . ',' . $_guardian['g_two_home'] . ',' . $_guardian['g_two_work'];
-//
-//                $to = $guardian->email;
-//                $pdf = PDF::loadView('payment.viewok', compact('info', 'payment', 'guardian'))->stream($filename);
-//
-//                Mail::send('test', ['pdf' => $pdf], function ($message) use ($filename, $to, $pdf) {
-//                    $message->from('info@schoolapp.axiom.com.mm');
-//                    $message->to($to)->subject('Invoice From Central Park');
-//
-//                    $message->attachData($pdf, $filename, ['mime' => 'application/pdf']);
-//                });
-//
-//            }
-//        }
-//        $data=new \stdClass();
-//        $data->pdf=$pdf;
-//        $data->filename=$filename;
-//        $data->emails=$toMails;
-//        $data->title=$info->title;
-//        dispatch(new SendInvoiceEmail());
-//        $this->dispatch((new SendInvoiceEmail()));
-//        return $pdf->download($payment->invoice.'_1.pdf');
-//        PDF::loadView('payment.viewok')->save($cvfilePath);
-//                    Mail::send('test', [], function ($message) use ($filename, $filepath) {
-//                        $message->from('info@schoolapp.axiom.com.mm');
-//                        $message->to('moesat68@googlemail.com')->subject('Invoice From Central Park');
-//
-//                        $message->attach($filepath);
-//                    });
