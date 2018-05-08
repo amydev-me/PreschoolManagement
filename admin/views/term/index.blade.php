@@ -58,7 +58,7 @@
                                 <tr v-for="term,index in terms">
                                     <td>@{{index+1}}</td>
                                     <td>@{{term.termName}}</td>
-                                    <td>@{{term.category.categoryName}}</td>
+                                    <td>@{{term.category?term.category.categoryName:''}}</td>
                                     <td>@{{testFormat(term.start_date)}}</td>
                                     <td>@{{testFormat(term.end_date)}}</td>
                                     <td>@{{testFormat(term.due_date)}}</td>
