@@ -65,6 +65,12 @@
                 <div class="panel"  v-cloak>
                     <div class="panel-body">
                         <div class="tab-content active">
+
+                            <div class="notice notice-warning m-b-30">
+                                <strong>Note :</strong>   Create a year and grade before create a new student.
+                            </div>
+
+
                             @include('student.create-include.personal-info')
                             @include('student.create-include.background')
                             @include('student.create-include.siblings-info')

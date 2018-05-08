@@ -21,6 +21,7 @@
             <div class="panel-body">
                 <div class="form">
                     <form class="cmxform form-horizontal tasi-form" role="form" @submit.prevent="submitdata">
+
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Date :</label>
                             <div class="col-sm-10">
@@ -129,6 +130,12 @@
                                 <a :href="'/admin/payment'" class="btn btn-default" type="button">Cancel</a>
                                 <button class="btn btn-info" type="submit">Save</button>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="notice notice-warning">
+                                <strong>Note :</strong>   Student assign in grade,create term and fees before create a new invoice.
+                            </div>
+
                         </div>
                     </form>
                 </div>

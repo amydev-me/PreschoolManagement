@@ -13,6 +13,8 @@
     <manage-grade inline-template>
         <div class="panel" v-cloak>
             <div class="panel-body">
+
+
                 <div class="form">
                     <form class="cmxform form-horizontal tasi-form" role="form" @submit.prevent="submitdata">
                             <div class="form-group">
@@ -66,6 +68,11 @@
                             </div>
                         </div>
                     </form>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12  notice notice-warning">
+                        <strong>Note :</strong>   Create a year and category before create a new grade.
+                    </div>
                 </div>
             </div>
         </div>

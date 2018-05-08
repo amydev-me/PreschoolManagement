@@ -18,6 +18,12 @@
                                         <form class="form-horizontal" role="form" @submit.prevent="submitdata">
                                             <div class="modal-body">
                                                 <div class="form-group">
+                                                    <div class="notice notice-warning">
+                                                        <strong>Note :</strong>   Create a grade,teacher and subject before assign teacher.
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group">
 
                                                     <label class="col-sm-2 control-label">Grade</label>
                                                     <div class="col-sm-10">

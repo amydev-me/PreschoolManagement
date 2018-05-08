@@ -8,6 +8,12 @@
 
                 <div class="modal-body">
                     <div class="form-group">
+                        <div class="notice notice-warning">
+                            <strong>Note :</strong>   Create a year and category before create a new grade.
+                        </div>
+
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-3 control-label">Year :</label>
                         <div class="col-sm-8">
                             <multiselect data-vv-name="academic" v-validate="'required'"
