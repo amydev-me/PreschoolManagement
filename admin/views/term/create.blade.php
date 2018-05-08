@@ -9,7 +9,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="notice notice-warning">
-                            <strong>Note :</strong>   Create a year and category before create a new grade.
+                            <strong>Note :</strong>   Create a year and category before create a new term.
                         </div>
 
                     </div>
