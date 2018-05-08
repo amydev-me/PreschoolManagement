@@ -9,7 +9,7 @@
 @section('content')
 <div class="row m-t-30" >
     <div class="col-sm-12">
-            <div class="panel panel-default p-0" >
+            <div class="panel panel-default p-0" v-cloak >
 
                 <business-info inline-template>
                     <div class="panel-body p-0">
