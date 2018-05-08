@@ -1,6 +1,6 @@
 <div class="tab-pane edit-tab active " id="personal_tab" >
     <form class="form-horizontal  animated bounceInRight"  @submit.prevent="validateData('personal_info_form')" data-vv-scope="personal_info_form" autocomplete="off">
-        <div class="form-group" v-if="!isedit" >
+        <div class="form-group" >
             <label class="control-label">Year:</label>
             <multiselect v-validate="'required'" data-vv-scope="personal_info_form" data-vv-name="academic"
                     placeholder="Select year"
@@ -22,7 +22,7 @@
 
 
 
-        <div class="form-group" v-if="!isedit">
+        <div class="form-group">
             <label class="control-label">Grade:</label>
             <multiselect v-model="selected_grade" :options="grades" :multiple="false" group-values="grades"  v-validate="'required'" data-vv-scope="personal_info_form" data-vv-name="grade"
                          group-label="categoryName" :group-select="false" placeholder="Select grade"   open-direction="bottom"

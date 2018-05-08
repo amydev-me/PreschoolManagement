@@ -1,5 +1,5 @@
 const Datepicker = resolve => require(['../core/JQueryDatePicker'], resolve);
-
+let asyncurl=route.urls.academic.asyncget;
 let _update=route.urls.student.update;
 module.exports= {
  props:
@@ -12,6 +12,10 @@ module.exports= {
   components: {Datepicker},
   data: function () {
     return {
+      academics:[],
+      selected_academic: null,
+      grades: [],
+      selected_grade: null,
       countries: [],
       profile: null,
       edu_one: null,
@@ -109,6 +113,16 @@ module.exports= {
   },
 
   methods: {
+    selectedAcadmiceChange(value){
+      if(value==null){this.selected_grade=null;this.grades=[];return;}
+      axios.get('/admin/category/get-with-category-byacademic/'+value.id).then(({data}) => {
+        this.grades = data;
+      });
+    },
+
+    customLabel ({ academicName, active_year }) {
+      return `${academicName}  ${active_year==1?'(Active)':''}`
+    },
     edu_back(){
       $('#student_form a[href="#personal_tab"]').tab('show');
     },
@@ -162,6 +176,13 @@ module.exports= {
         if( student.sibling_information !=null)this.sibling_info = student.sibling_information;
         if(student.student_medical !=null)this.medical = student.student_medical;
         if(student.student_guardian !=null)this.guardian = student.student_guardian;
+
+        this.selected_academic=student.academic;
+        this.selected_grade=student.grade;
+        axios.get('/admin/category/get-with-category-byacademic/'+student.academic.id).then(({data}) => {
+          this.grades = data;
+        });
+
       }).catch(error => {
         if (error.response.status == 401 || error.response.status == 419) {
           window.location.href = route.urls.login;
@@ -202,6 +223,8 @@ module.exports= {
       }).catch(error => {});
     },
     performAction () {
+      this.student.academic_id=this.selected_academic.id;
+      this.student.grade_id=this.selected_grade.id;
       let data = new FormData();
       data.set('student',JSON.stringify(this.student));
       data.set('personal_info', JSON.stringify(this.personal_info));
@@ -237,10 +260,15 @@ module.exports= {
         }
       });
     },
+    asyncAcademicGet () {
+      axios.get(asyncurl).then(({data}) => {
+        this.academics = data;
+      });
+    },
   },
   mounted () {
     this.countries = Helper.countries();
-
+    this.asyncAcademicGet();
     this.checkUrlParam();
   }
 }

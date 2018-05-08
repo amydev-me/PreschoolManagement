@@ -33,7 +33,7 @@ class StudentRepository extends Repository
     }
 
     public function getStudentDetail($student_id){
-      return  Student::with('grade','student_personal_information','student_background','sibling_information','student_medical','student_guardian'  )->where('id',$student_id)->first();
+      return  Student::with('academic','grade','student_personal_information','student_background','sibling_information','student_medical','student_guardian'  )->where('id',$student_id)->first();
     }
 
     public function getStudentByGrade($req){
