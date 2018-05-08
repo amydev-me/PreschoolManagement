@@ -37,7 +37,8 @@ class AuthController extends Controller
 
     public function index(){
         $info= BusinessInfo::first();
-        return view('login.login',compact('info'));
+        Session::put(['info'=>$info]);
+        return view('login.login');
     }
 
     public function login(Request $request){

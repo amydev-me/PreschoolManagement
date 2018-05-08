@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{{URL::asset('img/favicon_1.ico')}}">
-    <title>Wiki - Preschool Management System</title>
+    <link rel="shortcut icon" href="{{route('image.business',['name'=>Session::get('info')->logo])}}">
+    <title>{{Session::get('info')->title}}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
@@ -24,7 +24,7 @@
 <div class="wrapper-page animated fadeInDown">
     <div class="panel panel-color panel-primary">
         <div class="panel-heading">
-            <h3 class="text-center m-t-10"> Sign In to <strong>{{$info?$info->title:''}}</strong> </h3>
+            <h3 class="text-center m-t-10"> Sign In to <strong>{{Session::get('info')->title?Session::get('info')->title:''}}</strong> </h3>
         </div>
         <form class="form-horizontal m-t-40" action="{{route('admin.login-post')}}" method="post">
             {{csrf_field()}}
@@ -48,7 +48,7 @@
             </div>
             <div class="form-group text-right">
                 <div class="col-xs-12">
-                    <button class="btn btn-purple w-md" type="submit">Log In</button>
+                    <button class="btn btn-primary w-md" type="submit">Log In</button>
                 </div>
             </div>
         </form>
