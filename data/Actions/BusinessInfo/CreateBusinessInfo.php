@@ -11,6 +11,7 @@ namespace Data\Actions\BusinessInfo;
 
 
 use Data\FileSystem\Images\BusinessImage;
+use Illuminate\Support\Facades\Session;
 
 class CreateBusinessInfo extends BaseBusinessInfoAction
 {
@@ -27,12 +28,10 @@ class CreateBusinessInfo extends BaseBusinessInfoAction
         }
 
         $info = $this->repository->create($info);
+
+        Session::put(['info'=>$info]);
         if ($info) {
-            config(['mail.username' => $info['email']]);
-            config(['mail.password' => $info['email_password']]);
-            config(['mail.encryption' =>$info['email_encryption']]);
-            config(['mail.port' => $info['email_port']]);
-            config(['mail.host' =>$info['email_host']]);
+
             return true;
         }
         return false;

@@ -65,12 +65,7 @@ class EditBusinessInfo extends BaseBusinessInfoAction
 
             $this->repository->update($info, $_info['id']);
 
-
-            config(['mail.username' => $info['email']]);
-            config(['mail.password' => $info['email_password']]);
-            config(['mail.encryption' =>$info['email_encryption']]);
-            config(['mail.port' => $info['email_port']]);
-            config(['mail.host' =>$info['email_host']]);
+            Session::put(['info'=>$info]);
             return true;
         }
 
