@@ -1,7 +1,7 @@
 <div id="invoice_setting" class="tab-pane p-0">
     <div class="user-profile-content">
         <div class="col-sm-12">
-            <form class="form-horizontal"  @submit.prevent="submit('invoice_form')" enctype="multipart/form-data" data-vv-scope="invoice_form" autocomplete="off">
+            <form class="form-horizontal animated bounceInRight"  @submit.prevent="submit('invoice_form')" enctype="multipart/form-data" data-vv-scope="invoice_form" autocomplete="off">
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="instruction">Invoice Instruction:</label>
                     <div class="col-sm-10">

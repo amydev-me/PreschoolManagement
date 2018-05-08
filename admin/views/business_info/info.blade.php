@@ -1,7 +1,7 @@
 <div id="info_setting" class="tab-pane active p-0">
     <div class="user-profile-content">
         <div class="col-sm-12">
-            <form class="form-horizontal" @submit.prevent="submit('info_form')" enctype="multipart/form-data" data-vv-scope="info_form" autocomplete="off">
+            <form class="form-horizontal animated bounceInRight" @submit.prevent="submit('info_form')" enctype="multipart/form-data" data-vv-scope="info_form" autocomplete="off">
             <div class="form-group">
                 <label class="control-label col-sm-2">Name:</label>
                 <div class="col-sm-10">
