@@ -5,6 +5,7 @@ namespace Data\Actions\BusinessInfo;
 use Data\FileSystem\Images\BusinessImage;
 use Data\Models\BusinessInfo;
 use Data\Repositories\InfoRepository;
+use Illuminate\Support\Facades\Session;
 
 
 class EditBusinessInfo extends BaseBusinessInfoAction
