@@ -72,6 +72,11 @@
                                 <button class="btn btn-info" type="submit">Save</button>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-12  notice notice-warning">
+                                <strong>Note :</strong>   Create a year and category before create a new grade.
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
