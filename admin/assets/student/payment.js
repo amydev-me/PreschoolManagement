@@ -145,6 +145,7 @@ module.exports= {
         if(data.success==false) {
           Notification.error('Opps!Something went wrong.');
         }else{
+          $('#courseteacher-modal').modal('hide');
           this.getData();
         }
       }).catch(error => {

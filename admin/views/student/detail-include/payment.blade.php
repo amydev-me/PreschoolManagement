@@ -86,6 +86,7 @@
                                 <th>Grade</th>
                                 <th>Term</th>
                                 <th>Amount</th>
+                                <th>Paid Amount</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -97,11 +98,12 @@
                                 <td>@{{pay.grade!=null?pay.grade.gradeName:''}}</td>
                                 <td>@{{pay.term!=null?pay.term.termName:''}}</td>
                                 <td>@{{formatNumber(pay.total)}}</td>
+                                <td>@{{formatNumber(pay.receipt_amount)}}</td>
                                 <td>
-                                    <p>
+                                    <p v-if="pay.term">
                                         <span class="label label-success" v-if="pay.status=='PAID'">@{{pay.status}}</span>
-                                        <span class="label label-danger" v-if="!(pay.due_date< currentdate) && pay.status=='UNPAID'">@{{pay.status}}</span>
-                                        <span class="label label-warning" v-if="pay.due_date< currentdate &&pay.status=='UNPAID'">OVERDUE</span>
+                                        <span class="label label-danger" v-if="!(pay.term.due_date< currentdate) && pay.status=='UNPAID'">@{{pay.status}}</span>
+                                        <span class="label label-warning" v-if="pay.term.due_date< currentdate &&pay.status=='UNPAID'">OVERDUE</span>
 
                                     </p>
                                 </td>

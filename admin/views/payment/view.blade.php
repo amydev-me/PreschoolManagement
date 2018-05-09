@@ -109,40 +109,15 @@
 
                                 </div>
                                 <div class="pull-right" style="display: flex;flex-direction: row;margin-right:20px;">
-                                    {{--<div class="m-t-30"  style="width: 30%;margin-right: 30px !important;">--}}
-                                    {{--<h4 class="m-b-25">Invoice From</h4>--}}
-                                    {{--<address>--}}
-                                    {{--<strong>@{{ parentData.title }}</strong>--}}
-                                    {{--<br>--}}
-                                    {{--@{{ parentData.address }}--}}
-                                    {{--<br>--}}
-                                    {{--<abbr title="Phone">P:</abbr>@{{ parentData.phone }}--}}
-                                    {{--</address>--}}
-                                    {{--<address>--}}
-                                    {{--<strong>@{{ parentData.title }}</strong><br>--}}
-                                    {{--@{{ parentData.address }}<br>--}}
-                                    {{--<abbr title="Phone">P:</abbr>@{{ parentData.phone }}--}}
-                                    {{--</address>--}}
-
-                                    {{--</div>--}}
-                                    {{--<div class="m-t-30"  style="width: 30%">--}}
-                                    {{--<h4 class="m-b-25">Invoice To</h4>--}}
-                                    {{--<address>--}}
-                                    {{--<strong>@{{ student.fullName }}</strong>--}}
-                                    {{--<br>--}}
-                                    {{--@{{ student.address }}<br>--}}
-                                    {{--<abbr title="Phone">P:</abbr>@{{ student.phone}}--}}
-                                    {{--</address>--}}
-                                    {{--</div>--}}
                                     <div class="m-t-10 " >
                                         <p><strong>Invoice Number &nbsp&nbsp&nbsp</strong>  <strong>@{{ payment.invoice }}</strong> </p>
                                         <p><strong>Invoice Date &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong>   @{{ formatDate(payment.payment_date) }}</p>
-                                        <p v-if="payment.status != 'PAID'"><strong>Due Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>   @{{ formatDate(payment.due_date) }}</p>
+                                        <p v-if="payment.status != 'PAID'"><strong>Due Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>   @{{ formatDate(term.due_date) }}</p>
 
                                         <p class="m-t-10 "><strong>Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
                                             <span class="label label-success"  style="background-color: #5cb85c !important;color:#fff !important;border-color:#5cb85c !important;" v-if="payment.status=='PAID'">@{{payment.status}}</span>
-                                            <span class="label label-danger"  style="background-color: #d9534f !important;color:#fff !important;border-color:#d9534f !important;"  v-if="!(payment.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>
-                                            <span class="label label-warning"   style="background-color: #f0ad4e !important;color:#fff !important;border-color:#f0ad4e !important;" v-if="payment.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
+                                            <span class="label label-danger"  style="background-color: #d9534f !important;color:#fff !important;border-color:#d9534f !important;"  v-if="!(term.due_date< currentdate) && payment.status=='UNPAID'">@{{payment.status}}</span>
+                                            <span class="label label-warning"   style="background-color: #f0ad4e !important;color:#fff !important;border-color:#f0ad4e !important;" v-if="term.due_date< currentdate &&payment.status=='UNPAID'">OVERDUE</span>
                                         </p>
                                         {{--<p><strong>Invoice Date: </strong> @{{ formatDate(payment.payment_date) }}</p>--}}
                                         {{--<p v-if="payment.status != 'PAID'"><strong>Due Date: </strong> @{{ formatDate(payment.due_date) }}</p>--}}

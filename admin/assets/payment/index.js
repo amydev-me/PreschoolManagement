@@ -55,7 +55,7 @@ module.exports= {
       return Helper.formatDate(date);
     },
     loaddata(){
-      console.log(this.status);
+
       if(this.status=='paid'){
         this.getpaidinvoice();
       }else if(this.status=='unpaid'){
@@ -64,10 +64,6 @@ module.exports= {
       else if(this.status=='overdue'){
         this.getoverdueinvoice();
       }
-      // axios.get('/admin/payment/get-data?page='+this.pagination.current_page).then(({data})=>{
-      //   this.payments=data.data;
-      //   this.pagination=data;
-      // });
     }
   },
   mounted () {

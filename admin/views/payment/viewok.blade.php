@@ -3,8 +3,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{URL::asset('css/invoice.css')}}">
-    {{--<link rel="stylesheet" href="css/invoice.css">--}}
+    {{--<link rel="stylesheet" href="{{URL::asset('css/invoice.css')}}">--}}
+    <link rel="stylesheet" href="css/invoice.css">
 
 </head>
 <body >
@@ -54,7 +54,7 @@
             <br>
             @if($payment->status !='PAID')
             <p >
-           Due Date: {{$payment->due_date->format('Y-m-d')}}
+           Due Date: {{$payment->term->due_date->format('Y-m-d')}}
             </p>
             @endif
 
@@ -63,9 +63,9 @@
             Status:
                 @if($payment->status =='PAID')
                     <span class="label label-success">PAID</span>
-                @elseif( !($payment->status =='UNPAID' && $payment->due_date< \Carbon\Carbon::today()))
+                @elseif( !($payment->status =='UNPAID' && $payment->term->due_date< \Carbon\Carbon::today()))
                             <span class="label label-danger">UNPAID</span>
-                @elseif( ($payment->status =='UNPAID' && $payment->due_date< \Carbon\Carbon::today()))
+                @elseif( ($payment->status =='UNPAID' && $payment->term->due_date< \Carbon\Carbon::today()))
                     <span class="label label-warning">OVERDUE</span>
                 @endif
             </p>

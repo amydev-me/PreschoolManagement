@@ -47,7 +47,7 @@ class PaymentController extends Controller
         $payments = Payment::with(['student' => function ($q) {
             $q->select('id', 'fullName');
         }, 'term' => function ($q) {
-            $q->select('id', 'termName');
+            $q->select('id', 'termName','due_date');
         }, 'grade'])->orderByDesc('payment_date')->paginate(20);
         return response()->json($payments);
     }
@@ -73,10 +73,12 @@ class PaymentController extends Controller
         $payments = Payment::with(['student' => function ($q) {
             $q->select('id', 'fullName');
         }, 'term' => function ($q) {
-            $q->select('id', 'termName');
+            $q->select('id', 'termName','due_date');
         }, 'grade'])->whereHas('student', function ($q) use ($student_id) {
             $q->where('id', $student_id);
-        })->get();
+        })
+            ->orderByDesc('payment_date')
+            ->get();
         return response()->json($payments);
     }
 
@@ -85,7 +87,7 @@ class PaymentController extends Controller
         $payments = Payment::with(['student' => function ($q) {
             $q->select('id', 'fullName');
         }, 'term' => function ($q) {
-            $q->select('id', 'termName');
+            $q->select('id', 'termName','due_date');
         }, 'grade'])
         ->where('status','PAID')
         ->orderByDesc('payment_date')
@@ -97,10 +99,13 @@ class PaymentController extends Controller
         $payments = Payment::with(['student' => function ($q) {
             $q->select('id', 'fullName');
         }, 'term' => function ($q) {
-            $q->select('id', 'termName');
+            $q->select('id', 'termName','due_date');
         }, 'grade'])
             ->where('status','UNPAID')
-            ->where('due_date','>',Carbon::today())
+//            ->where('due_date','>',Carbon::today())
+            ->whereHas('term',function($q){
+                $q->where('due_date','>',Carbon::today());
+            })
             ->orderByDesc('payment_date')
             ->paginate(20);
         return response()->json($payments);
@@ -110,10 +115,13 @@ class PaymentController extends Controller
         $payments = Payment::with(['student' => function ($q) {
             $q->select('id', 'fullName');
         }, 'term' => function ($q) {
-            $q->select('id', 'termName');
+            $q->select('id', 'termName','due_date');
         }, 'grade'])
             ->where('status','UNPAID')
-            ->where('due_date','<',Carbon::today())
+//            ->where('due_date','<',Carbon::today())
+            ->whereHas('term',function($q){
+                $q->where('due_date','<',Carbon::today());
+            })
             ->orderByDesc('payment_date')
             ->paginate(20);
         return response()->json($payments);

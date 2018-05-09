@@ -56,10 +56,11 @@ module.exports={
       this.performdata.id=this.payment_id;
       this.performdata.due_date=this.selected_term.due_date;
       this.performdata.total=this.total;
-      if(this.total==this.performdata.receipt_amount) {
-        this.performdata.status="PAID";
-      }else{
+
+      if(this.performdata.receipt_amount <this.total) {
         this.performdata.status="UNPAID";
+      }else{
+        this.performdata.status="PAID";
       }
       var tc=new Object();
       tc.payment=new Object(this.performdata);
@@ -77,7 +78,7 @@ module.exports={
         if(data.success==false) {
           Notification.error('Opps!Something went wrong.');
         }else{
-          window.location.href='/admin/payment';
+          window.history.back();
         }
       }).catch(error => {
 
@@ -105,12 +106,11 @@ module.exports={
         this.performdata.status=data.payment.status;
         this.performdata.invoice=data.payment.invoice;
         this.performdata.amount=data.payment.amount;
-        this.performdata.due_date=this.formatDate(data.payment.due_date);
         this.performdata.receipt_amount=data.payment.receipt_amount;
         this.performdata.fine=data.payment.fine;
 
-        this.selected_grade={id:data.grade.id,gradeName:data.grade.gradeName,academic_id:data.grade.academic_id,category_id:data.grade.category_id,description:data.grade.description}
-        this.selected_student={id:data.student.id,fullName:data.student.fullName};
+       if(data.grade) this.selected_grade=data.grade;
+        if(data.student) this.selected_student={id:data.student.id,fullName:data.student.fullName};
         this.selected_term=data.term;
         var  _tempfees = data.fees;
         axios.get(get_fees).then(({data}) => {
@@ -129,11 +129,17 @@ module.exports={
               o.ischecked= false;
               o.amount = el.amount;
             }
-
             return o;
           });
           this.fees = result;
-        });
+        }).catch(error => {
+
+          if (error.response.status == 401 || error.response.status == 419) {
+            window.location.href = route.urls.login;
+          } else {
+            Notification.error('Opps!Something went wrong.');
+          }
+        });;
       });
     }
   },

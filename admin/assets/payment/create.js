@@ -117,9 +117,10 @@ module.exports={
       this.performdata.term_id=this.selected_term.id;
       this.performdata.due_date=this.selected_term.due_date;
       this.performdata.total=this.total;
-      if(this.total==this.performdata.receipt_amount) {
-
+      if(this.total<=this.performdata.receipt_amount) {
         this.performdata.status="PAID";
+      }else{
+        this.performdata.status="UNPAID";
       }
 
       var tc=new Object();

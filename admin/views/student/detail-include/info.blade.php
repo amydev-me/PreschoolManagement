@@ -80,7 +80,7 @@
                             <tbody>
                             <tr>
                                 <td>@{{ student.student_background.previous_one }}
-                                    <a  v-show="student.student_background.one_file!='null'&&student.student_background.one_file!=''" target="_blank" class="text-info" :href="getHistory(student.student_background.one_file)">
+                                    <a  v-show="student.student_background.one_file!=null&&student.student_background.one_file!=''" target="_blank" class="text-info" :href="getHistory(student.student_background.one_file)">
                                         <i class="fa fa-paperclip m-r-10 m-b-10"></i>
                                     </a></td>
                                 <td>@{{ student.student_background.one_date }}
@@ -89,7 +89,7 @@
                             </tr>
                             <tr>
                                 <td>@{{ student.student_background.previous_two }}
-                                    <a  v-show="student.student_background.two_file!='null'&&student.student_background.two_file!=''" target="_blank" class="text-info" :href="getHistory(student.student_background.two_file)">
+                                    <a  v-show="student.student_background.two_file!=null&&student.student_background.two_file!=''" target="_blank" class="text-info" :href="getHistory(student.student_background.two_file)">
                                         <i class="fa fa-paperclip m-r-10 m-b-10"></i>
                                     </a></td>
                                 <td>@{{ student.student_background.two_date }}
