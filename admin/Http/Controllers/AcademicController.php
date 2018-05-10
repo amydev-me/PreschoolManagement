@@ -82,6 +82,7 @@ class AcademicController extends Controller
         $result = $action->invoke();
         if($result){
             if($result->active_year){
+
                 Session::put(['academic' => $result]);
             }
         }
@@ -93,6 +94,7 @@ class AcademicController extends Controller
         $_req = ['id' => $id];
         $action = new Delete($this->repository, $_req);
         $result = $action->invoke();
+        Session::forget('academic');
         return response()->json(['success' => $result]);
     }
 
