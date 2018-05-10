@@ -20,7 +20,7 @@ class CreateGradesTable extends Migration
             $table->string('gradeName', 500)->nullable();
             $table->mediumText('description', 500)->nullable();
             $table->foreign('academic_id')->references('id')->on('academics')->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
