@@ -2,10 +2,7 @@
 
 @section('setup','active')
 @section('setting','active')
-@section('style')
 
-
-    @endsection
 @section('content')
 <div class="row m-t-30" >
     <div class="col-sm-12">
@@ -33,10 +30,5 @@
         </div>
     </div>
 </div>
-
-@endsection
-@section('script')
-    <script type="text/javascript" src="{{URL::asset('assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js')}}"></script>
-    <script type="text/javascript" src="{{URL::asset('assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js')}}"></script>
 
 @endsection
