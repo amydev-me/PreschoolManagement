@@ -6,9 +6,8 @@
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
     <meta name="author" content="Coderthemes">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" href="{{route('image.business',['name'=>Session::get('info')->logo])}}">
-
-    <title>{{Session::get('info')->title}}</title>
+    <link rel="shortcut icon" href="{{Session::get('info')?(route('image.business',['name'=>Session::get('info')->logo])):''}}">
+    <title>{{Session::get('info')?Session::get('info')->title:''}}</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
 
     <!--Icon-fonts css-->
