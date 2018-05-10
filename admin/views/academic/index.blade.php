@@ -14,6 +14,11 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="m-b-30">
+                    <strong>Note :</strong>   Must have one active academic year.
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="m-b-30">
                     <a   class="btn btn-primary btn-sm" @click="showAddModal">  <i class="fa fa-plus"></i> Add Year</a>
                 </div>
             </div>
