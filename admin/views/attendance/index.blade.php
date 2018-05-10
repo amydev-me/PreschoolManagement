@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('page-title','Attendance')
+@section('page-title','Attendance Register')
 @section('attendance','active')
 @section('style')
     <style>
