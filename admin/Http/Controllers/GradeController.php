@@ -103,16 +103,21 @@ class GradeController extends Controller
 
     public function getData()
     {
-        $academic = Session::get('academic');
-        $grade = (new GetGrades($this->repository, ['academic_id' => $academic->id]))->invoke();
-        return response()->json(['grades' => $grade, 'academic' => $academic]);
+        $academic =Session::get('academic');
+        if($academic){
+            $grade = (new GetGrades($this->repository, ['academic_id' => $academic->id]))->invoke();
+            return response()->json(['grades' => $grade, 'academic' => $academic]);
+        }
+        return response()->json(['grades'=>[],'academic'=>$academic]);
     }
 
     public function getByCategory(Request $request){
         $academic =Session::get('academic');
-
-        $grade = (new GetByCategory($this->repository,['academic_id'=>$academic->id,'category_id'=>$request->category_id]))->invoke();
-        return response()->json(['grades'=>$grade,'academic'=>$academic]);
+        if($academic){
+            $grade = (new GetByCategory($this->repository,['academic_id'=>$academic->id,'category_id'=>$request->category_id]))->invoke();
+            return response()->json(['grades'=>$grade,'academic'=>$academic]);
+        }
+        return response()->json(['grades'=>[],'academic'=>$academic]);
     }
 
     public function getDeail(Request $request){
