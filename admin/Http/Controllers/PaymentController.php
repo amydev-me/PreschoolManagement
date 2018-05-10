@@ -104,7 +104,7 @@ class PaymentController extends Controller
             ->where('status','UNPAID')
 //            ->where('due_date','>',Carbon::today())
             ->whereHas('term',function($q){
-                $q->where('due_date','>',Carbon::today());
+                $q->where('due_date','>=',Carbon::today());
             })
             ->orderByDesc('payment_date')
             ->paginate(20);
