@@ -30,6 +30,8 @@ class CreateStudentMedicalsTable extends Migration
             $table->boolean('tuberculosis')->default(0);
             $table->mediumText('tuberculosis_remark')->nullable();
 
+
+            $table->boolean('others_check')->default(0);
             $table->mediumText('others')->nullable();
 
 

@@ -20,6 +20,8 @@ class CreateAttendancesTable extends Migration
             $table->unsignedInteger('term_id')->nullable();
             $table->integer('attendance_day')->nullable();
             $table->string('attendance_month')->nullable();
+            $table->string('attendance_month_name')->default(0);
+            $table->integer('attendance_year')->default(0);
             $table->string('status')->default('A');
             $table->date('attend_date');
             $table->mediumText('remark')->nullable();
