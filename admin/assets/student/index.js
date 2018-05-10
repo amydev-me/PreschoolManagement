@@ -38,8 +38,10 @@ module.exports= {
     },
     getDataByAcademic () {
       axios.get('/admin/student/get-by-academic?page=' + this.pagination.current_page).then(({data}) => {
-        this.students = data.students.data;
-        this.pagination = data.students;
+        if(data.students){
+          this.students =  data.students.data;
+          this.pagination = data.students;
+        }
         this.selected_academic = data.active_academic;
       });
     },

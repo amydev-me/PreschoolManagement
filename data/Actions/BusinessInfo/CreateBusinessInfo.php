@@ -28,7 +28,7 @@ class CreateBusinessInfo extends BaseBusinessInfoAction
         }
 
         $info = $this->repository->create($info);
-
+        Session::forget('info');
         Session::put(['info'=>$info]);
         if ($info) {
 

@@ -12,6 +12,11 @@ module.exports={
                     <form class="form-horizontal" role="form" @submit.prevent="submitdata">
                         <div class="modal-body">
                             <div class="form-group">
+                               <div class="col-sm-12  notice notice-warning">
+                                        <strong>Note :</strong>   Must have one active academic year.
+                                 </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label">Year :</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="academicName" v-model="academic.academicName" v-validate="'required'">

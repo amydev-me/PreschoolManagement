@@ -30,21 +30,6 @@ Vue.component('allStudent', resolve => require(['./student/index'], resolve));
 Vue.component('createStudent', resolve => require(['./student/create'], resolve));
 Vue.component('detailStudent', resolve => require(['./student/detail'], resolve));
 
-
-// Vue.component('businessInfo', resolve => require(['./businessinfo/index'], resolve));
-// Vue.component('allBatch', resolve => require(['./batch/index'], resolve));
-// Vue.component('allClass', resolve => require(['./sclass/index'], resolve));
-// Vue.component('allCourse', resolve => require(['./course/index'], resolve));
-// Vue.component('allSubject', resolve => require(['./subject/index'], resolve));
-//
-
-// Vue.component('teacherAction', resolve => require(['./teacher/action'], resolve));
-// Vue.component('detailTeacher', resolve => require(['./teacher/detail'], resolve));
-
-//
-
-// Vue.component('detailGuardian', resolve => require(['./guardian/detail'], resolve));
-
 Vue.component('createPayment', resolve => require(['./payment/create'], resolve));
 Vue.component('editPayment', resolve => require(['./payment/edit'], resolve));
 Vue.component('invoiceList', resolve => require(['./payment/index'], resolve));

@@ -65,7 +65,7 @@ class EditBusinessInfo extends BaseBusinessInfoAction
 
 
             $this->repository->update($info, $_info['id']);
-
+            Session::forget('info');
             Session::put(['info'=>$info]);
             return true;
         }

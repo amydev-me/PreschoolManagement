@@ -3,7 +3,7 @@
 @section('setup','active')
 @section('setting','active')
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css')}}" />
+
 
     @endsection
 @section('content')
