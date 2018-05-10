@@ -38,8 +38,11 @@
         @include('layout.footer')
     </section>
 </div>
+
 <script src="{{URL::asset('js/jquery-3.1.1.min.js')}}"></script>
 <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js')}}"></script>
 <script src="{{URL::asset('js/manifest.js')}}" type="text/javascript"></script>
 <script src="{{URL::asset('js/vendor.js')}}" type="text/javascript"></script>
 <script src="{{URL::asset('js/app.js')}}" type="text/javascript"></script>
