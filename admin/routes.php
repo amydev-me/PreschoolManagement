@@ -41,7 +41,7 @@ Route::middleware('web')->group(function() {
             Route::name('create')->post('create', 'UserController@create');
             Route::name('update')->post('update', 'UserController@update');
             Route::name('delete')->get('delete/{id}', 'UserController@delete');
-            Route::name('getuser')->get('getuser/{type}', 'UserController@getUserByRole');
+            Route::name('getuser')->get('getuser', 'UserController@getUserByRole');
         });
 
         Route::name('academic-year.')->prefix('academic-year')->group(function () {

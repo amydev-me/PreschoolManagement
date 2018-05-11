@@ -102,6 +102,15 @@
                             {{--</div>--}}
                         {{--</div>--}}
                         <div class="form-group">
+                            <label class="col-sm-2 control-label" for="example-input1-group2" >Discount :</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <numeric-input  mask-type="currency"   v-model="performdata.discount"> </numeric-input>
+                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-2 control-label" for="example-input1-group2" >Total :</label>
                             <div class="col-sm-10">
                                 <div class="input-group">

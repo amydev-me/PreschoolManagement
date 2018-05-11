@@ -11,6 +11,7 @@ module.exports= {
         access_id: null,
         type: 'admin'
       },
+      usertypes:['admin','employee'],
       password_confirmation: null,
     }
   },

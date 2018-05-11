@@ -30,7 +30,7 @@ class UserRepository extends Repository
         }
     }
 
-    public function getUserByRole($role,$pages){
-        return User::where('type',$role)->paginate($pages);
+    public function getUserByRole($pages){
+        return User::paginate($pages);
     }
 }

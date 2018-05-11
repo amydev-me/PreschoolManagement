@@ -25,6 +25,7 @@
                             </div>
                             <form class="form-horizontal" role="form" @submit.prevent="submitdata('userform')" data-vv-scope="userform">
                                 <div class="modal-body">
+
                                     <div class="form-group">
                                         <label class="control-label col-sm-4" for="username">Username:</label>
                                         <div class="col-sm-8">
@@ -46,6 +47,14 @@
 
                                             <input v-model="password_confirmation" v-validate="'required|confirmed:password'" id="confirm_password" name="password_confirmation" type="password" class="form-control"  data-vv-as="password" placeholder="Enter Confirm Password">
                                             <div v-show="errors.has('userform.password_confirmation')"><span class="error">@{{ errors.first('userform.password_confirmation') }}</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4" for="username">Role:</label>
+                                        <div class="col-sm-8">
+                                            <select name="user_types" class="form-control" v-model="user.type">
+                                                <option v-for="type in usertypes" :value="type">@{{type}}</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -102,16 +111,6 @@
                                 <a  class="btn btn-primary btn-sm" data-toggle="modal" data-target="#usermodal">  <i class="fa fa-plus"></i> Add User</a>
                             </div>
                         </div>
-                        {{--<div class="col-sm-6 m-b-30" >--}}
-                            {{--<div class="form-group">--}}
-                                {{--<label class="col-sm-2 col-sm-push-4 control-label" style="text-align: right;margin-top:7px;">User</label>--}}
-                                {{--<div class="col-sm-6 col-sm-push-4">--}}
-                                    {{--<select class="form-control"  v-model="selected_user" name="batch_id" v-on:change="selectedValueChange">--}}
-                                        {{--<option v-for="user in usertypes" :value="user">@{{ user.text }}</option>--}}
-                                    {{--</select>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
                     </div>
                 </div>
                 <div class="row">
@@ -122,6 +121,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th style="width: 80%;text-align: center;">Username</th>
+                                    <th style="width: 80%;text-align: center;">Role</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -130,7 +130,7 @@
                                     <td>@{{pagination.from+index}}</td>
 
                                     <td style="width: 80%;text-align: center;">@{{user.username}}</td>
-
+                                    <td style="width: 80%;text-align: center;">@{{user.type}}</td>
                                     <td class="">
                                         <a @click="showEditModal(user)" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
                                         <a  @click="showDeleteModal(user.id)" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>

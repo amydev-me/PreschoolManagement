@@ -104,6 +104,11 @@
         @endforeach
         <tr>
             <td></td>
+            <td style="text-align: right;"><strong>Discount:</strong></td>
+            <td style="text-align: right;">@{{ formatNumber(payment.discount) }}</td>
+        </tr>
+        <tr>
+            <td></td>
             <td style="text-align: right;"><h3>Total </h3></td>
             <td style="text-align: right;"><h3><span>$</span>{{number_format($payment->total)}}</h3></td>
         </tr>

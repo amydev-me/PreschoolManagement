@@ -162,14 +162,14 @@
                                             </tr>
                                             <tr>
                                                 <td></td>
+                                                <td style="text-align: right;"><strong>Discount:</strong></td>
+                                                <td style="text-align: right;">@{{ formatNumber(payment.discount) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
                                                 <td style="text-align: right;"><h3>Total </h3></td>
                                                 <td style="text-align: right;"><h3><span>$</span> @{{ formatNumber(payment.total) }}</h3></td>
                                             </tr>
-                                            {{--<tr >--}}
-                                                {{--<td style="border: none !important;"></td>--}}
-                                                {{--<td style="text-align: right;border: none !important;"><strong>Amount Paid :</strong></td>--}}
-                                                {{--<td style="text-align: right;border: none !important;">@{{ formatNumber(payment.receipt_amount) }}</td>--}}
-                                            {{--</tr>--}}
                                             <tr >
                                             <td ></td>
                                            <td></td>

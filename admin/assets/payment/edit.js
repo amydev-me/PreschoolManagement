@@ -27,7 +27,8 @@ module.exports={
         due_date:null,
         receipt_amount:0,
         fine:0,
-        total:0
+        total:0,
+        discount:0
       },
       payment_id:null
     }
@@ -108,7 +109,7 @@ module.exports={
         this.performdata.amount=data.payment.amount;
         this.performdata.receipt_amount=data.payment.receipt_amount;
         this.performdata.fine=data.payment.fine;
-
+        this.performdata.discount=data.payment.discount;
        if(data.grade) this.selected_grade=data.grade;
         if(data.student) this.selected_student={id:data.student.id,fullName:data.student.fullName};
         this.selected_term=data.term;
@@ -154,7 +155,7 @@ module.exports={
       });
       _total =parseInt(this.performdata.fine)+_total;
       _total=   parseInt(this.performdata.amount)  +_total;
-      return _total;
+      return _total-this.performdata.discount;
     }
   },
   watch: {

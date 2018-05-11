@@ -9,8 +9,8 @@ module.exports= {
     return {
       isedit:false,
       countries: [],
-      selected_academic: null,
-      academics:[],
+      // selected_academic: null,
+      // academics:[],
       grades: [],
       selected_grade: null,
       profile:null,
@@ -131,11 +131,11 @@ module.exports= {
     customLabel ({ academicName, active_year }) {
       return `${academicName}  ${active_year==1?'(Active)':''}`
     },
-    asyncAcademicGet () {
-      axios.get(asyncurl).then(({data}) => {
-        this.academics = data;
-      });
-    },
+    // asyncAcademicGet () {
+    //   axios.get(asyncurl).then(({data}) => {
+    //     this.academics = data;
+    //   });
+    // },
 
     selectedAcadmiceChange(value){
       if(value==null){this.selected_grade=null;this.grades=[];return;}
@@ -196,7 +196,7 @@ module.exports= {
       });
     },
     performAction () {
-      this.student.academic_id=this.selected_academic.id;
+      // this.student.academic_id=this.selected_academic.id;
       this.student.grade_id=this.selected_grade.id;
       let data = new FormData();
       data.set('student',JSON.stringify(this.student));
@@ -231,7 +231,7 @@ module.exports= {
   },
   mounted () {
     this.handleTab();
-    this.asyncAcademicGet();
+    // this.asyncAcademicGet();
     this.personal_info.dateofbirth = this.formatDate(new Date());
     this.student.join_date = this.formatDate(new Date());
     this.countries = Helper.countries();

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    protected $fillable = ['invoice','total', 'student_id', 'grade_id', 'term_id', 'receipt_amount', 'amount', 'fine', 'status', 'payment_date', 'due_date'];
+    protected $fillable = ['invoice','total', 'student_id', 'grade_id', 'term_id', 'receipt_amount', 'amount', 'fine', 'status', 'payment_date', 'due_date','discount'];
 //    protected $appends = ['total'];
 
         protected $dates=['payment_date','due_date'];

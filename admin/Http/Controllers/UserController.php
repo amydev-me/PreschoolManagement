@@ -58,9 +58,9 @@ class UserController extends Controller
         return response()->json(['success' => $result]);
     }
 
-    public function getUserByRole($type){
+    public function getUserByRole(){
 
-        $action = new GetUserByRole($this->repo, ['type' => $type]);
+        $action = new GetUserByRole($this->repo);
         $result = $action->invoke();
         return response()->json($result);
     }

@@ -26,7 +26,8 @@ module.exports={
         due_date:null,
         receipt_amount:0,
         fine:0,
-        total:0
+        total:0,
+        discount:0
       }
     }
   },
@@ -162,7 +163,7 @@ module.exports={
       });
       _total =parseInt(this.performdata.fine)+_total;
       _total=   parseInt(this.performdata.amount)  +_total;
-      return _total;
+      return _total-this.performdata.discount;
     }
   },
   watch: {

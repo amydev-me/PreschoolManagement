@@ -28,8 +28,8 @@ class CreateStudentsTable extends Migration
             $table->string('em_contact', 255)->nullable();
 
             $table->mediumText('student_live')->nullable();
-            $table->foreign('academic_id')->references('id')->on('academics')->onDelete('SET NULL');
-            $table->foreign('grade_id')->references('id')->on('grades')->onDelete('SET NULL');
+            $table->foreign('academic_id')->references('id')->on('academics')->onDelete('cascade');
+            $table->foreign('grade_id')->references('id')->on('grades')->onDelete('cascade');
             $table->timestamps();
         });
     }
